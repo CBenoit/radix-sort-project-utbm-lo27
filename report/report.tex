@@ -1,0 +1,212 @@
+\documentclass[book, nodocumentinfo]{upmethodology-document}
+
+%% The TeX code is entering with UTF8
+%% character encoding (Linux and MacOS standards)
+\usepackage[utf8]{inputenc}
+%% For algorithms
+\usepackage[chapter]{algorithm}
+\usepackage{algpseudocode}
+%% For bibtex
+\usepackage{natbib}
+
+\setfrontcover{classic}
+
+\declaredocument{Report about Radix Sort LO27 Project}{Report about Radix Sort LO27 Project for the UTBM}{LO27-A2015}
+\setpublisher{University of Technology of Belfort-Montbéliard}
+
+\incversion{\makedate{7}{11}{2015}}{Initial version.}{\upmpublic}
+
+\addauthorvalidator*[benoit.cortier@utbm.fr]{Benoît}{CORTIER}{Author}
+\addauthorvalidator*[jerome.boulmier@utbm.fr]{Jérôme}{BOULMIER}{Author}
+
+\setdockeywords{\LaTeX, Radix Sort, Sorting, Algorithm, LO27, Programming}
+
+\setdocabstract{}
+
+\makeatletter
+\let\VERversion\upm@package@version@ver
+\let\VERfmt\upm@package@fmt@ver
+\let\VERdoc\upm@package@doc@ver
+\let\VERfp\upm@package@fp@ver
+\let\VERbp\upm@package@bp@ver
+\let\VERext\upm@package@ext@ver
+\let\VERtask\upm@package@task@ver
+\let\VERdocclazz\upm@package@docclazz@ver
+\let\VERcode\upm@package@code@ver
+\makeatother
+
+\setcopyrighter{Benoît CORTIER \& Jérôme BOULMIER}
+\setprintingaddress{France}
+
+% Espace insécable (le caractère ~ se traduit par un espace insécable).
+\DeclareUnicodeCharacter{00A0}{~}
+% Sur un clavier bépo, on a un accès direct au ×
+\DeclareUnicodeCharacter{00D7}{\times}
+
+\begin{document}
+
+\tableofcontents
+
+\listofalgorithms
+
+%###########################################################
+
+\chapter{Introduction}
+
+…
+
+\chapter{Data structures}
+
+…
+
+\section{BaseNIntegerList}
+
+The type \emph{BaseNIntegerList} represents a list of base-N integers.
+This list will be implemented using a doubly linked-list.
+
+\begin{table}[h]
+    \centering
+    \label{tab:basenintegerlist-struct}
+
+    \begin{tabular}{|l|c|}
+        \hline
+        BaseNIntegerElement* & head \\
+        \hline
+        BaseNIntegerElement* & tail \\
+        \hline
+        int & base \\
+        \hline
+        int & size \\
+        \hline
+    \end{tabular}
+
+    \caption{BaseNIntegerList structure}
+\end{table}
+
+\begin{itemize}
+    \item \emph{head}: pointer to the first element of the list.
+    \item \emph{tail}: pointer to the last element of the list.
+    \item \emph{base}: an integer between 2 and 16.
+    \item \emph{size}: the current number of elements in the list.
+\end{itemize}
+
+\subsection{BaseNIntegerElement}
+
+\begin{table}[h]
+    \centering
+    \label{tab:basenintegerelement-struct}
+
+    \begin{tabular}{|l|c|}
+        \hline
+        BaseNIntegerElement* & prev \\
+        \hline
+        BaseNIntegerElement* & next \\
+        \hline
+        char* & value \\
+        \hline
+    \end{tabular}
+
+    \caption{BaseNIntegerElement structure}
+\end{table}
+
+\section{BaseNIntegerListOfList}
+
+…
+
+\chapter{Algorithms}
+
+…
+
+\section{BaseNIntegerList}
+
+\begin{itemize}
+    \item \emph{createIntegerList}: \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerList},
+        create a new empty \emph{BaseNIntegerList} for storing integers in the specified base.
+        \ref{algo:basenintegerlist-create-integer-list} is the corresponding algorithm.
+    \item \emph{isEmpty}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{Boolean},
+        returns true if the specified list is emtpy, false otherwise.
+        \ref{algo:basenintegerlist-is-empty} is the corresponding algorithm.
+    \item \emph{insertHead}: \emph{BaseNIntegerList} \(\times\) \emph{char*} \(\rightarrow\) \emph{BaseNIntegerList},
+        adds the specified integer (\emph{char*}, represented in the considered base) at the beginning
+        of the specified list.
+        \ref{algo:basenintegerlist-insert-head} is the corresponding algorithm.
+\end{itemize}
+
+\begin{algorithm}[H]
+    \label{algo:basenintegerlist-create-integer-list}
+    \caption{createIntegerList algorithm}
+
+    \begin{algorithmic}
+        \Function{createIntegerList}{base : Integer} : BaseNIntegerList
+            \State \(l \leftarrow\) create(BaseNIntegerList)
+            \State head(\(l\)) \(\leftarrow\) undefined
+            \State tail(\(l\)) \(\leftarrow\) undefined
+            \State base(\(l\)) \(\leftarrow\) base
+            \State size(\(l\)) \(\leftarrow 0\)
+            \State createIntegerList \(\leftarrow l\)
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \label{algo:basenintegerlist-is-empty}
+    \caption{isEmpty algorithm}
+
+    \begin{algorithmic}
+        \Function{isEmpty}{\(l\) : BaseNIntegerList} : Boolean
+            \If{head(\(l\)) = undefined}
+                \State isEmpty \(\leftarrow\) TRUE
+            \Else
+                \State isEmpty \(\leftarrow\) FALSE
+            \EndIf
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \label{algo:basenintegerlist-insert-head}
+    \caption{insertHead algorithm}
+
+    \begin{algorithmic}
+        \Function{insertHead}{\(l\) : BaseNIntegerList, value : char*} : BaseNIntegerList
+            \State new\_el \(\leftarrow\) create(BaseNIntegerElement)
+
+            \State value(new\_el) \(\leftarrow\) value
+            \State prev(new\_el) \(\leftarrow\) undefined
+
+            \If{isEmpty(\(l\))}
+                \State next(new\_el) \(\leftarrow\) undefined
+                \State tail(\(l\)) \(\leftarrow\) new\_el
+            \Else
+                \State next(new\_el) \(\leftarrow\) head(\(l\))
+                \State prev(head(\(l\))) \(\leftarrow\) new\_el
+            \EndIf
+
+            \State head(\(l\)) \(\leftarrow\) new\_el
+            \State size(\(l\)) \(\leftarrow\) size(\(l\)) + 1
+
+            \State insertHead \(\leftarrow l\)
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\section{BaseNIntegerListOfList}
+
+…
+
+\chapter{Optimizations}
+
+…
+
+\chapter{Summary}
+
+…
+
+%##################### Bibliography ########################
+
+\bibpunct{[}{]}{,}{a}{}{;}
+\bibliographystyle{plainnat}
+\bibliography{bibliography}{}
+
+\end{document}
+
