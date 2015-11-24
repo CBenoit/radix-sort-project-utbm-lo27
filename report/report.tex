@@ -324,12 +324,42 @@ removes the last element of the specified list.
     \end{algorithmic}
 \end{algorithm}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\emph{deleteIntegerList}: \emph{BaseNIntegerList} \(\rightarrow\) \(\emptyset\),
+clears and deletes the specified BaseNIntegerList.
+\ref{algo:basenintegerlist-delete-integer-list} is the corresponding algorithm.
+
+\emph{Principle}: traverse the entire list and free each element.
+
+\begin{algorithm}[H]
+    \label{algo:basenintegerlist-delete-integer-list}
+    \caption{deleteIntegerList algorithm}
+
+    \begin{algorithmic}
+        \Function{deleteIntegerList}{\(l\) : BaseNIntegerList} : \(\emptyset\)
+            \If{!isEmpty(l)}
+                \State BaseNIntegerElement old\_el \(\leftarrow\) head(l)
+                \State BaseNIntegerElement next\_el
+
+                \While{next(old\_el) \(\neq\) undefined}
+                    \State next\_el \(\leftarrow\) next(old\_el)
+                    \State free(old\_el)
+                    \State old\_el \(\leftarrow\) next\_el
+                \EndWhile
+
+                \State free(old\_el)
+            \EndIf
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{algorithm}[H]
 	\label{algo:basenintegerlist-basen-to-decimal}
 	\caption{baseNToDecimal algorithm}
-	
+
 	\begin{algorithmic}
 		\Function{baseNToDecimal}{n : char*, base : integer} : integer
 			\State number = 0
@@ -346,7 +376,7 @@ removes the last element of the specified list.
 \begin{algorithm}[H]
 	\label{algo:basenintegerlist-decimalToBinary}
 	\caption{decimalToBinary algorithm}
-	
+
 	\begin{algorithmic}
 		\Function{decimalToBinary}{n : integer} : char*
 			\State sizeOfString = 1
