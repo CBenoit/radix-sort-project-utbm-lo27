@@ -53,6 +53,10 @@
 
 \listofalgorithms
 
+\chapter{Objectives and problem statements}
+
+…
+
 \chapter{Data structures}
 
 …
@@ -117,18 +121,9 @@ This list will be implemented using a doubly linked-list.
 
 \section{BaseNIntegerList}
 
-\begin{itemize}
-    \item \emph{createIntegerList}: \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerList},
-        create a new empty \emph{BaseNIntegerList} for storing integers in the specified base.
-        \ref{algo:basenintegerlist-create-integer-list} is the corresponding algorithm.
-    \item \emph{isEmpty}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{Boolean},
-        returns true if the specified list is emtpy, false otherwise.
-        \ref{algo:basenintegerlist-is-empty} is the corresponding algorithm.
-    \item \emph{insertHead}: \emph{BaseNIntegerList} \(\times\) \emph{char*} \(\rightarrow\) \emph{BaseNIntegerList},
-        adds the specified integer (\emph{char*}, represented in the considered base) at the beginning
-        of the specified list.
-        \ref{algo:basenintegerlist-insert-head} is the corresponding algorithm.
-\end{itemize}
+\emph{createIntegerList}: \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerList},
+    create a new empty \emph{BaseNIntegerList} for storing integers in the specified base.
+    \ref{algo:basenintegerlist-create-integer-list} is the corresponding algorithm.
 
 \begin{algorithm}[H]
     \label{algo:basenintegerlist-create-integer-list}
@@ -146,6 +141,10 @@ This list will be implemented using a doubly linked-list.
     \end{algorithmic}
 \end{algorithm}
 
+\emph{isEmpty}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{Boolean},
+returns true if the specified list is empty, false otherwise.
+\ref{algo:basenintegerlist-is-empty} is the corresponding algorithm.
+
 \begin{algorithm}[H]
     \label{algo:basenintegerlist-is-empty}
     \caption{isEmpty algorithm}
@@ -160,6 +159,19 @@ This list will be implemented using a doubly linked-list.
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
+\emph{insertHead}: \emph{BaseNIntegerList} \(\times\) \emph{char*} \(\rightarrow\) \emph{BaseNIntegerList},
+adds the specified integer (\emph{char*}, represented in the considered base) at the beginning
+of the specified list.
+\ref{algo:basenintegerlist-insert-head} is the corresponding algorithm.
+
+\emph{Principle}
+\begin{itemize}
+    \item create a new element.
+    \item link it and the rest of the list to each other if any.
+    \item make it the head of the list.
+    \item increase size of the list accordingly.
+\end{itemize}
 
 \begin{algorithm}[H]
     \label{algo:basenintegerlist-insert-head}
@@ -188,15 +200,90 @@ This list will be implemented using a doubly linked-list.
     \end{algorithmic}
 \end{algorithm}
 
+\emph{insertTail}: \emph{BaseNIntegerList} \(\times\) \emph{char*} \(\rightarrow\) \emph{BaseNIntegerList},
+adds the specified integer (\emph{char*}, represented in the considered base) at the end
+of the specified list.
+\ref{algo:basenintegerlist-insert-tail} is the corresponding algorithm.
+
+\emph{Principle}
+\begin{itemize}
+    \item create a new element.
+    \item link it and the tail of the list to each other if any.
+    \item make it the tail of the list.
+    \item increase size of the list accordingly.
+\end{itemize}
+
+\begin{algorithm}[H]
+    \label{algo:basenintegerlist-insert-tail}
+    \caption{insertTail algorithm}
+
+    \begin{algorithmic}
+        \Function{insertTail}{\(l\) : BaseNIntegerList, value : char*} : BaseNIntegerList
+            \State new\_el \(\leftarrow\) create(BaseNIntegerElement)
+
+            \State value(new\_el) \(\leftarrow\) value
+            \State next(new\_el) \(\leftarrow\) undefined
+
+            \If{isEmpty(\(l\))}
+                \State prev(new\_el) \(\leftarrow\) undefined
+                \State head(\(l\)) \(\leftarrow\) new\_el
+            \Else
+                \State prev(new\_el) \(\leftarrow\) tail(\(l\))
+                \State next(tail(\(l\))) \(\leftarrow\) new\_el
+            \EndIf
+
+            \State tail(\(l\)) \(\leftarrow\) new\_el
+            \State size(\(l\)) \(\leftarrow\) size(\(l\)) + 1
+
+            \State insertTail \(\leftarrow l\)
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\emph{removeHead}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{BaseNIntegerList},
+removes the first element of the specified list.
+\ref{algo:basenintegerlist-remove-head} is the corresponding algorithm.
+
+\emph{Principle}
+\begin{itemize}
+    \item makes the second element the head of the list if any.
+    \item free the first element from the memory.
+    \item decrease size of the list accordingly.
+\end{itemize}
+
+\begin{algorithm}[H]
+    \label{algo:basenintegerlist-remove-head}
+    \caption{removeHead algorithm}
+
+    \begin{algorithmic}
+        \Function{removeHead}{\(l\) : BaseNIntegerList, value : char*} : BaseNIntegerList
+            \If{isEmpty(l)}
+                \State removeHead \(\leftarrow l\)
+            \EndIf
+
+            \State BaseNIntegerElement old\_el \(\leftarrow\) head(l)
+            \State head(l) \(\leftarrow\) next(head(l))
+            \State free(old\_el)
+            \State size(\(l\)) \(\leftarrow\) size(\(l\)) - 1
+
+            \If{!isEmpty(l)}
+                \State prev(head(l)) \(\leftarrow\) undefined
+            \EndIf
+            
+            \State removeHead \(\leftarrow l\)
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
 \section{BaseNIntegerListOfList}
 
 \begin{algorithm}[H]
 	\label{algo:basenintegerlistoflist-create-bucket-list}
 	\caption{createBucketList algorithm}
-	
+
 	\begin{algorithmic}
 		\Function{createBucketList}{base : Integer} : BaseNIntegerListOfList
-		
+
 		\State bucketList \(\leftarrow \) create(BaseNIntegerListOfList)
 		\State base(bucketList) \(\leftarrow \) base
 		\State createBucketList \(\leftarrow \) bucketList
@@ -205,11 +292,15 @@ This list will be implemented using a doubly linked-list.
 	\end{algorithmic}
 \end{algorithm}
 
+\section{Radix sort}
+
+…
+
 \chapter{Optimizations}
 
 …
 
-\chapter{Summary}
+\chapter{Summary / conclusion}
 
 …
 
