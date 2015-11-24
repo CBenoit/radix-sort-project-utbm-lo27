@@ -192,7 +192,20 @@ This list will be implemented using a doubly linked-list.
 
 \section{BaseNIntegerListOfList}
 
-…
+\begin{algorithm}[H]
+	\label{algo:basenintegerlistoflist-create-bucket-list}
+	\caption{createBucketList algorithm}
+	
+	\begin{algorithmic}
+		\Function{createBucketList}{base : Integer} : BaseNIntegerListOfList
+		
+		\State bucketList \(\leftarrow \) create(BaseNIntegerListOfList)
+		\State base(bucketList) \(\leftarrow \) base
+		\State createBucketList \(\leftarrow \) bucketList
+
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
 
 \chapter{Optimizations}
 
