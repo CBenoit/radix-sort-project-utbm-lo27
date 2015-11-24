@@ -141,6 +141,8 @@ This list will be implemented using a doubly linked-list.
     \end{algorithmic}
 \end{algorithm}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \emph{isEmpty}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{Boolean},
 returns true if the specified list is empty, false otherwise.
 \ref{algo:basenintegerlist-is-empty} is the corresponding algorithm.
@@ -159,6 +161,8 @@ returns true if the specified list is empty, false otherwise.
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \emph{insertHead}: \emph{BaseNIntegerList} \(\times\) \emph{char*} \(\rightarrow\) \emph{BaseNIntegerList},
 adds the specified integer (\emph{char*}, represented in the considered base) at the beginning
@@ -200,6 +204,8 @@ of the specified list.
     \end{algorithmic}
 \end{algorithm}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \emph{insertTail}: \emph{BaseNIntegerList} \(\times\) \emph{char*} \(\rightarrow\) \emph{BaseNIntegerList},
 adds the specified integer (\emph{char*}, represented in the considered base) at the end
 of the specified list.
@@ -240,6 +246,8 @@ of the specified list.
     \end{algorithmic}
 \end{algorithm}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \emph{removeHead}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{BaseNIntegerList},
 removes the first element of the specified list.
 \ref{algo:basenintegerlist-remove-head} is the corresponding algorithm.
@@ -256,7 +264,7 @@ removes the first element of the specified list.
     \caption{removeHead algorithm}
 
     \begin{algorithmic}
-        \Function{removeHead}{\(l\) : BaseNIntegerList, value : char*} : BaseNIntegerList
+        \Function{removeHead}{\(l\) : BaseNIntegerList} : BaseNIntegerList
             \If{isEmpty(l)}
                 \State removeHead \(\leftarrow l\)
             \EndIf
@@ -266,11 +274,52 @@ removes the first element of the specified list.
             \State free(old\_el)
             \State size(\(l\)) \(\leftarrow\) size(\(l\)) - 1
 
-            \If{!isEmpty(l)}
+            \If{isEmpty(l)}
+                \State tail(l) \(\leftarrow\) undefined
+            \Else
                 \State prev(head(l)) \(\leftarrow\) undefined
             \EndIf
-            
+
             \State removeHead \(\leftarrow l\)
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\emph{removeTail}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{BaseNIntegerList},
+removes the last element of the specified list.
+\ref{algo:basenintegerlist-remove-tail} is the corresponding algorithm.
+
+\emph{Principle}
+\begin{itemize}
+    \item makes element n-1 the tail of the list if n \(>\) 1.
+    \item free element n from the memory.
+    \item decrease size of the list accordingly.
+\end{itemize}
+
+\begin{algorithm}[H]
+    \label{algo:basenintegerlist-remove-tail}
+    \caption{removeTail algorithm}
+
+    \begin{algorithmic}
+        \Function{removeTail}{\(l\) : BaseNIntegerList} : BaseNIntegerList
+            \If{isEmpty(l)}
+                \State removeTail \(\leftarrow l\)
+            \EndIf
+
+            \State BaseNIntegerElement old\_el \(\leftarrow\) tail(l)
+            \State tail(l) \(\leftarrow\) prev(tail(l))
+            \State free(old\_el)
+            \State size(\(l\)) \(\leftarrow\) size(\(l\)) - 1
+
+            \If{tail(l) = undefined}
+                \State head(l) \(\leftarrow\) undefined
+            \Else
+                \State next(tail(l)) \(\leftarrow\) undefined
+            \EndIf
+
+            \State removeTail \(\leftarrow l\)
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
