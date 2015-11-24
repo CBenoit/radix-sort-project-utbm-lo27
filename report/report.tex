@@ -275,6 +275,44 @@ removes the first element of the specified list.
     \end{algorithmic}
 \end{algorithm}
 
+\begin{algorithm}[H]
+	\label{algo:basenintegerlist-basen-to-decimal}
+	\caption{baseNToDecimal algorithm}
+	
+	\begin{algorithmic}
+		\Function{baseNToDecimal}{n : char*, base : integer} : integer
+			\State number = 0
+			\State i = size(n)
+			\While{i \(>\) 0}
+				\State number \(\leftarrow\) number + \(n_i\) * \(base^{i-1}\)
+				\State i = i - 1
+			\EndWhile
+			\State baseNToDecimal \(\leftarrow\) number
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+	\label{algo:basenintegerlist-decimalToBinary}
+	\caption{decimalToBinary algorithm}
+	
+	\begin{algorithmic}
+		\Function{decimalToBinary}{n : integer} : char*
+			\State sizeOfString = 1
+			\While{n \(> 2^{sizeOfString}\)}
+				\State sizeOfString = sizeOfString + 1
+			\EndWhile
+			\State string \(\leftarrow\) createString(sizeOfString)
+			\State i \(\leftarrow\) sizeOfString
+			\Repeat
+				\State \(string_{i} \leftarrow \) n mod 2
+				\State n \(\leftarrow\) n / 2
+			\Until{n \(\neq\) 0}
+			\State decimalToBinary \(\leftarrow\) string
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
+
 \section{BaseNIntegerListOfList}
 
 \begin{algorithm}[H]
