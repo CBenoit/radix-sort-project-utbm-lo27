@@ -463,59 +463,110 @@ the corresponding results as an integer (\emph{char*}) represented in the base o
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{algorithm}[H]
-	\label{algo:basenintegerlist-basen-to-decimal}
-	\caption{baseNToDecimal algorithm}
+\emph{baseNToDecimal}: \emph{char* x Integer} \(\rightarrow\) \emph{Integer},
+converts the specified integer (char*) represented with the specified base (Integer, second parameter) into a corresponding integer in base 10.
+\ref{algo:basenintegerlist-base-to-decimal} is the corresponding algorithm.
 
-	\begin{algorithmic}
-		\Function{baseNToDecimal}{n : char*, base : integer} : integer
-			\State number = 0
-			\State i = size(n)
-			\While{i \(>\) 0}
-				\State number \(\leftarrow\) number + \(n_i\) * \(base^{i-1}\)
-				\State i = i - 1
-			\EndWhile
-			\State baseNToDecimal \(\leftarrow\) number
-		\EndFunction
-	\end{algorithmic}
+\emph{Principle}
+\begin{itemize}
+    \item Compute \(\sum\limits_{i=0}^{N - 1}{d_i \times K^i}\), where K is the base and \(d_i)\) the digit in position i.
+\end{itemize}
+
+\begin{algorithm}[H]
+    \label{algo:basenintegerlist-base-to-decimal}
+    \caption{baseNToDecimal algorithm}
+
+    \begin{algorithmic}
+        \Function{baseNToDecimal}{n : char*, base : integer} : integer
+            \State number \(\leftarrow\) 0
+            \State i \(\leftarrow\) size(n) - 1
+            \While{i \(>\) 0}
+                \State number \(\leftarrow\) number + \(n_i\) * \(base^{i-1}\)
+                \State i \(\leftarrow\) i - 1
+            \EndWhile
+            \State baseNToDecimal \(\leftarrow\) number
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\emph{decimalToBaseN}: \emph{Integer} \(\rightarrow\) \emph{char*},
+converts the specified integer represented in base 10 into a corresponding integer (char*) in base K.
+\ref{algo:basenintegerlist-decimal-to-base} is the corresponding algorithm.
+
+\emph{Principle}
+\begin{itemize}
+    \item Compute the size of the char
+    \item Create the char
+    \item Compute the number in base K using division by K.
+\end{itemize}
+
+\begin{algorithm}[H]
+    \label{algo:basenintegerlist-decimal-to-base}
+    \caption{decimalToBaseN algorithm}
+
+    \begin{algorithmic}
+        \Function{decimalToBaseN}{n : integer, base : integer} : char*
+            \State sizeOfString \(\leftarrow\) 2 // EndOfString character and a bit.
+            \State k \(\leftarrow\) base
+            \While{number \(>\) k}
+                \State k \(\leftarrow\) base * k;
+                \State sizeOfString = sizeOfString + 1;
+            \EndWhile
+            \State string \(\leftarrow\) createString(sizeOfString)
+            \State i \(\leftarrow\) sizeOfString - 2 // \(Character_{i-1}\) is reserved for EndOfString character.
+            \Repeat
+                \State \(string_{i} \leftarrow \) convertToCharacter(n mod base)
+                \State n \(\leftarrow\) n / base
+                \State i \(\leftarrow\) i - 1;
+            \Until{i \(>=\) 0}
+            \State decimalToBaseN \(\leftarrow\) string
+        \EndFunction
+    \end{algorithmic}
 \end{algorithm}
 
 \begin{algorithm}[H]
-	\label{algo:basenintegerlist-decimalToBinary}
-	\caption{decimalToBinary algorithm}
+    \label{algo:basenintegerlist-convert-base-to-binary}
+    \caption{convertBaseToBinary algorithm}
 
-	\begin{algorithmic}
-		\Function{decimalToBinary}{n : integer} : char*
-			\State sizeOfString = 1
-			\While{n \(> 2^{sizeOfString}\)}
-				\State sizeOfString = sizeOfString + 1
-			\EndWhile
-			\State string \(\leftarrow\) createString(sizeOfString)
-			\State i \(\leftarrow\) sizeOfString
-			\Repeat
-				\State \(string_{i} \leftarrow \) n mod 2
-				\State n \(\leftarrow\) n / 2
-			\Until{n \(\neq\) 0}
-			\State decimalToBinary \(\leftarrow\) string
-		\EndFunction
-	\end{algorithmic}
+    \begin{algorithmic}
+        \Function{convertBaseToBinary}{n : char*, base : integer} : char*
+            \State convertBaseToBinary \(\leftarrow\) decimalToBaseN(baseNToDecimal(n), 2)
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \label{algo:basenintegerlist-convert-binary-to-base}
+    \caption{convertBinaryToBase algorithm}
+
+    \begin{algorithmic}
+        \Function{convertBinaryToBase}{n : char*, base : integer} : char*
+            \State convertBinaryToBase \(\leftarrow\) decimalToBaseN(baseNToDecimal(n), base)
+        \EndFunction
+    \end{algorithmic}
 \end{algorithm}
 
 \section{BaseNIntegerListOfList}
 
+\emph{baseNToDecimal}: \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerListOfList},
+creates a BaseNIntegerListOfList for storing list of integers in base N (N being the specified integer, first parameter).
+\ref{algo:basenintegerlistoflist-create-bucket-list} is the corresponding algorithm.
+
 \begin{algorithm}[H]
-	\label{algo:basenintegerlistoflist-create-bucket-list}
-	\caption{createBucketList algorithm}
+    \label{algo:basenintegerlistoflist-create-bucket-list}
+    \caption{createBucketList algorithm}
 
-	\begin{algorithmic}
-		\Function{createBucketList}{base : Integer} : BaseNIntegerListOfList
+    \begin{algorithmic}
+        \Function{createBucketList}{base : Integer} : BaseNIntegerListOfList
 
-		\State bucketList \(\leftarrow \) create(BaseNIntegerListOfList)
-		\State base(bucketList) \(\leftarrow \) base
-		\State createBucketList \(\leftarrow \) bucketList
+            \State bucketList \(\leftarrow \) create(BaseNIntegerListOfList)
+            \State base(bucketList) \(\leftarrow \) base
+            \State createBucketList \(\leftarrow \) bucketList
 
-		\EndFunction
-	\end{algorithmic}
+        \EndFunction
+    \end{algorithmic}
 \end{algorithm}
 
 \section{Radix sort}
