@@ -40,8 +40,10 @@
 
 % Espace insécable (le caractère ~ se traduit par un espace insécable).
 \DeclareUnicodeCharacter{00A0}{~}
-% Sur un clavier bépo, on a un accès direct au ×
+% Sur un clavier bépo, on a un accès direct au ×, ≥ et ≤
 \DeclareUnicodeCharacter{00D7}{\times}
+\DeclareUnicodeCharacter{2265}{\geq}
+\DeclareUnicodeCharacter{2264}{\geq}
 
 \begin{document}
 
@@ -326,6 +328,24 @@ removes the last element of the specified list.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\emph{deleteBaseNIntegerElement}: \emph{BaseNIntegerElement} \(\rightarrow\) \(\emptyset\),
+free from the memory the specified BaseNIntegerElement.
+\ref{algo:basenintegerlist-delete-basen-integer-element} is the corresponding algorithm.
+
+\begin{algorithm}[H]
+    \label{algo:basenintegerlist-delete-basen-integer-element}
+    \caption{deleteBaseNIntegerElement algorithm}
+
+    \begin{algorithmic}
+        \Function{deleteBaseNIntegerElement}{\(el\) : BaseNIntegerElement} : \(\emptyset\)
+            \State free(value(el))
+            \State free(el)
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \emph{deleteIntegerList}: \emph{BaseNIntegerList} \(\rightarrow\) \(\emptyset\),
 clears and deletes the specified BaseNIntegerList.
 \ref{algo:basenintegerlist-delete-integer-list} is the corresponding algorithm.
@@ -344,12 +364,99 @@ clears and deletes the specified BaseNIntegerList.
 
                 \While{next(old\_el) \(\neq\) undefined}
                     \State next\_el \(\leftarrow\) next(old\_el)
-                    \State free(old\_el)
+                    \State deleteBaseNIntegerElement(old\_el)
                     \State old\_el \(\leftarrow\) next\_el
                 \EndWhile
 
-                \State free(old\_el)
+                \State deleteBaseNIntegerElement(old\_el)
             \EndIf
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\emph{sumBaseNIntegers}: \emph{char*} \(\times\) \emph{char*} \(\times\) \emph{Integer} \(\rightarrow\) \emph{char*},
+sums two integers defined in the given base (without any conversion).
+\ref{algo:basenintegerlist-sum-basen-integers} is the corresponding algorithm.
+
+\emph{Principle}: …
+
+\begin{algorithm}[H]
+    \label{algo:basenintegerlist-sum-basen-integers}
+    \caption{sumBaseNIntegers algorithm}
+
+    \begin{algorithmic}
+        \Function{sumBaseNIntegers}{\(a\) : char*, \(b\) : char*, base : \emph{Integer}} : char*
+            \State Integer sizeA \(\leftarrow\) size(a)
+            \State Integer sizeB \(\leftarrow\) size(b)
+            \State Integer sizeC \(\leftarrow\) max(sizeA, sizeB)
+            \State char* result \(\leftarrow\) createString(sizeC)
+
+            \State Integer remainder \(\leftarrow\) 0
+            \State Integer i \(\leftarrow\) 0
+            \While{i \(<\) sizeA and i \(<\) sizeB}
+                \State \(result_i \leftarrow a_i\) + \(b_i\) + remainder
+                \State remainder \(\leftarrow result_i\) / base
+                \State \(result_i \leftarrow result_i\) mod base
+
+                \State i \(\leftarrow\) i + 1
+            \EndWhile
+
+            \While{i \(<\) sizeA}
+                \State \(result_i \leftarrow a_i\) + remainder
+                \State remainder \(\leftarrow result_i\) / base
+                \State \(result_i \leftarrow result_i\) mod base
+
+                \State i \(\leftarrow\) i + 1
+            \EndWhile
+
+            \While{i \(<\) sizeB}
+                \State \(result_i \leftarrow b_i\) + remainder
+                \State remainder \(\leftarrow result_i\) / base
+                \State \(result_i \leftarrow result_i\) mod base
+
+                \State i \(\leftarrow\) i + 1
+            \EndWhile
+
+            \If{remainder \(>\) 0}
+                \State result \(\leftarrow\) realloc(result, (sizeC + 1) * size(char))
+                \State \(result_{sizeC} \leftarrow\) remainder
+            \EndIf
+
+            \State sumBinary \(\leftarrow\) result
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+Assumption : \emph{size} is a function that returns the string's size.
+\emph{max} is a function that returns the maximum value between the given two.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\emph{sumIntegerList}: \emph{BaseNIntegerList} \(\rightarrow\) char*,
+sums all the integers defined in the specified list using the binary addition and returns
+the corresponding results as an integer (\emph{char*}) represented in the base of the list.
+\ref{algo:basenintegerlist-sum-integer-list} is the corresponding algorithm.
+
+\emph{Principle}: …
+
+\begin{algorithm}[H]
+    \label{algo:basenintegerlist-sum-integer-list}
+    \caption{sumIntegerList algorithm}
+
+    \begin{algorithmic}
+        \Function{sumIntegerList}{\(l\) : BaseNIntegerList} : char*
+            \State char* sum \(\leftarrow\) createString(0)
+            \State \(sum_0\) \(\leftarrow\) 0
+
+            \State BaseNIntegerElement el \(\leftarrow\) head(l)
+            \While{el \(\neq\) undefined}
+                \State sum \(\leftarrow\) sumBaseNIntegers(sum, value(el), base(l))
+                \State el \(\leftarrow\) next(el)
+            \EndWhile
+
+            \State sumIntegerList \(\leftarrow\) sum
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
