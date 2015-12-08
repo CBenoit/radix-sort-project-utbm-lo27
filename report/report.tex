@@ -188,9 +188,9 @@ returns true if the specified list is empty, false otherwise.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{insertHead}: \emph{BaseNIntegerList} \(\times\) \emph{Array<Character>} \(\rightarrow\) \emph{BaseNIntegerList},
-adds the specified integer (\emph{Array<Character>}, represented in the considered base) at the beginning
-of the specified list.
+\emph{insertHead}: \emph{BaseNIntegerList} \(×\) \(Array<Character>\) \(×\) Integer \(\rightarrow\) \emph{BaseNIntegerList},
+adds the specified integer (\(Array<Character>\), represented in the considered base) at the beginning
+of the specified list. The third parameter is the size of the integer.
 \ref{algo:basenintegerlist-insert-head} is the corresponding algorithm.
 
 \emph{Principle}
@@ -206,10 +206,11 @@ of the specified list.
     \caption{insertHead algorithm}
 
     \begin{algorithmic}
-        \Function{insertHead}{\(l\) : BaseNIntegerList, value : Array<Character>} : BaseNIntegerList
+        \Function{insertHead}{\(l\) : BaseNIntegerList, value : \(Array<Character>\), valSize : Integer} : BaseNIntegerList
             \State new\_el \(\leftarrow\) create(BaseNIntegerElement)
 
             \State value(new\_el) \(\leftarrow\) value
+            \State size(new\_el) \(\leftarrow\) valSize
             \State prev(new\_el) \(\leftarrow\) undefined
 
             \If{isEmpty(\(l\))}
@@ -230,9 +231,9 @@ of the specified list.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{insertTail}: \emph{BaseNIntegerList} \(\times\) \emph{Array<Character>} \(\rightarrow\) \emph{BaseNIntegerList},
-adds the specified integer (\emph{Array<Character>}, represented in the considered base) at the end
-of the specified list.
+\emph{insertTail}: \emph{BaseNIntegerList} \(×\) \(Array<Character>\) \(×\) \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerList},
+adds the specified integer (\emph{\(Array<Character>\)}, represented in the considered base) at the end
+of the specified list. The third parameter is the size of the integer.
 \ref{algo:basenintegerlist-insert-tail} is the corresponding algorithm.
 
 \emph{Principle}
@@ -248,10 +249,11 @@ of the specified list.
     \caption{insertTail algorithm}
 
     \begin{algorithmic}
-        \Function{insertTail}{\(l\) : BaseNIntegerList, value : Array<Character>} : BaseNIntegerList
+        \Function{insertTail}{\(l\) : BaseNIntegerList, value : \(Array<Character>\), valSize : Integer} : BaseNIntegerList
             \State new\_el \(\leftarrow\) create(BaseNIntegerElement)
 
             \State value(new\_el) \(\leftarrow\) value
+            \State size(new\_el) \(\leftarrow\) valSize
             \State next(new\_el) \(\leftarrow\) undefined
 
             \If{isEmpty(\(l\))}
@@ -398,8 +400,10 @@ clears and deletes the specified BaseNIntegerList.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{sumBaseNIntegers}: \emph{Array<Character>} \(\times\) \emph{Array<Character>} \(\times\) \emph{Integer} \(\rightarrow\) \emph{Array<Character>},
+\emph{sumBaseNIntegers}: \(Array<Character>\) \(×\) \emph{Integer} \(×\) \(Array<Character>\) \(×\) \emph{Integer} \(×\) \emph{Integer} \(\rightarrow\) \emph{\(Array<Character>\)},
 sums two integers defined in the given base (without any conversion).
+The second and the fourth parameters are the integers' size.
+The fifth parameter is the integers' base.
 \ref{algo:basenintegerlist-sum-basen-integers} is the corresponding algorithm.
 
 \emph{Principle}:
@@ -413,41 +417,47 @@ sums two integers defined in the given base (without any conversion).
     \caption{sumBaseNIntegers algorithm}
 
     \begin{algorithmic}
-        \Function{sumBaseNIntegers}{\(a\) : Array<Character>, \(b\) : Array<Character>, base : \emph{Integer}} : Array<Character>
-            \State Integer sizeA \(\leftarrow\) size(a)
-            \State Integer sizeB \(\leftarrow\) size(b)
+        \Function{sumBaseNIntegers}{\(a\) : \(Array<Character>\), sizeA : \emph{Integer}, \(b\) : \(Array<Character>\), sizeB : \emph{Integer}, base : \emph{Integer}} : \(Array<Character>\)
             \State Integer sizeC \(\leftarrow\) max(sizeA, sizeB)
-            \State Array<Character> result \(\leftarrow\) createString(sizeC)
+            \State \(Array<Character>\) result \(\leftarrow\) createArray<Character>(sizeC)
 
             \State Integer remainder \(\leftarrow\) 0
-            \State Integer i \(\leftarrow\) 0
-            \While{i \(<\) sizeA and i \(<\) sizeB}
-                \State \(result_i \leftarrow a_i\) + \(b_i\) + remainder
-                \State remainder \(\leftarrow result_i\) / base
-                \State \(result_i \leftarrow result_i\) mod base
+            \State Integer i \(\leftarrow\) sizeA - 1
+            \State Integer j \(\leftarrow\) sizeB - 1
+            \State Integer k \(\leftarrow\) sizeC - 1
+            \While{i \(≥\) 0 and i \(≥\) 0}
+                \State \(result_k \leftarrow a_i\) + \(b_j\) + remainder
+                \State remainder \(\leftarrow result_k\) / base
+                \State \(result_k \leftarrow result_k\) mod base
 
-                \State i \(\leftarrow\) i + 1
+                \State i \(\leftarrow\) i - 1
+                \State j \(\leftarrow\) j - 1
+                \State k \(\leftarrow\) k - 1
             \EndWhile
 
-            \While{i \(<\) sizeA}
-                \State \(result_i \leftarrow a_i\) + remainder
-                \State remainder \(\leftarrow result_i\) / base
-                \State \(result_i \leftarrow result_i\) mod base
+            \While{i \(≥\) 0}
+                \State \(result_k \leftarrow a_i\) + remainder
+                \State remainder \(\leftarrow result_k\) / base
+                \State \(result_k \leftarrow result_k\) mod base
 
-                \State i \(\leftarrow\) i + 1
+                \State i \(\leftarrow\) i - 1
+                \State k \(\leftarrow\) k - 1
             \EndWhile
 
-            \While{i \(<\) sizeB}
-                \State \(result_i \leftarrow b_i\) + remainder
-                \State remainder \(\leftarrow result_i\) / base
-                \State \(result_i \leftarrow result_i\) mod base
+            \While{j \(≥\) 0}
+                \State \(result_k \leftarrow b_j\) + remainder
+                \State remainder \(\leftarrow result_k\) / base
+                \State \(result_k \leftarrow result_k\) mod base
 
-                \State i \(\leftarrow\) i + 1
+                \State j \(\leftarrow\) j - 1
+                \State k \(\leftarrow\) k - 1
             \EndWhile
 
             \If{remainder \(>\) 0}
-                \State result \(\leftarrow\) realloc(result, (sizeC + 1) * size(char))
-                \State \(result_{sizeC} \leftarrow\) remainder
+                \State \(temp\_result \leftarrow\) createArray<Character>(sizeC + 1)
+                \State \(temp\_result_0 \leftarrow\) remainder
+                \State memcpy(temp\_result + 1, result, sizeC \(×\) size(char))
+                \State \(result \leftarrow temp\_result\)
             \EndIf
 
             \State sumBinary \(\leftarrow\) result
@@ -460,9 +470,9 @@ Assumption : \emph{size} is a function that returns the string's size.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{sumIntegerList}: \emph{BaseNIntegerList} \(\rightarrow\) Array<Character>,
+\emph{sumIntegerList}: \emph{BaseNIntegerList} \(\rightarrow\) \(Array<Character>\),
 sums all the integers defined in the specified list using the binary addition and returns
-the corresponding results as an integer (\emph{Array<Character>}) represented in the base of the list.
+the corresponding results as an integer (\emph{\(Array<Character>\)}) represented in the base of the list.
 \ref{algo:basenintegerlist-sum-integer-list} is the corresponding algorithm.
 
 \emph{Principle}:
@@ -476,9 +486,9 @@ the corresponding results as an integer (\emph{Array<Character>}) represented in
     \caption{sumIntegerList algorithm}
 
     \begin{algorithmic}
-        \Function{sumIntegerList}{\(l\) : BaseNIntegerList} : Array<Character>
-            \State Array<Character> sum \(\leftarrow\) createString(0)
-            \State \(sum_0\) \(\leftarrow\) 0
+        \Function{sumIntegerList}{\(l\) : BaseNIntegerList} : \(Array<Character>\)
+            \State \(Array<Character>\) sum \(\leftarrow\) createArray<Character>(0)
+            \State \(sum_0 \leftarrow\) 0
 
             \State BaseNIntegerElement el \(\leftarrow\) head(l)
             \While{el \(\neq\) undefined}
@@ -493,8 +503,8 @@ the corresponding results as an integer (\emph{Array<Character>}) represented in
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{baseNToDecimal}: \emph{Array<Character> x Integer} \(\rightarrow\) \emph{Integer},
-converts the specified integer (Array<Character>) represented with the specified base (Integer, second parameter) into a corresponding integer in base 10.
+\emph{baseNToDecimal}: \(Array<Character> ×\) Integer \(×\) Integer \(\rightarrow\) \emph{Integer},
+converts the specified integer (\(Array<Character>\) represented with the specified base (Integer, third parameter)) into a corresponding integer in base 10. The second parameter is the integer's size.
 \ref{algo:basenintegerlist-base-to-decimal} is the corresponding algorithm.
 
 \emph{Principle}
@@ -507,11 +517,12 @@ converts the specified integer (Array<Character>) represented with the specified
     \caption{baseNToDecimal algorithm}
 
     \begin{algorithmic}
-        \Function{baseNToDecimal}{n : Array<Character>, base : integer} : integer
+        \Function{baseNToDecimal}{n : \(Array<Character>\), valSize : integer, base : integer} : integer
             \State number \(\leftarrow\) 0
-            \State i \(\leftarrow\) size(n) - 1
+            \State i \(\leftarrow\) valSize - 1
+            \State maxWeight \(\leftarrow\) valSize - 1
             \While{i \(>\) 0}
-                \State number \(\leftarrow\) number + \(n_i\) * \(base^{i-1}\)
+                \State number \(\leftarrow\) number + \(n_i\) * \(base^{maxWeight - i}\)
                 \State i \(\leftarrow\) i - 1
             \EndWhile
             \State baseNToDecimal \(\leftarrow\) number
@@ -521,14 +532,14 @@ converts the specified integer (Array<Character>) represented with the specified
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{decimalToBaseN}: \emph{Integer} \(\rightarrow\) \emph{Array<Character>},
-converts the specified integer represented in base 10 into a corresponding integer (Array<Character>) in base K.
+\emph{decimalToBaseN}: \emph{Integer} \(\rightarrow\) \emph{\(Array<Character>\)},
+converts the specified integer represented in base 10 into a corresponding integer (\(Array<Character>\)) in base K.
 \ref{algo:basenintegerlist-decimal-to-base} is the corresponding algorithm.
 
 \emph{Principle}
 \begin{itemize}
-    \item Compute the size of the char
-    \item Create the char
+    \item Compute the size of the array.
+    \item Create the array.
     \item Compute the number in base K using division by K.
 \end{itemize}
 
@@ -537,21 +548,21 @@ converts the specified integer represented in base 10 into a corresponding integ
     \caption{decimalToBaseN algorithm}
 
     \begin{algorithmic}
-        \Function{decimalToBaseN}{n : integer, base : integer} : Array<Character>
-            \State sizeOfString \(\leftarrow\) 2 // EndOfString character and a bit.
+        \Function{decimalToBaseN}{n : integer, base : integer} : \(Array<Character>\)
+            \State arraySize \(\leftarrow\) 1
             \State k \(\leftarrow\) base
-            \While{number \(>\) k}
+            \While{n \(≥\) k}
                 \State k \(\leftarrow\) base * k;
-                \State sizeOfString = sizeOfString + 1;
+                \State arraySize = arraySize + 1;
             \EndWhile
-            \State string \(\leftarrow\) createString(sizeOfString)
-            \State i \(\leftarrow\) sizeOfString - 2 // \(Character_{i-1}\) is reserved for EndOfString character.
+            \State array \(\leftarrow\) createArray<Character>(arraySize)
+            \State i \(\leftarrow\) arraySize - 1
             \Repeat
-                \State \(string_{i} \leftarrow \) convertToCharacter(n mod base)
+                \State \(array_{i} \leftarrow \) n mod base
                 \State n \(\leftarrow\) n / base
                 \State i \(\leftarrow\) i - 1;
             \Until{i \(>=\) 0}
-            \State decimalToBaseN \(\leftarrow\) string
+            \State decimalToBaseN \(\leftarrow\) array
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
@@ -561,7 +572,7 @@ converts the specified integer represented in base 10 into a corresponding integ
     \caption{convertBaseToBinary algorithm}
 
     \begin{algorithmic}
-        \Function{convertBaseToBinary}{n : Array<Character>, base : integer} : Array<Character>
+        \Function{convertBaseToBinary}{n : \(Array<Character>\), base : integer} : \(Array<Character>\)
             \State convertBaseToBinary \(\leftarrow\) decimalToBaseN(baseNToDecimal(n), 2)
         \EndFunction
     \end{algorithmic}
@@ -572,7 +583,7 @@ converts the specified integer represented in base 10 into a corresponding integ
     \caption{convertBinaryToBase algorithm}
 
     \begin{algorithmic}
-        \Function{convertBinaryToBase}{n : Array<Character>, base : integer} : Array<Character>
+        \Function{convertBinaryToBase}{n : \(Array<Character>\), base : integer} : \(Array<Character>\)
             \State convertBinaryToBase \(\leftarrow\) decimalToBaseN(baseNToDecimal(n), base)
         \EndFunction
     \end{algorithmic}
