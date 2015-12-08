@@ -122,7 +122,7 @@ BaseNIntegerList removeTail(BaseNIntegerList list) {
 
     list.tail = list.tail->prev;
 
-    deleteBaseNIntegerListElement(list.tail->next);
+    deleteBaseNIntegerListElement(oldElement);
     list.size -= 1;
 
     if (list.tail == NULL) {
