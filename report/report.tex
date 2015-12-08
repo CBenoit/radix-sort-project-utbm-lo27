@@ -108,10 +108,19 @@ This list will be implemented using a doubly linked-list.
         \hline
         char* & value \\
         \hline
+        int & size \\
+        \hline
     \end{tabular}
 
     \caption{BaseNIntegerElement structure}
 \end{table}
+
+\begin{itemize}
+    \item \emph{prev}: pointer to the predecessor.
+    \item \emph{next}: pointer to the successor.
+    \item \emph{value}: the integer represented in a base between 2 and 16.
+    \item \emph{size}: the size of the integer (number of digits).
+\end{itemize}
 
 \section{BaseNIntegerListOfList}
 
@@ -376,22 +385,26 @@ clears and deletes the specified BaseNIntegerList.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{sumBaseNIntegers}: \emph{char*} \(\times\) \emph{char*} \(\times\) \emph{Integer} \(\rightarrow\) \emph{char*},
+\emph{sumBaseNIntegers}: \emph{Array<Character>} \(\times\) \emph{Array<Character>} \(\times\) \emph{Integer} \(\rightarrow\) \emph{Array<Character>},
 sums two integers defined in the given base (without any conversion).
 \ref{algo:basenintegerlist-sum-basen-integers} is the corresponding algorithm.
 
-\emph{Principle}: …
+\emph{Principle}:
+\begin{itemize}
+    \item Travere simultaneously the two arrays while summing the values in a third Array.
+    \item Add the retainer at the end of the third Array if any.
+\end{itemize}
 
 \begin{algorithm}[H]
     \label{algo:basenintegerlist-sum-basen-integers}
     \caption{sumBaseNIntegers algorithm}
 
     \begin{algorithmic}
-        \Function{sumBaseNIntegers}{\(a\) : char*, \(b\) : char*, base : \emph{Integer}} : char*
+        \Function{sumBaseNIntegers}{\(a\) : Array<Character>, \(b\) : Array<Character>, base : \emph{Integer}} : Array<Character>
             \State Integer sizeA \(\leftarrow\) size(a)
             \State Integer sizeB \(\leftarrow\) size(b)
             \State Integer sizeC \(\leftarrow\) max(sizeA, sizeB)
-            \State char* result \(\leftarrow\) createString(sizeC)
+            \State Array<Character> result \(\leftarrow\) createString(sizeC)
 
             \State Integer remainder \(\leftarrow\) 0
             \State Integer i \(\leftarrow\) 0
@@ -439,7 +452,11 @@ sums all the integers defined in the specified list using the binary addition an
 the corresponding results as an integer (\emph{char*}) represented in the base of the list.
 \ref{algo:basenintegerlist-sum-integer-list} is the corresponding algorithm.
 
-\emph{Principle}: …
+\emph{Principle}:
+\begin{itemize}
+    \item Create an number equal to zero.
+    \item Traverse the list while summing each element to the firt number.
+\end{itemize}
 
 \begin{algorithm}[H]
     \label{algo:basenintegerlist-sum-integer-list}
