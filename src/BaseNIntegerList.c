@@ -28,3 +28,114 @@
 //
 //////////////////////////////////////////////////////////////////////////
 
+#include <stdlib.h> // NULL
+#include <stdbool.h> // bool
+
+#include <BaseNIntegerList.h>
+
+BaseNIntegerList createIntegerList(int base) {
+    BaseNIntegerList list;
+
+    list.head = NULL;
+    list.tail = NULL;
+    list.base = base;
+    list.size = 0;
+
+    return list;
+}
+
+bool isEmpty(BaseNIntegerList list) {
+    return list.head == NULL;
+}
+
+BaseNIntegerList insertHead(BaseNIntegerList list, char* value, int valueSize) {
+    BaseNIntegerListElement* element = (BaseNIntegerListElement*)malloc(sizeof(BaseNIntegerListElement));
+
+    element->value = value;
+    element->size = valueSize;
+
+    element->prev = NULL;
+
+    if (isEmpty(list)) {
+        element->next = NULL;
+        list.tail = element;
+    } else {
+        element->next = list.head;
+        list.head->prev = element;
+    }
+
+    list.head = element;
+    list.size += 1;
+
+    return list;
+}
+
+BaseNIntegerList insertTail(BaseNIntegerList list, char* value, int valueSize) {
+    BaseNIntegerListElement* element = (BaseNIntegerListElement*)malloc(sizeof(BaseNIntegerListElement));
+
+    element->value = value;
+    element->size = valueSize;
+
+    element->next = NULL;
+
+    if (isEmpty(list)) {
+        element->prev = NULL;
+        list.head = element;
+    } else {
+        element->prev = list.tail;
+        list.tail->next = element;
+    }
+
+    list.tail = element;
+    list.size += 1;
+
+    return list;
+}
+
+BaseNIntegerList removeHead(BaseNIntegerList list) {
+    if (isEmpty(list)) {
+        return list;
+    }
+
+    BaseNIntegerListElement* oldElement = list.head;
+
+    list.head = list.head->next;
+
+    deleteBaseNIntegerListElement(oldElement);
+    list.size -= 1;
+
+    if (isEmpty(list)) {
+        list.tail = NULL;
+    } else {
+        list.head->prev = NULL;
+    }
+
+    return list;
+}
+
+BaseNIntegerList removeTail(BaseNIntegerList list) {
+    if (isEmpty(list)) {
+        return list;
+    }
+
+    BaseNIntegerListElement* oldElement = list.tail;
+
+    list.tail = list.tail->prev;
+
+    deleteBaseNIntegerListElement(oldElement);
+    list.size -= 1;
+
+    if (list.tail == NULL) {
+        list.head = NULL;
+    } else {
+        list.tail->next = NULL;
+    }
+
+    return list;
+}
+
+void deleteBaseNIntegerListElement(BaseNIntegerListElement* element) {
+    free(element->value);
+    free(element);
+    element = NULL;
+}

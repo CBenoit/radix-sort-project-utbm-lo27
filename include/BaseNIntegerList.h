@@ -29,3 +29,93 @@
 //
 //////////////////////////////////////////////////////////////////////////
 
+#ifndef BASE_NINTEGER_LIST_H
+#define BASE_NINTEGER_LIST_H
+
+#include <stdbool.h> // bool
+
+typedef struct BaseNIntegerListElement {
+    struct BaseNIntegerListElement* prev;
+    struct BaseNIntegerListElement* next;
+
+    char* value;
+    int size;
+
+} BaseNIntegerListElement;
+
+typedef struct {
+    BaseNIntegerListElement* head;
+    BaseNIntegerListElement* tail;
+    int size;
+
+    int base;
+
+} BaseNIntegerList;
+
+/**
+ * @brief Creates a BaseNIntegerList.
+ * @details Creates a new empty BaseNIntegerList for storing integers in the specified base and initialize the fields.
+ *
+ * @param base : The base of the numbers.
+ * @return A new empty list.
+ */
+BaseNIntegerList createIntegerList(int base);
+
+/**
+ * @brief Tests if the list is empty
+ * @details Returns true if the specified list is empty, false otherwise.
+ *
+ * @param list : the list to test.
+ * @return true if the list is empty.
+ */
+bool isEmpty(BaseNIntegerList list);
+
+/**
+ * @brief Inserts the value at the beginning of the list.
+ * @details Adds the specified integer (char*) represented in the considered base at the end of the specified list.
+ *
+ * @param list : The list in which insert the value.
+ * @param value : A number in the same base than BaseNIntegerList.
+ * @param valueSize : the number of digit of the given value.
+ * @return The list modified, with the value at the beginning.
+ */
+BaseNIntegerList insertHead(BaseNIntegerList list, char* value, int valueSize);
+
+/**
+ * @brief Inserts the value at the end of the list.
+ * @details Adds the specified integer (char*), represented in the considered base at the end of the specified list.
+ *
+ * @param list : The list in which insert the value.
+ * @param value : A number in the same base than BaseIntegerList.
+ * @param valueSize : the number of digit of the given value.
+ * @return The list modified, with the value at the end.
+ */
+BaseNIntegerList insertTail(BaseNIntegerList list, char* value, int valueSize);
+
+/**
+ * @brief Removes the head.
+ * @details Removes the first element of the specified list
+ *
+ * @param list : The list in which remove the head.
+ * @return The list modified, without the head.
+ */
+BaseNIntegerList removeHead(BaseNIntegerList list);
+
+/**
+ * @brief Removes the tail.
+ * @details Removes the last element of the specified list.
+ *
+ * @param list The list in which remove the tail.
+ * @return The list modified, without the tail.
+ */
+BaseNIntegerList removeTail(BaseNIntegerList list);
+
+/**
+ * @brief Delete the given element.
+ * @details Delete the element after having delete the value.
+ *
+ * @param element : The element to delete.
+ */
+void deleteBaseNIntegerListElement(BaseNIntegerListElement* element);
+
+#endif // BASE_NINTEGER_LIST_H
