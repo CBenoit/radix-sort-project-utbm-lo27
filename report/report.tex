@@ -188,8 +188,8 @@ returns true if the specified list is empty, false otherwise.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{insertHead}: \emph{BaseNIntegerList} \(\times\) \emph{char*} \(\rightarrow\) \emph{BaseNIntegerList},
-adds the specified integer (\emph{char*}, represented in the considered base) at the beginning
+\emph{insertHead}: \emph{BaseNIntegerList} \(\times\) \emph{Array<Character>} \(\rightarrow\) \emph{BaseNIntegerList},
+adds the specified integer (\emph{Array<Character>}, represented in the considered base) at the beginning
 of the specified list.
 \ref{algo:basenintegerlist-insert-head} is the corresponding algorithm.
 
@@ -206,7 +206,7 @@ of the specified list.
     \caption{insertHead algorithm}
 
     \begin{algorithmic}
-        \Function{insertHead}{\(l\) : BaseNIntegerList, value : char*} : BaseNIntegerList
+        \Function{insertHead}{\(l\) : BaseNIntegerList, value : Array<Character>} : BaseNIntegerList
             \State new\_el \(\leftarrow\) create(BaseNIntegerElement)
 
             \State value(new\_el) \(\leftarrow\) value
@@ -230,8 +230,8 @@ of the specified list.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{insertTail}: \emph{BaseNIntegerList} \(\times\) \emph{char*} \(\rightarrow\) \emph{BaseNIntegerList},
-adds the specified integer (\emph{char*}, represented in the considered base) at the end
+\emph{insertTail}: \emph{BaseNIntegerList} \(\times\) \emph{Array<Character>} \(\rightarrow\) \emph{BaseNIntegerList},
+adds the specified integer (\emph{Array<Character>}, represented in the considered base) at the end
 of the specified list.
 \ref{algo:basenintegerlist-insert-tail} is the corresponding algorithm.
 
@@ -248,7 +248,7 @@ of the specified list.
     \caption{insertTail algorithm}
 
     \begin{algorithmic}
-        \Function{insertTail}{\(l\) : BaseNIntegerList, value : char*} : BaseNIntegerList
+        \Function{insertTail}{\(l\) : BaseNIntegerList, value : Array<Character>} : BaseNIntegerList
             \State new\_el \(\leftarrow\) create(BaseNIntegerElement)
 
             \State value(new\_el) \(\leftarrow\) value
@@ -460,9 +460,9 @@ Assumption : \emph{size} is a function that returns the string's size.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{sumIntegerList}: \emph{BaseNIntegerList} \(\rightarrow\) char*,
+\emph{sumIntegerList}: \emph{BaseNIntegerList} \(\rightarrow\) Array<Character>,
 sums all the integers defined in the specified list using the binary addition and returns
-the corresponding results as an integer (\emph{char*}) represented in the base of the list.
+the corresponding results as an integer (\emph{Array<Character>}) represented in the base of the list.
 \ref{algo:basenintegerlist-sum-integer-list} is the corresponding algorithm.
 
 \emph{Principle}:
@@ -476,8 +476,8 @@ the corresponding results as an integer (\emph{char*}) represented in the base o
     \caption{sumIntegerList algorithm}
 
     \begin{algorithmic}
-        \Function{sumIntegerList}{\(l\) : BaseNIntegerList} : char*
-            \State char* sum \(\leftarrow\) createString(0)
+        \Function{sumIntegerList}{\(l\) : BaseNIntegerList} : Array<Character>
+            \State Array<Character> sum \(\leftarrow\) createString(0)
             \State \(sum_0\) \(\leftarrow\) 0
 
             \State BaseNIntegerElement el \(\leftarrow\) head(l)
@@ -493,8 +493,8 @@ the corresponding results as an integer (\emph{char*}) represented in the base o
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{baseNToDecimal}: \emph{char* x Integer} \(\rightarrow\) \emph{Integer},
-converts the specified integer (char*) represented with the specified base (Integer, second parameter) into a corresponding integer in base 10.
+\emph{baseNToDecimal}: \emph{Array<Character> x Integer} \(\rightarrow\) \emph{Integer},
+converts the specified integer (Array<Character>) represented with the specified base (Integer, second parameter) into a corresponding integer in base 10.
 \ref{algo:basenintegerlist-base-to-decimal} is the corresponding algorithm.
 
 \emph{Principle}
@@ -507,7 +507,7 @@ converts the specified integer (char*) represented with the specified base (Inte
     \caption{baseNToDecimal algorithm}
 
     \begin{algorithmic}
-        \Function{baseNToDecimal}{n : char*, base : integer} : integer
+        \Function{baseNToDecimal}{n : Array<Character>, base : integer} : integer
             \State number \(\leftarrow\) 0
             \State i \(\leftarrow\) size(n) - 1
             \While{i \(>\) 0}
@@ -521,8 +521,8 @@ converts the specified integer (char*) represented with the specified base (Inte
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{decimalToBaseN}: \emph{Integer} \(\rightarrow\) \emph{char*},
-converts the specified integer represented in base 10 into a corresponding integer (char*) in base K.
+\emph{decimalToBaseN}: \emph{Integer} \(\rightarrow\) \emph{Array<Character>},
+converts the specified integer represented in base 10 into a corresponding integer (Array<Character>) in base K.
 \ref{algo:basenintegerlist-decimal-to-base} is the corresponding algorithm.
 
 \emph{Principle}
@@ -537,7 +537,7 @@ converts the specified integer represented in base 10 into a corresponding integ
     \caption{decimalToBaseN algorithm}
 
     \begin{algorithmic}
-        \Function{decimalToBaseN}{n : integer, base : integer} : char*
+        \Function{decimalToBaseN}{n : integer, base : integer} : Array<Character>
             \State sizeOfString \(\leftarrow\) 2 // EndOfString character and a bit.
             \State k \(\leftarrow\) base
             \While{number \(>\) k}
@@ -561,7 +561,7 @@ converts the specified integer represented in base 10 into a corresponding integ
     \caption{convertBaseToBinary algorithm}
 
     \begin{algorithmic}
-        \Function{convertBaseToBinary}{n : char*, base : integer} : char*
+        \Function{convertBaseToBinary}{n : Array<Character>, base : integer} : Array<Character>
             \State convertBaseToBinary \(\leftarrow\) decimalToBaseN(baseNToDecimal(n), 2)
         \EndFunction
     \end{algorithmic}
@@ -572,7 +572,7 @@ converts the specified integer represented in base 10 into a corresponding integ
     \caption{convertBinaryToBase algorithm}
 
     \begin{algorithmic}
-        \Function{convertBinaryToBase}{n : char*, base : integer} : char*
+        \Function{convertBinaryToBase}{n : Array<Character>, base : integer} : Array<Character>
             \State convertBinaryToBase \(\leftarrow\) decimalToBaseN(baseNToDecimal(n), base)
         \EndFunction
     \end{algorithmic}
