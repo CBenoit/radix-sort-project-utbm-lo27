@@ -419,7 +419,7 @@ The fifth parameter is the integers' base.
     \begin{algorithmic}
         \Function{sumBaseNIntegers}{\(a\) : \(Array<Character>\), sizeA : \emph{Integer}, \(b\) : \(Array<Character>\), sizeB : \emph{Integer}, base : \emph{Integer}} : \(Array<Character>\)
             \State Integer sizeC \(\leftarrow\) max(sizeA, sizeB)
-            \State \(Array<Character>\) result \(\leftarrow\) createArray<Character>(sizeC)
+            \State \(Array<Character>\) result \(\leftarrow createArray<Character>(sizeC)\)
 
             \State Integer remainder \(\leftarrow\) 0
             \State Integer i \(\leftarrow\) sizeA - 1
@@ -454,7 +454,7 @@ The fifth parameter is the integers' base.
             \EndWhile
 
             \If{remainder \(>\) 0}
-                \State \(temp\_result \leftarrow\) createArray<Character>(sizeC + 1)
+                \State \(temp\_result \leftarrow createArray<Character>(sizeC + 1)\)
                 \State \(temp\_result_0 \leftarrow\) remainder
                 \State memcpy(temp\_result + 1, result, sizeC \(×\) size(char))
                 \State \(result \leftarrow temp\_result\)
@@ -487,7 +487,7 @@ the corresponding results as an integer (\emph{\(Array<Character>\)}) represente
 
     \begin{algorithmic}
         \Function{sumIntegerList}{\(l\) : BaseNIntegerList} : \(Array<Character>\)
-            \State \(Array<Character>\) sum \(\leftarrow\) createArray<Character>(0)
+            \State \(Array<Character>\) sum \(\leftarrow createArray<Character>(0)\)
             \State \(sum_0 \leftarrow\) 0
 
             \State BaseNIntegerElement el \(\leftarrow\) head(l)
@@ -555,7 +555,7 @@ converts the specified integer represented in base 10 into a corresponding integ
                 \State k \(\leftarrow\) base * k;
                 \State arraySize = arraySize + 1;
             \EndWhile
-            \State array \(\leftarrow\) createArray<Character>(arraySize)
+            \State array \(\leftarrow createArray<Character>(arraySize)\)
             \State i \(\leftarrow\) arraySize - 1
             \Repeat
                 \State \(array_{i} \leftarrow \) n mod base
