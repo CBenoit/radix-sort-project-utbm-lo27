@@ -28,7 +28,7 @@
 //
 //////////////////////////////////////////////////////////////////////////
 
-#include <stdlib.h> // NULL
+#include <stdlib.h> // NULL, malloc
 #include <stdbool.h> // bool
 
 #include <BaseNIntegerList.h>
@@ -48,11 +48,10 @@ bool isEmpty(BaseNIntegerList list) {
     return list.head == NULL;
 }
 
-BaseNIntegerList insertHead(BaseNIntegerList list, char* value, int valueSize) {
+BaseNIntegerList insertHead(BaseNIntegerList list, BigInteger number) {
     BaseNIntegerListElement* element = (BaseNIntegerListElement*)malloc(sizeof(BaseNIntegerListElement));
 
-    element->value = value;
-    element->size = valueSize;
+    element->value = number;
 
     element->prev = NULL;
 
@@ -70,11 +69,10 @@ BaseNIntegerList insertHead(BaseNIntegerList list, char* value, int valueSize) {
     return list;
 }
 
-BaseNIntegerList insertTail(BaseNIntegerList list, char* value, int valueSize) {
+BaseNIntegerList insertTail(BaseNIntegerList list, BigInteger number) {
     BaseNIntegerListElement* element = (BaseNIntegerListElement*)malloc(sizeof(BaseNIntegerListElement));
 
-    element->value = value;
-    element->size = valueSize;
+    element->value = number;
 
     element->next = NULL;
 
@@ -134,8 +132,12 @@ BaseNIntegerList removeTail(BaseNIntegerList list) {
     return list;
 }
 
+void deleteBigInteger(BigInteger* value) {
+    free(value->value);
+    value->value = NULL;
+}
+
 void deleteBaseNIntegerListElement(BaseNIntegerListElement* element) {
-    free(element->value);
+    deleteInteger(&(element->value));
     free(element);
-    element = NULL;
 }
