@@ -32,27 +32,49 @@
 #ifndef BASE_NINTEGER_LIST_H
 #define BASE_NINTEGER_LIST_H
 
+/**
+ * \file BaseNIntegerList.h
+ * \brief Defines functions associated to BaseNIntegerList.
+ * \author Jérôme BOULMIER, Benoît CORTIER
+ * \version 0.1
+ *
+ */
 #include <stdbool.h> // bool
 
+/**
+ * \struct BigInteger
+ * \brief An Big Integer
+ *
+ */
 typedef struct {
-    char* value;
-    int size;
+    char* value; /*!< Each digit is stored in a single char an stored in this array */
+    int size; /*!< The number of digit of the number */
 } BigInteger;
 
+/**
+ * \struct BaseNIntegerListElement
+ * \brief Defines an element of the list.
+ *
+ */
 typedef struct BaseNIntegerListElement {
-    struct BaseNIntegerListElement* prev;
-    struct BaseNIntegerListElement* next;
+    struct BaseNIntegerListElement* prev; /*!< Previous element in the List. */
+    struct BaseNIntegerListElement* next; /*!< Next element in the List. */
 
-    BigInteger value;
+    BigInteger value; /*!< Value of this element. */
 
 } BaseNIntegerListElement;
 
+/**
+ * \struct BaseNIntegerList
+ * \brief Defines a list of BigInteger in a base N.
+ *
+ */
 typedef struct {
-    BaseNIntegerListElement* head;
-    BaseNIntegerListElement* tail;
-    int size;
+    BaseNIntegerListElement* head; /*!< The head of the list. */
+    BaseNIntegerListElement* tail; /*!< The tail of the list. */
+    int size; /*!< Size of the list. */
 
-    int base;
+    int base; /*!< Base of integers in this list */
 
 } BaseNIntegerList;
 
@@ -125,5 +147,30 @@ void deleteBigInteger(BigInteger* integer);
  * @param element : The element to delete.
  */
 void deleteBaseNIntegerListElement(BaseNIntegerListElement* element);
+
+/**
+ * @fn BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base)
+ * @brief Sums two integers
+ * @details Sums two integers, they should be in the same base.
+ *
+ * @param a : A BigInteger in @p base
+ * @param b : A BigInteger in @p base
+ * @param base : Base of integers.
+ * @return A BigInteger containing the result.
+ */
+BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base);
+
+/**
+ * @fn BigInteger sumIntegerList(BaseNIntegerList list)
+ * @brief Sums all numbers in a list
+ * @details Sums all the integers defined in the specified list using
+ * the binary addition and returns
+ * the corresponding results as an integer (BigInteger)
+ * represented in the base of the list.
+ *
+ * @param list : The list to sum.
+ * @return The result of the sum represented in the base of the list.
+ */
+BigInteger sumIntegerList(BaseNIntegerList list);
 
 #endif // BASE_NINTEGER_LIST_H
