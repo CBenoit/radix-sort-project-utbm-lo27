@@ -94,6 +94,28 @@ This list will be implemented using a doubly linked-list.
     \item \emph{size}: the current number of elements in the list.
 \end{itemize}
 
+\subsection{BigInteger}
+
+\begin{table}[h]
+    \centering
+    \label{tab:basenintegerelement-big-integer}
+
+    \begin{tabular}{|l|c|}
+        \hline
+        char* & value \\
+        \hline
+        int & size \\
+        \hline
+    \end{tabular}
+
+    \caption{BigInteger structure}
+\end{table}
+
+\begin{itemize}
+    \item \emph{value}: the integer defined by an array of characters.
+    \item \emph{size}: the size of the integer (number of digits).
+\end{itemize}
+
 \subsection{BaseNIntegerElement}
 
 \begin{table}[h]
@@ -106,9 +128,7 @@ This list will be implemented using a doubly linked-list.
         \hline
         BaseNIntegerElement* & next \\
         \hline
-        char* & value \\
-        \hline
-        int & size \\
+        BigInteger & value \\
         \hline
     \end{tabular}
 
@@ -119,7 +139,6 @@ This list will be implemented using a doubly linked-list.
     \item \emph{prev}: pointer to the predecessor.
     \item \emph{next}: pointer to the successor.
     \item \emph{value}: the integer represented in a base between 2 and 16.
-    \item \emph{size}: the size of the integer (number of digits).
 \end{itemize}
 
 \section{BaseNIntegerListOfList}
@@ -209,8 +228,8 @@ of the specified list. The third parameter is the size of the integer.
         \Function{insertHead}{\(l\) : BaseNIntegerList, value : \(Array<Character>\), valSize : Integer} : BaseNIntegerList
             \State new\_el \(\leftarrow\) create(BaseNIntegerElement)
 
-            \State value(new\_el) \(\leftarrow\) value
-            \State size(new\_el) \(\leftarrow\) valSize
+            \State value(value(new\_el)) \(\leftarrow\) value
+            \State size(value(new\_el)) \(\leftarrow\) valSize
             \State prev(new\_el) \(\leftarrow\) undefined
 
             \If{isEmpty(\(l\))}
@@ -252,8 +271,8 @@ of the specified list. The third parameter is the size of the integer.
         \Function{insertTail}{\(l\) : BaseNIntegerList, value : \(Array<Character>\), valSize : Integer} : BaseNIntegerList
             \State new\_el \(\leftarrow\) create(BaseNIntegerElement)
 
-            \State value(new\_el) \(\leftarrow\) value
-            \State size(new\_el) \(\leftarrow\) valSize
+            \State value(value(new\_el)) \(\leftarrow\) value
+            \State size(value(new\_el)) \(\leftarrow\) valSize
             \State next(new\_el) \(\leftarrow\) undefined
 
             \If{isEmpty(\(l\))}
@@ -297,7 +316,7 @@ removes the first element of the specified list.
 
             \State BaseNIntegerElement old\_el \(\leftarrow\) head(l)
             \State head(l) \(\leftarrow\) next(head(l))
-            \State free(old\_el)
+            \State deleteBaseNIntegerElement(old\_el)
             \State size(\(l\)) \(\leftarrow\) size(\(l\)) - 1
 
             \If{isEmpty(l)}
@@ -336,7 +355,7 @@ removes the last element of the specified list.
 
             \State BaseNIntegerElement old\_el \(\leftarrow\) tail(l)
             \State tail(l) \(\leftarrow\) prev(tail(l))
-            \State free(old\_el)
+            \State deleteBaseNIntegerElement(old\_el)
             \State size(\(l\)) \(\leftarrow\) size(\(l\)) - 1
 
             \If{tail(l) = undefined}
@@ -362,7 +381,7 @@ free from the memory the specified BaseNIntegerElement.
 
     \begin{algorithmic}
         \Function{deleteBaseNIntegerElement}{\(el\) : BaseNIntegerElement} : \(\emptyset\)
-            \State free(value(el))
+            \State deleteBigInteger(value(el))
             \State free(el)
         \EndFunction
     \end{algorithmic}
@@ -400,10 +419,9 @@ clears and deletes the specified BaseNIntegerList.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{sumBaseNIntegers}: \(Array<Character>\) \(×\) \emph{Integer} \(×\) \(Array<Character>\) \(×\) \emph{Integer} \(×\) \emph{Integer} \(\rightarrow\) \emph{\(Array<Character>\)},
+\emph{sumBaseNIntegers}: \emph{BigInteger} \(×\) \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{\(Array<Character>\)},
 sums two integers defined in the given base (without any conversion).
-The second and the fourth parameters are the integers' size.
-The fifth parameter is the integers' base.
+The third parameter is the integers' base.
 \ref{algo:basenintegerlist-sum-basen-integers} is the corresponding algorithm.
 
 \emph{Principle}:
@@ -417,7 +435,9 @@ The fifth parameter is the integers' base.
     \caption{sumBaseNIntegers algorithm}
 
     \begin{algorithmic}
-        \Function{sumBaseNIntegers}{\(a\) : \(Array<Character>\), sizeA : \emph{Integer}, \(b\) : \(Array<Character>\), sizeB : \emph{Integer}, base : \emph{Integer}} : \(Array<Character>\)
+        \Function{sumBaseNIntegers}{\(a\) : \emph{BigInteger}, \(b\) : \emph{BigInteger}, base : \emph{Integer}} : \emph{BigInteger}
+            \State Integer sizeA \(\leftarrow\) size(a)
+            \State Integer sizeB \(\leftarrow\) size(b)
             \State Integer sizeC \(\leftarrow\) max(sizeA, sizeB)
             \State \(Array<Character>\) result \(\leftarrow createArray<Character>(sizeC)\)
 
@@ -454,25 +474,27 @@ The fifth parameter is the integers' base.
             \EndWhile
 
             \If{remainder \(>\) 0}
-                \State \(temp\_result \leftarrow createArray<Character>(sizeC + 1)\)
+                \State sizeC \(\leftarrow\) sizeC + 1
+                \State \(temp\_result \leftarrow createArray<Character>(sizeC\)
                 \State \(temp\_result_0 \leftarrow\) remainder
-                \State memcpy(temp\_result + 1, result, sizeC \(×\) size(char))
+                \State memcpy(temp\_result + 1, result, (sizeC - 1) \(×\) size(char))
                 \State \(result \leftarrow temp\_result\)
             \EndIf
+
+            \State BigInteger bigIntegerResult = createBigInteger(result, sizeC)
 
             \State sumBinary \(\leftarrow\) result
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
 
-Assumption : \emph{size} is a function that returns the string's size.
-\emph{max} is a function that returns the maximum value between the given two.
+Assumption: \emph{max} is a function that returns the maximum value between the given two.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{sumIntegerList}: \emph{BaseNIntegerList} \(\rightarrow\) \(Array<Character>\),
+\emph{sumIntegerList}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{BigInteger},
 sums all the integers defined in the specified list using the binary addition and returns
-the corresponding results as an integer (\emph{\(Array<Character>\)}) represented in the base of the list.
+the corresponding results as an integer (\emph{BigInteger}) represented in the base of the list.
 \ref{algo:basenintegerlist-sum-integer-list} is the corresponding algorithm.
 
 \emph{Principle}:
@@ -486,9 +508,9 @@ the corresponding results as an integer (\emph{\(Array<Character>\)}) represente
     \caption{sumIntegerList algorithm}
 
     \begin{algorithmic}
-        \Function{sumIntegerList}{\(l\) : BaseNIntegerList} : \(Array<Character>\)
-            \State \(Array<Character>\) sum \(\leftarrow createArray<Character>(0)\)
-            \State \(sum_0 \leftarrow\) 0
+        \Function{sumIntegerList}{\(l\) : BaseNIntegerList} : \emph{BigInteger}
+            \State \emph{BigInteger} sum \(\leftarrow createArray<Character>(1)\)
+            \State value(sum)\(_0 \leftarrow\) 0
 
             \State BaseNIntegerElement el \(\leftarrow\) head(l)
             \While{el \(\neq\) undefined}
@@ -503,8 +525,8 @@ the corresponding results as an integer (\emph{\(Array<Character>\)}) represente
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{baseNToDecimal}: \(Array<Character> ×\) Integer \(×\) Integer \(\rightarrow\) \emph{Integer},
-converts the specified integer (\(Array<Character>\) represented with the specified base (Integer, third parameter)) into a corresponding integer in base 10. The second parameter is the integer's size.
+\emph{baseNToDecimal}: \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{Integer},
+converts the specified integer (\emph{BigInteger} represented with the specified base (Integer, second parameter)) into a corresponding integer in base 10.
 \ref{algo:basenintegerlist-base-to-decimal} is the corresponding algorithm.
 
 \emph{Principle}
@@ -517,12 +539,12 @@ converts the specified integer (\(Array<Character>\) represented with the specif
     \caption{baseNToDecimal algorithm}
 
     \begin{algorithmic}
-        \Function{baseNToDecimal}{n : \(Array<Character>\), valSize : integer, base : integer} : integer
+        \Function{baseNToDecimal}{n : \emph{BigInteger}, base : \emph{Integer}} : \emph{Integer}
             \State number \(\leftarrow\) 0
-            \State i \(\leftarrow\) valSize - 1
-            \State maxWeight \(\leftarrow\) valSize - 1
+            \State i \(\leftarrow\) size(n) - 1
+            \State maxWeight \(\leftarrow\) size(n) - 1
             \While{i \(>\) 0}
-                \State number \(\leftarrow\) number + \(n_i\) * \(base^{maxWeight - i}\)
+                \State number \(\leftarrow\) number + value(n)\(_i\) * \(base^{maxWeight - i}\)
                 \State i \(\leftarrow\) i - 1
             \EndWhile
             \State baseNToDecimal \(\leftarrow\) number
@@ -532,7 +554,7 @@ converts the specified integer (\(Array<Character>\) represented with the specif
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{decimalToBaseN}: \emph{Integer} \(\rightarrow\) \emph{\(Array<Character>\)},
+\emph{decimalToBaseN}: \emph{Integer} \(\rightarrow\) \emph{BigInteger},
 converts the specified integer represented in base 10 into a corresponding integer (\(Array<Character>\)) in base K.
 \ref{algo:basenintegerlist-decimal-to-base} is the corresponding algorithm.
 
@@ -548,7 +570,7 @@ converts the specified integer represented in base 10 into a corresponding integ
     \caption{decimalToBaseN algorithm}
 
     \begin{algorithmic}
-        \Function{decimalToBaseN}{n : integer, base : integer} : \(Array<Character>\)
+        \Function{decimalToBaseN}{n : \emph{Integer}, base : \emph{Integer}} : \emph{BigInteger}
             \State arraySize \(\leftarrow\) 1
             \State k \(\leftarrow\) base
             \While{n \(≥\) k}
@@ -562,7 +584,10 @@ converts the specified integer represented in base 10 into a corresponding integ
                 \State n \(\leftarrow\) n / base
                 \State i \(\leftarrow\) i - 1;
             \Until{i \(>=\) 0}
-            \State decimalToBaseN \(\leftarrow\) array
+
+            \State \emph{BigInteger} result \(\leftarrow\) createBigInteger(array, arraySize)
+
+            \State decimalToBaseN \(\leftarrow\) result
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
@@ -572,8 +597,8 @@ converts the specified integer represented in base 10 into a corresponding integ
     \caption{convertBaseToBinary algorithm}
 
     \begin{algorithmic}
-        \Function{convertBaseToBinary}{n : \(Array<Character>\), base : integer} : \(Array<Character>\)
-            \State convertBaseToBinary \(\leftarrow\) decimalToBaseN(baseNToDecimal(n), 2)
+        \Function{convertBaseToBinary}{n : \emph{BigInteger}, base : \emph{Integer}} : \emph{BigInteger}
+            \State convertBaseToBinary \(\leftarrow\) decimalToBaseN(baseNToDecimal(n, base), 2)
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
@@ -583,8 +608,8 @@ converts the specified integer represented in base 10 into a corresponding integ
     \caption{convertBinaryToBase algorithm}
 
     \begin{algorithmic}
-        \Function{convertBinaryToBase}{n : \(Array<Character>\), base : integer} : \(Array<Character>\)
-            \State convertBinaryToBase \(\leftarrow\) decimalToBaseN(baseNToDecimal(n), base)
+        \Function{convertBinaryToBase}{n : \emph{BigInteger}, base : \emph{Integer}} : \emph{BigInteger}
+            \State convertBinaryToBase \(\leftarrow\) decimalToBaseN(baseNToDecimal(n, 2), base)
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
