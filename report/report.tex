@@ -207,9 +207,9 @@ returns true if the specified list is empty, false otherwise.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{insertHead}: \emph{BaseNIntegerList} \(×\) \(Array<Character>\) \(×\) Integer \(\rightarrow\) \emph{BaseNIntegerList},
-adds the specified integer (\(Array<Character>\), represented in the considered base) at the beginning
-of the specified list. The third parameter is the size of the integer.
+\emph{insertHead}: \emph{BaseNIntegerList} \(×\) \emph{BigInteger} \(\rightarrow\) \emph{BaseNIntegerList},
+adds the specified integer (\emph{BigInteger}, represented in the considered base) at the beginning
+of the specified list.
 \ref{algo:basenintegerlist-insert-head} is the corresponding algorithm.
 
 \emph{Principle}
@@ -225,11 +225,10 @@ of the specified list. The third parameter is the size of the integer.
     \label{algo:basenintegerlist-insert-head}
 
     \begin{algorithmic}
-        \Function{insertHead}{\(l\) : BaseNIntegerList, value : \(Array<Character>\), valSize : Integer} : BaseNIntegerList
+        \Function{insertHead}{\(l\) : \emph{BaseNIntegerList}, n : \emph{BigInteger}} : \emph{BaseNIntegerList}
             \State new\_el \(\leftarrow\) create(BaseNIntegerElement)
 
-            \State value(value(new\_el)) \(\leftarrow\) value
-            \State size(value(new\_el)) \(\leftarrow\) valSize
+            \State value(new\_el) \(\leftarrow\) n
             \State prev(new\_el) \(\leftarrow\) undefined
 
             \If{isEmpty(\(l\))}
@@ -250,9 +249,9 @@ of the specified list. The third parameter is the size of the integer.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emph{insertTail}: \emph{BaseNIntegerList} \(×\) \(Array<Character>\) \(×\) \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerList},
-adds the specified integer (\emph{\(Array<Character>\)}, represented in the considered base) at the end
-of the specified list. The third parameter is the size of the integer.
+\emph{insertTail}: \emph{BaseNIntegerList} \(×\) \emph{BigInteger} \(\rightarrow\) \emph{BaseNIntegerList},
+adds the specified integer (\emph{BigInteger}, represented in the considered base) at the end
+of the specified list.
 \ref{algo:basenintegerlist-insert-tail} is the corresponding algorithm.
 
 \emph{Principle}
@@ -268,11 +267,10 @@ of the specified list. The third parameter is the size of the integer.
     \label{algo:basenintegerlist-insert-tail}
 
     \begin{algorithmic}
-        \Function{insertTail}{\(l\) : BaseNIntegerList, value : \(Array<Character>\), valSize : Integer} : BaseNIntegerList
+        \Function{insertTail}{\(l\) : BaseNIntegerList, n : \emph{BigInteger}} : BaseNIntegerList
             \State new\_el \(\leftarrow\) create(BaseNIntegerElement)
 
-            \State value(value(new\_el)) \(\leftarrow\) value
-            \State size(value(new\_el)) \(\leftarrow\) valSize
+            \State value(new\_el) \(\leftarrow\) n
             \State next(new\_el) \(\leftarrow\) undefined
 
             \If{isEmpty(\(l\))}
@@ -401,7 +399,7 @@ clears and deletes the specified BaseNIntegerList.
 
     \begin{algorithmic}
         \Function{deleteIntegerList}{\(l\) : BaseNIntegerList} : \(\emptyset\)
-            \If{!isEmpty(l)}
+            \If{not isEmpty(l)}
                 \State BaseNIntegerElement old\_el \(\leftarrow\) head(l)
                 \State BaseNIntegerElement next\_el
 
@@ -620,7 +618,7 @@ converts the specified integer represented in base 10 into a corresponding integ
 \section{BaseNIntegerListOfList}
 
 \emph{baseNToDecimal}: \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerListOfList},
-creates a BaseNIntegerListOfList for storing list of integers in base N (N being the specified integer, first parameter).
+creates a \emph{BaseNIntegerListOfList} for storing list of integers in base N (N being the specified integer, first parameter).
 \ref{algo:basenintegerlistoflist-create-bucket-list} is the corresponding algorithm.
 
 \begin{algorithm}[H]
@@ -632,6 +630,23 @@ creates a BaseNIntegerListOfList for storing list of integers in base N (N being
             \State bucketList \(\leftarrow\) create(BaseNIntegerListOfList)
             \State base(bucketList) \(\leftarrow\) base
             \State createBucketList \(\leftarrow\) bucketList
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\emph{addIntegerIntoBucket}: \emph{BaseNIntegerListOfList} \(×\) \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerListOfList},
+adds a new integer (\emph{BigInteger}) at the end of the specified list in bucket N (N being the third parameter between 0 and base of the integers less 1).
+\ref{algo:basenintegerlistoflist-add-integer-into-bucket} is the corresponding algorithm.
+
+\begin{algorithm}[H]
+    \caption{addIntegerIntoBucket algorithm}
+    \label{algo:basenintegerlistoflist-add-integer-into-bucket}
+
+    \begin{algorithmic}
+        \Function{addIntegerIntoBucket}{lol : \emph{BaseNIntegerListOfList}, v : \emph{BigInteger}, N : \emph{Integer}} : \emph{BaseNIntegerListOfList}
+            \State // assert(\(N < base(lol)\))
+            \State array(lol)\(_N\) \(\leftarrow\) insertTail(array(lol)\(_N\), v)
+            \State addIntegerIntoBucket \(\leftarrow\) lol
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
