@@ -34,12 +34,16 @@
 
 #include <stdbool.h> // bool
 
+typedef struct {
+    char* value;
+    int size;
+} BigInteger;
+
 typedef struct BaseNIntegerListElement {
     struct BaseNIntegerListElement* prev;
     struct BaseNIntegerListElement* next;
 
-    char* value;
-    int size;
+    BigInteger value;
 
 } BaseNIntegerListElement;
 
@@ -65,7 +69,7 @@ BaseNIntegerList createIntegerList(int base);
  * @brief Tests if the list is empty
  * @details Returns true if the specified list is empty, false otherwise.
  *
- * @param list : the list to test.
+ * @param list : The list to test.
  * @return true if the list is empty.
  */
 bool isEmpty(BaseNIntegerList list);
@@ -75,22 +79,20 @@ bool isEmpty(BaseNIntegerList list);
  * @details Adds the specified integer (char*) represented in the considered base at the end of the specified list.
  *
  * @param list : The list in which insert the value.
- * @param value : A number in the same base than BaseNIntegerList.
- * @param valueSize : the number of digit of the given value.
+ * @param number : A number in the same base than BaseNIntegerList.
  * @return The list modified, with the value at the beginning.
  */
-BaseNIntegerList insertHead(BaseNIntegerList list, char* value, int valueSize);
+BaseNIntegerList insertHead(BaseNIntegerList list, BigInteger number);
 
 /**
  * @brief Inserts the value at the end of the list.
  * @details Adds the specified integer (char*), represented in the considered base at the end of the specified list.
  *
  * @param list : The list in which insert the value.
- * @param value : A number in the same base than BaseIntegerList.
- * @param valueSize : the number of digit of the given value.
+ * @param number : A number in the same base than BaseIntegerList.
  * @return The list modified, with the value at the end.
  */
-BaseNIntegerList insertTail(BaseNIntegerList list, char* value, int valueSize);
+BaseNIntegerList insertTail(BaseNIntegerList list, BigInteger number);
 
 /**
  * @brief Removes the head.
@@ -105,11 +107,17 @@ BaseNIntegerList removeHead(BaseNIntegerList list);
  * @brief Removes the tail.
  * @details Removes the last element of the specified list.
  *
- * @param list The list in which remove the tail.
+ * @param list : The list in which remove the tail.
  * @return The list modified, without the tail.
  */
 BaseNIntegerList removeTail(BaseNIntegerList list);
 
+/**
+ * @brief Delete the given integer
+ *
+ * @param integer : The integer to delete
+ */
+void deleteBigInteger(BigInteger* integer);
 /**
  * @brief Delete the given element.
  * @details Delete the element after having delete the value.
