@@ -707,6 +707,26 @@ builds a new \emph{BaseNIntegerList} from the specified \emph{BaseNIntegerListOf
     \end{algorithmic}
 \end{algorithm}
 
+\emph{deleteBucketList}: \emph{BaseNIntegerListOfList} \(\rightarrow \emptyset\),
+clears and deletes the specified \emph{BaseNIntegerListOfList} (free the previously allocated
+memory).
+\ref{algo:basenintegerlistoflist-delete-bucket-list} is the corresponding algorithm.
+
+\begin{algorithm}[H]
+    \caption{deleteBucketList algorithm}
+    \label{algo:basenintegerlistoflist-delete-bucket-list}
+
+    \begin{algorithmic}
+        \Function{deleteBucketList}{lol : \emph{BaseNIntegerListOfList}} : \(\emptyset\)
+            \For{i from 0 to base(lol) - 1}
+                \State // Doesn't use deleteIntegerList because it would also
+                \State // free the BigInteger's value that should be still used by other lists' BigInteger.
+                \State free(array(lol)\(_i\))
+            \EndFor
+            \State free(array(lol))
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
 \section{Radix sort}
 
 …
