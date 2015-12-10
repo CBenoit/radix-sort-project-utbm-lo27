@@ -22,37 +22,67 @@
 // 3. This notice may not be removed or altered from any source distribution.
 //
 //////////////////////////////////////////////////////////////////////////
-//
-// Header file that contains the prototype of the functions, types,
-// constants and variables provided for implementing the
-// BaseNIntegerList Abstract Data Type.
-//
-//////////////////////////////////////////////////////////////////////////
 
 #ifndef BASE_NINTEGER_LIST_H
 #define BASE_NINTEGER_LIST_H
 
+/**
+ * @file BaseNIntegerList.h
+ * @brief Defines functions associated to BaseNIntegerList.
+ *
+ * @author Jérôme BOULMIER
+ * @author Benoît CORTIER
+ * @version 0.1
+ *
+ * Header file that contains the prototype of the functions, types,
+ * constants and variables provided for implementing the
+ * BaseNIntegerList Abstract Data Type.
+ */
 #include <stdbool.h> // bool
 
+/**
+ * @struct BigInteger
+ * @brief A Big Integer
+ *
+ * In this structure, each digit of the number (in a base N) is stored in a single char
+ * and put in an array of char (where a char is considered as an integer).
+ * The size of the array is also stored in this structure.
+ *
+ */
 typedef struct {
-    char* value;
-    int size;
+    char* value; /*!< Each digit is stored in a single char of this array */
+    int size; /*!< The number of digit of the number */
 } BigInteger;
 
+/**
+ * @struct BaseNIntegerListElement
+ * @brief Defines an element of the list.
+ *
+ * This structure defines an element of the linked list BaseNIntegerList.
+ *
+ */
 typedef struct BaseNIntegerListElement {
-    struct BaseNIntegerListElement* prev;
-    struct BaseNIntegerListElement* next;
+    struct BaseNIntegerListElement* prev; /*!< Previous element in the List. */
+    struct BaseNIntegerListElement* next; /*!< Next element in the List. */
 
-    BigInteger value;
+    BigInteger value; /*!< Value of this element. */
 
 } BaseNIntegerListElement;
 
+/**
+ * @struct BaseNIntegerList
+ * @brief Defines a list of BigInteger in a base N.
+ *
+ * A BaseNIntegerList is a linked list of BigInteger.
+ * The integers' base should be inferior or equal to 16.
+ *
+ */
 typedef struct {
-    BaseNIntegerListElement* head;
-    BaseNIntegerListElement* tail;
-    int size;
+    BaseNIntegerListElement* head; /*!< The head of the list. */
+    BaseNIntegerListElement* tail; /*!< The tail of the list. */
+    int size; /*!< Size of the list. */
 
-    int base;
+    int base; /*!< integers' base in this list. base ≤ 16 */
 
 } BaseNIntegerList;
 
@@ -60,7 +90,7 @@ typedef struct {
  * @brief Creates a BaseNIntegerList.
  * @details Creates a new empty BaseNIntegerList for storing integers in the specified base and initialize the fields.
  *
- * @param base : The base of the numbers.
+ * @param base numbers' base.
  * @return A new empty list.
  */
 BaseNIntegerList createIntegerList(int base);
@@ -69,7 +99,7 @@ BaseNIntegerList createIntegerList(int base);
  * @brief Tests if the list is empty
  * @details Returns true if the specified list is empty, false otherwise.
  *
- * @param list : The list to test.
+ * @param list list to test.
  * @return true if the list is empty.
  */
 bool isEmpty(BaseNIntegerList list);
@@ -78,8 +108,8 @@ bool isEmpty(BaseNIntegerList list);
  * @brief Inserts the value at the beginning of the list.
  * @details Adds the specified integer (char*) represented in the considered base at the end of the specified list.
  *
- * @param list : The list in which insert the value.
- * @param number : A number in the same base than BaseNIntegerList.
+ * @param list list in which insert the value.
+ * @param number a number in the same base than BaseNIntegerList.
  * @return The list modified, with the value at the beginning.
  */
 BaseNIntegerList insertHead(BaseNIntegerList list, BigInteger number);
@@ -88,8 +118,8 @@ BaseNIntegerList insertHead(BaseNIntegerList list, BigInteger number);
  * @brief Inserts the value at the end of the list.
  * @details Adds the specified integer (char*), represented in the considered base at the end of the specified list.
  *
- * @param list : The list in which insert the value.
- * @param number : A number in the same base than BaseIntegerList.
+ * @param list list in which insert the value.
+ * @param number a number in the same base than BaseIntegerList.
  * @return The list modified, with the value at the end.
  */
 BaseNIntegerList insertTail(BaseNIntegerList list, BigInteger number);
@@ -98,7 +128,7 @@ BaseNIntegerList insertTail(BaseNIntegerList list, BigInteger number);
  * @brief Removes the head.
  * @details Removes the first element of the specified list
  *
- * @param list : The list in which remove the head.
+ * @param list list in which remove the head.
  * @return The list modified, without the head.
  */
 BaseNIntegerList removeHead(BaseNIntegerList list);
@@ -107,23 +137,48 @@ BaseNIntegerList removeHead(BaseNIntegerList list);
  * @brief Removes the tail.
  * @details Removes the last element of the specified list.
  *
- * @param list : The list in which remove the tail.
+ * @param list list in which remove the tail.
  * @return The list modified, without the tail.
  */
 BaseNIntegerList removeTail(BaseNIntegerList list);
 
 /**
- * @brief Delete the given integer
+ * @brief Deletes the given integer
  *
- * @param integer : The integer to delete
+ * @param integer integer to delete
  */
 void deleteBigInteger(BigInteger* integer);
 /**
- * @brief Delete the given element.
- * @details Delete the element after having delete the value.
+ * @brief Deletes the given element.
+ * @details Deletes the element after having deletes the value.
  *
- * @param element : The element to delete.
+ * @param element element to delete.
  */
 void deleteBaseNIntegerListElement(BaseNIntegerListElement* element);
+
+/**
+ * @fn BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base)
+ * @brief Sums two integers
+ * @details Sums two integers, they should be in the same base.
+ *
+ * @param a a BigInteger in the base @p baseN
+ * @param b a BigInteger in the base @p baseN
+ * @param baseN integer's base.
+ * @return A BigInteger containing the result.
+ */
+BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int baseN);
+
+/**
+ * @fn BigInteger sumIntegerList(BaseNIntegerList list)
+ * @brief Sums all numbers in a list
+ * @details Sums all the integers defined in the specified list using
+ * the binary addition and returns
+ * the corresponding results as an integer (BigInteger)
+ * represented in the base of the list.
+ *
+ * @param list list to sum.
+ * @return The result of the sum represented in the base of the list.
+ */
+BigInteger sumIntegerList(BaseNIntegerList list);
 
 #endif // BASE_NINTEGER_LIST_H

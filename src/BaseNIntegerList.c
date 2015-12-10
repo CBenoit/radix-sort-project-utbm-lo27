@@ -33,6 +33,14 @@
 
 #include <BaseNIntegerList.h>
 
+BigInteger createBigInteger(char* value, int size) {
+    BigInteger integer;
+    integer.value = value;
+    integer.size = size;
+
+    return integer;
+}
+
 BaseNIntegerList createIntegerList(int base) {
     BaseNIntegerList list;
 
