@@ -439,16 +439,16 @@ The third parameter is the integers' base.
             \State Integer sizeA \(\leftarrow\) size(a)
             \State Integer sizeB \(\leftarrow\) size(b)
             \State Integer sizeC \(\leftarrow\) max(sizeA, sizeB)
-            \State \(Array<Character>\) result \(\leftarrow createArray<Character>(sizeC)\)
+            \State \(Array<Character>\) array \(\leftarrow createArray<Character>(sizeC)\)
 
             \State Integer remainder \(\leftarrow\) 0
             \State Integer i \(\leftarrow\) sizeA - 1
             \State Integer j \(\leftarrow\) sizeB - 1
             \State Integer k \(\leftarrow\) sizeC - 1
             \While{i \(≥\) 0 and i \(≥\) 0}
-                \State \(result_k \leftarrow a_i\) + \(b_j\) + remainder
-                \State remainder \(\leftarrow result_k\) / base
-                \State \(result_k \leftarrow result_k\) mod base
+                \State array\(_k \leftarrow a_i\) + \(b_j\) + remainder
+                \State remainder \(\leftarrow array_k\) / base
+                \State array\(_k \leftarrow array_k\) mod base
 
                 \State i \(\leftarrow\) i - 1
                 \State j \(\leftarrow\) j - 1
@@ -456,18 +456,18 @@ The third parameter is the integers' base.
             \EndWhile
 
             \While{i \(≥\) 0}
-                \State \(result_k \leftarrow a_i\) + remainder
-                \State remainder \(\leftarrow result_k\) / base
-                \State \(result_k \leftarrow result_k\) mod base
+                \State array\(_k \leftarrow a_i\) + remainder
+                \State remainder \(\leftarrow array_k\) / base
+                \State array\(_k \leftarrow array_k\) mod base
 
                 \State i \(\leftarrow\) i - 1
                 \State k \(\leftarrow\) k - 1
             \EndWhile
 
             \While{j \(≥\) 0}
-                \State \(result_k \leftarrow b_j\) + remainder
-                \State remainder \(\leftarrow result_k\) / base
-                \State \(result_k \leftarrow result_k\) mod base
+                \State array\(_k \leftarrow b_j\) + remainder
+                \State remainder \(\leftarrow array_k\) / base
+                \State array\(_k \leftarrow array_k\) mod base
 
                 \State j \(\leftarrow\) j - 1
                 \State k \(\leftarrow\) k - 1
@@ -475,13 +475,13 @@ The third parameter is the integers' base.
 
             \If{remainder \(>\) 0}
                 \State sizeC \(\leftarrow\) sizeC + 1
-                \State \(temp\_result \leftarrow createArray<Character>(sizeC\)
-                \State \(temp\_result_0 \leftarrow\) remainder
-                \State memcpy(temp\_result + 1, result, (sizeC - 1) \(×\) size(char))
-                \State \(result \leftarrow temp\_result\)
+                \State temp\_array \(\leftarrow createArray<Character>(sizeC)\)
+                \State temp\_array\(_0 \leftarrow\) remainder
+                \State memcpy(temp\_array + 1, array, (sizeC - 1) \(×\) size(char))
+                \State array \(\leftarrow\) temp\_array
             \EndIf
 
-            \State BigInteger bigIntegerResult = createBigInteger(result, sizeC)
+            \State BigInteger result = createBigInteger(array, sizeC)
 
             \State sumBinary \(\leftarrow\) result
         \EndFunction
@@ -509,12 +509,15 @@ the corresponding results as an integer (\emph{BigInteger}) represented in the b
 
     \begin{algorithmic}
         \Function{sumIntegerList}{\(l\) : BaseNIntegerList} : \emph{BigInteger}
-            \State \emph{BigInteger} sum \(\leftarrow createArray<Character>(1)\)
-            \State value(sum)\(_0 \leftarrow\) 0
+            \State array \(\leftarrow createArray<Character>(1)\)
+            \State array\(_0 \leftarrow\) 0
+            \State sum \(\leftarrow\) createBigInteger(array, 1)
 
             \State BaseNIntegerElement el \(\leftarrow\) head(l)
             \While{el \(\neq\) undefined}
+                \State old\_int \(\leftarrow\) sum
                 \State sum \(\leftarrow\) sumBaseNIntegers(sum, value(el), base(l))
+                \State deleteBigInteger(old\_int) // avoid memory leak.
                 \State el \(\leftarrow\) next(el)
             \EndWhile
 
@@ -625,12 +628,10 @@ creates a BaseNIntegerListOfList for storing list of integers in base N (N being
     \caption{createBucketList algorithm}
 
     \begin{algorithmic}
-        \Function{createBucketList}{base : Integer} : BaseNIntegerListOfList
-
-            \State bucketList \(\leftarrow \) create(BaseNIntegerListOfList)
-            \State base(bucketList) \(\leftarrow \) base
-            \State createBucketList \(\leftarrow \) bucketList
-
+        \Function{createBucketList}{base : \emph{Integer}} : BaseNIntegerListOfList
+            \State bucketList \(\leftarrow\) create(BaseNIntegerListOfList)
+            \State base(bucketList) \(\leftarrow\) base
+            \State createBucketList \(\leftarrow\) bucketList
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
