@@ -641,6 +641,23 @@ creates a \emph{BaseNIntegerListOfList} for storing list of integers in base N (
     \end{algorithmic}
 \end{algorithm}
 
+\emph{addIntegerIntoBucket}: \emph{BaseNIntegerListOfList} \(×\) \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerListOfList},
+adds a new integer (\emph{BigInteger}) at the end of the specified list in bucket N (N being the third parameter between 0 and base of the integers less 1).
+\ref{algo:basenintegerlistoflist-add-integer-into-bucket} is the corresponding algorithm.
+
+\begin{algorithm}[H]
+    \caption{addIntegerIntoBucket algorithm}
+    \label{algo:basenintegerlistoflist-add-integer-into-bucket}
+
+    \begin{algorithmic}
+        \Function{addIntegerIntoBucket}{lol : \emph{BaseNIntegerListOfList}, v : \emph{BigInteger}, N : \emph{Integer}} : \emph{BaseNIntegerListOfList}
+            \State // assert(\(N < base(lol)\))
+            \State array(lol)\(_N\) \(\leftarrow\) insertTail(array(lol)\(_N\), v)
+            \State addIntegerIntoBucket \(\leftarrow\) lol
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
 \emph{buildBucketList}: \emph{BaseNIntegerList} \(×\) \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerListOfList},
 builds a new \emph{BaseNIntegerListOfList} according to the specified \emph{BaseNIntegerList} and considering
 the specified digit position (second parameter) (rightmost).
@@ -664,19 +681,28 @@ the specified digit position (second parameter) (rightmost).
     \end{algorithmic}
 \end{algorithm}
 
-\emph{addIntegerIntoBucket}: \emph{BaseNIntegerListOfList} \(×\) \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerListOfList},
-adds a new integer (\emph{BigInteger}) at the end of the specified list in bucket N (N being the third parameter between 0 and base of the integers less 1).
-\ref{algo:basenintegerlistoflist-add-integer-into-bucket} is the corresponding algorithm.
+\emph{buildIntegerList}: \emph{BaseNIntegerListOfList} \(\rightarrow\) \emph{BaseNIntegerList},
+builds a new \emph{BaseNIntegerList} from the specified \emph{BaseNIntegerListOfList}
+(respecting the ascending order on the buckets).
+\ref{algo:basenintegerlistoflist-build-integer-list} is the corresponding algorithm.
 
 \begin{algorithm}[H]
-    \caption{addIntegerIntoBucket algorithm}
-    \label{algo:basenintegerlistoflist-add-integer-into-bucket}
+    \caption{buildIntegerList algorithm}
+    \label{algo:basenintegerlistoflist-build-integer-list}
 
     \begin{algorithmic}
-        \Function{addIntegerIntoBucket}{lol : \emph{BaseNIntegerListOfList}, v : \emph{BigInteger}, N : \emph{Integer}} : \emph{BaseNIntegerListOfList}
-            \State // assert(\(N < base(lol)\))
-            \State array(lol)\(_N\) \(\leftarrow\) insertTail(array(lol)\(_N\), v)
-            \State addIntegerIntoBucket \(\leftarrow\) lol
+        \Function{buildIntegerList}{lol : \emph{BaseNIntegerListOfList}} : \emph{BaseNIntegerList}
+            \State l \(\leftarrow\) createIntegerList(base(lol))
+
+            \For{i from 0 to base(lol) - 1}
+                \State el \(\leftarrow\) head(array(lol)\(_i\))
+                \While{el != undefined}
+                    \State l \(\leftarrow\) insertTail(l, value(el))
+                    \State el \(\leftarrow\) next(el)
+                \EndWhile
+            \EndFor
+
+            \State buildIntegerList \(\leftarrow\) l
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
