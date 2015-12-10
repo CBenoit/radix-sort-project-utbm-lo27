@@ -32,11 +32,11 @@ Read [license](license.txt) file.
 
 ## Compiling
 
-In order to compile this software, using c99 is a compulsory.
+In order to compile this software, using c90 is a compulsory.
 
 Open a command line prompt and go to the software directory.
 
-``$ cd /path/to/mirai/project/``
+``$ cd /path/to/radix/sort/project/``
 
 Then, run the make program:
 
