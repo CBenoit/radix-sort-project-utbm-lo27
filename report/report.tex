@@ -650,7 +650,7 @@ creates a \emph{BaseNIntegerListOfList} for storing list of integers in base N (
 \separator
 
 \emph{addIntegerIntoBucket}: \emph{BaseNIntegerListOfList} \(×\) \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerListOfList},
-adds a new integer (\emph{BigInteger}) at the end of the specified list in bucket N (N being the third parameter between 0 and base of the integers less 1).
+adds a new integer (\emph{BigInteger}) at the end of the specified list in bucket index (index being the third parameter between 0 and base of the integers less 1).
 \ref{algo:basenintegerlistoflist-add-integer-into-bucket} is the corresponding algorithm.
 
 \begin{algorithm}[H]
@@ -658,9 +658,9 @@ adds a new integer (\emph{BigInteger}) at the end of the specified list in bucke
     \label{algo:basenintegerlistoflist-add-integer-into-bucket}
 
     \begin{algorithmic}
-        \Function{addIntegerIntoBucket}{lol : \emph{BaseNIntegerListOfList}, v : \emph{BigInteger}, N : \emph{Integer}} : \emph{BaseNIntegerListOfList}
-            \State // assert(\(N < base(lol)\))
-            \State array(lol)\(_N\) \(\leftarrow\) insertTail(array(lol)\(_N\), v)
+        \Function{addIntegerIntoBucket}{lol : \emph{BaseNIntegerListOfList}, v : \emph{BigInteger}, index : \emph{Integer}} : \emph{BaseNIntegerListOfList}
+            \State // assert(\(index < base(lol)\))
+            \State array(lol)\(_index\) \(\leftarrow\) insertTail(array(lol)\(_index\), v)
             \State addIntegerIntoBucket \(\leftarrow\) lol
         \EndFunction
     \end{algorithmic}
@@ -682,7 +682,12 @@ the specified digit position (second parameter) (rightmost).
             \State lol \(\leftarrow\) createBucketList(base(l))
             \State el \(\leftarrow\) head(l)
             \While{next(el) != undefined}
-                \State lol \(\leftarrow\) addIntegerIntoBucket(lol, value(el), position)
+                \State bucketIndex \(\leftarrow\) 0
+                \If{position \(<\) size(value(el))}
+                    \State bucketIndex \(\leftarrow\) value(value(el))\(_{size(value(el)) - position - 1}\)
+                \EndIf
+
+                \State lol \(\leftarrow\) addIntegerIntoBucket(lol, value(el), bucketIndex)
                 \State el \(\leftarrow\) next(el)
             \EndWhile
 
@@ -744,7 +749,34 @@ memory).
 
 \section{Radix sort}
 
-…
+\emph{radixSort}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{BaseNIntegerList},
+sorts the specified \emph{BaseNIntegerList} using radix sort.
+\ref{algo:basenintegerlistoflist-radix-sort} is the corresponding algorithm.
+
+\begin{algorithm}[H]
+    \caption{radixSort algorithm}
+    \label{algo:basenintegerlistoflist-radix-sort}
+
+    \begin{algorithmic}
+        \Function{radixSort}{l : \emph{BaseNIntegerList}} : \emph{BaseNIntegerList}
+            \State maxIterations \(\leftarrow\) 0
+            \State el \(\leftarrow\) head(l)
+            \While{el != undefined}
+                \State maxIterations \(\leftarrow\) max(maxIterations, size(value(el)) - 1)
+                \State el \(\leftarrow\) next(el)
+            \EndWhile
+
+            \For{i from 0 to maxIterations}
+                \State bucketList \(\leftarrow\) buildBucketList(l, i)
+                \State deleteIntegerList(l)
+                \State l \(\leftarrow\) buildIntegerList(bucketList)
+                \State deleteBucketList(bucketList)
+            \EndFor
+
+            \State radixSort \(\leftarrow\) l
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
 
 \chapter{Optimizations}
 
