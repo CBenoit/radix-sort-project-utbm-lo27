@@ -45,6 +45,8 @@
 \DeclareUnicodeCharacter{2265}{\geq}
 \DeclareUnicodeCharacter{2264}{\geq}
 
+\newcommand{\separator}{\centerline{********************}}
+
 \begin{document}
 
 \chapter{Introduction}
@@ -184,7 +186,7 @@ This list will be implemented using a doubly linked-list.
     \end{algorithmic}
 \end{algorithm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\separator
 
 \emph{isEmpty}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{Boolean},
 returns true if the specified list is empty, false otherwise.
@@ -205,7 +207,7 @@ returns true if the specified list is empty, false otherwise.
     \end{algorithmic}
 \end{algorithm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\separator
 
 \emph{insertHead}: \emph{BaseNIntegerList} \(×\) \emph{BigInteger} \(\rightarrow\) \emph{BaseNIntegerList},
 adds the specified integer (\emph{BigInteger}, represented in the considered base) at the beginning
@@ -247,7 +249,7 @@ of the specified list.
     \end{algorithmic}
 \end{algorithm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\separator
 
 \emph{insertTail}: \emph{BaseNIntegerList} \(×\) \emph{BigInteger} \(\rightarrow\) \emph{BaseNIntegerList},
 adds the specified integer (\emph{BigInteger}, represented in the considered base) at the end
@@ -289,7 +291,7 @@ of the specified list.
     \end{algorithmic}
 \end{algorithm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\separator
 
 \emph{removeHead}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{BaseNIntegerList},
 removes the first element of the specified list.
@@ -328,7 +330,7 @@ removes the first element of the specified list.
     \end{algorithmic}
 \end{algorithm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\separator
 
 \emph{removeTail}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{BaseNIntegerList},
 removes the last element of the specified list.
@@ -367,7 +369,7 @@ removes the last element of the specified list.
     \end{algorithmic}
 \end{algorithm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\separator
 
 \emph{deleteBaseNIntegerElement}: \emph{BaseNIntegerElement} \(\rightarrow\) \(\emptyset\),
 free from the memory the specified BaseNIntegerElement.
@@ -385,7 +387,7 @@ free from the memory the specified BaseNIntegerElement.
     \end{algorithmic}
 \end{algorithm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\separator
 
 \emph{deleteIntegerList}: \emph{BaseNIntegerList} \(\rightarrow\) \(\emptyset\),
 clears and deletes the specified BaseNIntegerList.
@@ -415,7 +417,7 @@ clears and deletes the specified BaseNIntegerList.
     \end{algorithmic}
 \end{algorithm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\separator
 
 \emph{sumBaseNIntegers}: \emph{BigInteger} \(×\) \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{\(Array<Character>\)},
 sums two integers defined in the given base (without any conversion).
@@ -488,7 +490,7 @@ The third parameter is the integers' base.
 
 Assumption: \emph{max} is a function that returns the maximum value between the given two.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\separator
 
 \emph{sumIntegerList}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{BigInteger},
 sums all the integers defined in the specified list using the binary addition and returns
@@ -524,7 +526,7 @@ the corresponding results as an integer (\emph{BigInteger}) represented in the b
     \end{algorithmic}
 \end{algorithm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\separator
 
 \emph{baseNToDecimal}: \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{Integer},
 converts the specified integer (\emph{BigInteger} represented with the specified base (Integer, second parameter)) into a corresponding integer in base 10.
@@ -553,7 +555,7 @@ converts the specified integer (\emph{BigInteger} represented with the specified
     \end{algorithmic}
 \end{algorithm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\separator
 
 \emph{decimalToBaseN}: \emph{Integer} \(\rightarrow\) \emph{BigInteger},
 converts the specified integer represented in base 10 into a corresponding integer (\(Array<Character>\)) in base K.
@@ -593,6 +595,8 @@ converts the specified integer represented in base 10 into a corresponding integ
     \end{algorithmic}
 \end{algorithm}
 
+\separator
+
 \begin{algorithm}[H]
     \caption{convertBaseToBinary algorithm}
     \label{algo:basenintegerlist-convert-base-to-binary}
@@ -603,6 +607,8 @@ converts the specified integer represented in base 10 into a corresponding integ
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
+\separator
 
 \begin{algorithm}[H]
     \caption{convertBinaryToBase algorithm}
@@ -641,6 +647,8 @@ creates a \emph{BaseNIntegerListOfList} for storing list of integers in base N (
     \end{algorithmic}
 \end{algorithm}
 
+\separator
+
 \emph{addIntegerIntoBucket}: \emph{BaseNIntegerListOfList} \(×\) \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerListOfList},
 adds a new integer (\emph{BigInteger}) at the end of the specified list in bucket N (N being the third parameter between 0 and base of the integers less 1).
 \ref{algo:basenintegerlistoflist-add-integer-into-bucket} is the corresponding algorithm.
@@ -657,6 +665,8 @@ adds a new integer (\emph{BigInteger}) at the end of the specified list in bucke
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
+\separator
 
 \emph{buildBucketList}: \emph{BaseNIntegerList} \(×\) \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerListOfList},
 builds a new \emph{BaseNIntegerListOfList} according to the specified \emph{BaseNIntegerList} and considering
@@ -680,6 +690,8 @@ the specified digit position (second parameter) (rightmost).
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
+\separator
 
 \emph{buildIntegerList}: \emph{BaseNIntegerListOfList} \(\rightarrow\) \emph{BaseNIntegerList},
 builds a new \emph{BaseNIntegerList} from the specified \emph{BaseNIntegerListOfList}
@@ -707,6 +719,8 @@ builds a new \emph{BaseNIntegerList} from the specified \emph{BaseNIntegerListOf
     \end{algorithmic}
 \end{algorithm}
 
+\separator
+
 \emph{deleteBucketList}: \emph{BaseNIntegerListOfList} \(\rightarrow \emptyset\),
 clears and deletes the specified \emph{BaseNIntegerListOfList} (free the previously allocated
 memory).
@@ -727,6 +741,7 @@ memory).
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
 \section{Radix sort}
 
 …
