@@ -628,8 +628,38 @@ creates a \emph{BaseNIntegerListOfList} for storing list of integers in base N (
     \begin{algorithmic}
         \Function{createBucketList}{base : \emph{Integer}} : BaseNIntegerListOfList
             \State bucketList \(\leftarrow\) create(BaseNIntegerListOfList)
+
             \State base(bucketList) \(\leftarrow\) base
+
+            \State array(bucketList) \(\leftarrow createArray<BaseNIntegerList>\)(base)
+            \For{i from 0 to base - 1}
+                \State array(bucketList)\(_i\) \(\leftarrow\) createIntegerList(base)
+            \EndFor
+
             \State createBucketList \(\leftarrow\) bucketList
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\emph{buildBucketList}: \emph{BaseNIntegerList} \(×\) \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerListOfList},
+builds a new \emph{BaseNIntegerListOfList} according to the specified \emph{BaseNIntegerList} and considering
+the specified digit position (second parameter) (rightmost).
+\ref{algo:basenintegerlistoflist-build-bucket-list} is the corresponding algorithm.
+
+\begin{algorithm}[H]
+    \caption{buildBucketList algorithm}
+    \label{algo:basenintegerlistoflist-build-bucket-list}
+
+    \begin{algorithmic}
+        \Function{buildBucketList}{l : \emph{BaseNIntegerList}, position : \emph{Integer}} : \emph{BaseNIntegerListOfList}
+            \State lol \(\leftarrow\) createBucketList(base(l))
+            \State el \(\leftarrow\) head(l)
+            \While{next(el) != undefined}
+                \State lol \(\leftarrow\) addIntegerIntoBucket(lol, value(el), position)
+                \State el \(\leftarrow\) next(el)
+            \EndWhile
+
+            \State buildBucketList \(\leftarrow\) lol
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
