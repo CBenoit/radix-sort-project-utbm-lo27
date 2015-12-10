@@ -74,7 +74,7 @@ typedef struct BaseNIntegerListElement {
  * @brief Defines a list of BigInteger in a base N.
  *
  * A BaseNIntegerList is a linked list of BigInteger.
- * The base of the numbers should be inferior or equal to 16.
+ * The integers' base should be inferior or equal to 16.
  *
  */
 typedef struct {
@@ -82,7 +82,7 @@ typedef struct {
     BaseNIntegerListElement* tail; /*!< The tail of the list. */
     int size; /*!< Size of the list. */
 
-    int base; /*!< Base of integers in this list. base ≤ 16 */
+    int base; /*!< integers' base in this list. base ≤ 16 */
 
 } BaseNIntegerList;
 
@@ -90,7 +90,7 @@ typedef struct {
  * @brief Creates a BaseNIntegerList.
  * @details Creates a new empty BaseNIntegerList for storing integers in the specified base and initialize the fields.
  *
- * @param base base of the numbers.
+ * @param base numbers' base.
  * @return A new empty list.
  */
 BaseNIntegerList createIntegerList(int base);
@@ -163,7 +163,7 @@ void deleteBaseNIntegerListElement(BaseNIntegerListElement* element);
  *
  * @param a a BigInteger in the base @p baseN
  * @param b a BigInteger in the base @p baseN
- * @param baseN base of integers.
+ * @param baseN integer's base.
  * @return A BigInteger containing the result.
  */
 BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int baseN);
