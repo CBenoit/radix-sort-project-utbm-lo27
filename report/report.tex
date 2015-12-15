@@ -176,7 +176,7 @@ This list will be implemented using a doubly linked-list.
 
     \begin{algorithmic}
         \Function{copyBigInteger}{intToCopy : \emph{BigInteger}} : \(\emptyset\)
-            \State value \(\leftarrow\) createArray<Character>(size(intToCopy))
+        \State value \(\leftarrow createArray<Character>(size(intToCopy))\)
             \State memcpy(value, value(intToCopy), size(intToCopy) \(×\) sizeof(Character))
             \State copyBigInteger \(\leftarrow\) createBigInteger(value, size(intToCopy))
         \EndFunction
