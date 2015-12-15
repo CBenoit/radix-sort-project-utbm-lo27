@@ -94,3 +94,12 @@ BaseNIntegerList buildIntegerList(BaseNIntegerListOfList listOfList) {
 
     return list;
 }
+
+void deleteBucketList(BaseNIntegerListOfList list) {
+    int i = 0;
+    for (; i < list.base - 1; ++i) {
+        deleteIntegerList(list.array[i]);
+    }
+
+    free(lol.array);
+}
