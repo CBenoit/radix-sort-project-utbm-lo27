@@ -31,7 +31,9 @@
 #include <stdlib.h> // malloc
 #include <assert.h> // assert
 
-#include <BaseNIntegerList.h> // createIntegerList
+#include <utils.h> // fmaxi
+
+#include <BaseNIntegerList.h> // BaseNIntegerListElement, BaseNIntegerList, createIntegerList
 #include <BaseNIntegerListOfList.h>
 
 BaseNIntegerListOfList createBucketList(int base) {
@@ -102,4 +104,25 @@ void deleteBucketList(BaseNIntegerListOfList list) {
     }
 
     free(lol.array);
+}
+
+BaseNIntegerList radixSort(BaseNIntegerList list) {
+    int maxIterations = 0;
+    BaseNIntegerListElement* element = list.head;
+
+    while (element != NULL) {
+        maxIterations = fmaxi(maxIterations, el->value.size - 1);
+        el = el->next;
+    }
+
+    BaseNIntegerListOfList bucketList;
+    int i = 0;
+    for (; i < maxIterations; ++i) {
+        bucketList = buildBucketList(list, i);
+        deleteIntegerList(list);
+        list = buildIntegerList(bucketList);
+        deleteBucketList(bucketList);
+    }
+
+    return list;
 }
