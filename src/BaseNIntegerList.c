@@ -30,6 +30,7 @@
 
 #include <stdlib.h> // NULL, malloc
 #include <stdbool.h> // bool
+#include <string.h> // memcpy
 
 #include <BaseNIntegerList.h>
 
@@ -39,6 +40,12 @@ BigInteger createBigInteger(char* value, int size) {
     integer.size = size;
 
     return integer;
+}
+
+BigInteger copyBigInteger(BigInteger intToCopy) {
+    char* value = (char*)malloc(intToCopy.size * sizeof(char));
+    memcpy(value, intToCopy.value, intToCopy.size * sizeof(char));
+    return createBigInteger(value, intToCopy.size);
 }
 
 BaseNIntegerList createIntegerList(int base) {

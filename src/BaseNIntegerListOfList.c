@@ -71,7 +71,7 @@ BaseNIntegerListOfList buildBucketList(BaseNIntegerList list, int position) {
             bucketIndex = el->value.value[el->value.size - position - 1];
         }
 
-        listOfList = addIntegerIntoBucket(listOfList, el->value, bucketIndex); // FIXME: copy BigInteger
+        listOfList = addIntegerIntoBucket(listOfList, copyBigInteger(el->value), bucketIndex);
         el = el->next;
     }
 
@@ -87,7 +87,7 @@ BaseNIntegerList buildIntegerList(BaseNIntegerListOfList listOfList) {
         element = listOfList.array[i].head;
 
         while (el != NULL) {
-            list = insertTail(l, el->value); // FIXME: copy BigInteger
+            list = insertTail(l, copyBigInteger(el->value));
             el = el->next;
         }
     }
