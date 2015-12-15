@@ -164,10 +164,31 @@ This list will be implemented using a doubly linked-list.
 
 …
 
+\section{BigInteger}
+
+\emph{copyBigInteger}: \emph{BigInteger} \(\rightarrow \emptyset\),
+    returns a copy of the given \emph{BigInteger}.
+    \ref{algo:basenintegerlist-copy-big-integer} is the corresponding algorithm.
+
+\begin{algorithm}[H]
+    \caption{copyBigInteger algorithm}
+    \label{algo:basenintegerlist-copy-big-integer}
+
+    \begin{algorithmic}
+        \Function{copyBigInteger}{intToCopy : \emph{BigInteger}} : \(\emptyset\)
+            \State value \(\leftarrow\) createArray<Character>(size(intToCopy))
+            \State memcpy(value, value(intToCopy), size(intToCopy) \(×\) sizeof(Character))
+            \State copyBigInteger \(\leftarrow\) createBigInteger(value, size(intToCopy))
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+Assumption: \emph{sizeof} returns the size taken in memory by the given type.
+
 \section{BaseNIntegerList}
 
 \emph{createIntegerList}: \emph{Integer} \(\rightarrow\) \emph{BaseNIntegerList},
-    create a new empty \emph{BaseNIntegerList} for storing integers in the specified base.
+    creates a new empty \emph{BaseNIntegerList} for storing integers in the specified base.
     \ref{algo:basenintegerlist-create-integer-list} is the corresponding algorithm.
 
 \begin{algorithm}[H]
@@ -477,7 +498,7 @@ The third parameter is the integers' base.
                 \State sizeC \(\leftarrow\) sizeC + 1
                 \State temp\_array \(\leftarrow createArray<Character>(sizeC)\)
                 \State temp\_array\(_0 \leftarrow\) remainder
-                \State memcpy(temp\_array + 1, array, (sizeC - 1) \(×\) size(char))
+                \State memcpy(temp\_array + 1, array, (sizeC - 1) \(×\) sizeof(Character))
                 \State array \(\leftarrow\) temp\_array
             \EndIf
 
@@ -489,6 +510,7 @@ The third parameter is the integers' base.
 \end{algorithm}
 
 Assumption: \emph{max} is a function that returns the maximum value between the given two.
+\emph{sizeof} returns the size taken in memory by the given type.
 
 \separator
 
@@ -660,7 +682,7 @@ adds a new integer (\emph{BigInteger}) at the end of the specified list in bucke
     \begin{algorithmic}
         \Function{addIntegerIntoBucket}{lol : \emph{BaseNIntegerListOfList}, v : \emph{BigInteger}, index : \emph{Integer}} : \emph{BaseNIntegerListOfList}
             \State // assert(\(index < base(lol)\))
-            \State array(lol)\(_index\) \(\leftarrow\) insertTail(array(lol)\(_index\), v)
+            \State array(lol)\(_{index}\) \(\leftarrow\) insertTail(array(lol)\(_{index}\), v)
             \State addIntegerIntoBucket \(\leftarrow\) lol
         \EndFunction
     \end{algorithmic}
@@ -687,7 +709,7 @@ the specified digit position (second parameter) (rightmost).
                     \State bucketIndex \(\leftarrow\) value(value(el))\(_{size(value(el)) - position - 1}\)
                 \EndIf
 
-                \State lol \(\leftarrow\) addIntegerIntoBucket(lol, value(el), bucketIndex)
+                \State lol \(\leftarrow\) addIntegerIntoBucket(lol, copyBigInteger(value(el)), bucketIndex)
                 \State el \(\leftarrow\) next(el)
             \EndWhile
 
@@ -714,7 +736,7 @@ builds a new \emph{BaseNIntegerList} from the specified \emph{BaseNIntegerListOf
             \For{i from 0 to base(lol) - 1}
                 \State el \(\leftarrow\) head(array(lol)\(_i\))
                 \While{el != undefined}
-                    \State l \(\leftarrow\) insertTail(l, value(el))
+                \State l \(\leftarrow\) insertTail(l, copyBigInteger(value(el)))
                     \State el \(\leftarrow\) next(el)
                 \EndWhile
             \EndFor
@@ -738,9 +760,7 @@ memory).
     \begin{algorithmic}
         \Function{deleteBucketList}{lol : \emph{BaseNIntegerListOfList}} : \(\emptyset\)
             \For{i from 0 to base(lol) - 1}
-                \State // Doesn't use deleteIntegerList because it would also
-                \State // free the BigInteger's value that should be still used by other lists' BigInteger.
-                \State free(array(lol)\(_i\))
+                \State deleteIntegerList(array(lol)\(_i\))
             \EndFor
             \State free(array(lol))
         \EndFunction
@@ -752,6 +772,8 @@ memory).
 \emph{radixSort}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{BaseNIntegerList},
 sorts the specified \emph{BaseNIntegerList} using radix sort.
 \ref{algo:basenintegerlistoflist-radix-sort} is the corresponding algorithm.
+
+Principle: …
 
 \begin{algorithm}[H]
     \caption{radixSort algorithm}
