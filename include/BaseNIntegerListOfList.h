@@ -109,3 +109,5 @@ void deleteBucketList(BaseNIntegerListOfList list);
  * @return The given list sorted.
  */
 BaseNIntegerList radixSort(BaseNIntegerList list);
+
+#endif // BASE_NINTEGER_LIST_OF_LIST_H

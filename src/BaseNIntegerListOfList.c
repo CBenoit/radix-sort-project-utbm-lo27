@@ -28,3 +28,69 @@
 //
 //////////////////////////////////////////////////////////////////////////
 
+#include <stdlib.h> // malloc
+#include <assert.h> // assert
+
+#include <BaseNIntegerList.h> // createIntegerList
+#include <BaseNIntegerListOfList.h>
+
+BaseNIntegerListOfList createBucketList(int base) {
+    BaseNIntegerListOfList bucketList;
+
+    bucketList.base = base;
+    bucketList.array = BaseNIntegerListOfList[base];
+
+    int i = 0;
+
+    for (; i < base -1; ++i) {
+        bucketList.array[i] = createIntegerList(base);
+    }
+
+    return bucketList;
+}
+
+BaseNIntegerListOfList addIntegerIntoBucket(BaseNIntegerListOfList list,
+        BigInteger integer,
+        int index) {
+    assert(index < list.base);
+
+    list.array[index] = insertTail(list.array[index], v);
+
+    return list;
+}
+
+BaseNIntegerListOfList buildBucketList(BaseNIntegerList list, int position) {
+    BaseNIntegerListOfList list = createBucketList(l.base);
+    BaseNIntegerListElement* el = list.head;
+
+    int bucketIndex;
+    while (el->next != NULL) {
+        bucketList = 0;
+
+        if (position < el->value.size) {
+            bucketIndex = el->value.value[el->value.size - position - 1];
+        }
+
+        listOfList = addIntegerIntoBucket(listOfList, el->value, bucketIndex); // FIXME: copy BigInteger
+        el = el->next;
+    }
+
+    return listOfList;
+}
+
+BaseNIntegerList buildIntegerList(BaseNIntegerListOfList listOfList) {
+    BaseNIntegerList list = createIntegerList(listOfList.base);
+
+    BaseNIntegerListElement* element;
+    int i = 0;
+    for (; i < lol.base - 1; ++i) {
+        element = listOfList.array[i].head;
+
+        while (el != NULL) {
+            list = insertTail(l, el->value); // FIXME: copy BigInteger
+            el = el->next;
+        }
+    }
+
+    return list;
+}
