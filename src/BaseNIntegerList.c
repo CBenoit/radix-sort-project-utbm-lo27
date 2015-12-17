@@ -144,9 +144,9 @@ void deleteBaseNIntegerListElement(BaseNIntegerListElement* element) {
     free(element);
 }
 
-void deleteBaseNIntegerList(BaseNIntegerList list) {
-    if (!isEmpty(list)) {
-        BaseNIntegerListElement* old_el = list.head;
+void deleteBaseNIntegerList(BaseNIntegerList* list) {
+    if (!isEmpty(*list)) {
+        BaseNIntegerListElement* old_el = list->head;
         BaseNIntegerListElement* next_el;
 
         while (old_el->next != NULL) {
