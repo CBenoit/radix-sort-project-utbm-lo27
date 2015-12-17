@@ -4,12 +4,12 @@
 * @Last Modified by:   Jérôme BOULMIER
 * @Last Modified time: 2015-04-28 13:13:20
 */
-#include <stdio.h> // scanf, printf, EOF, fgets
-#include <stdbool.h> // bool
-#include <string.h> // strchr
-#include <ctype.h> // toupper, tolower
+#include <stdio.h> /* scanf, printf, EOF, fgets */
+#include <stdbool.h> /* bool */
+#include <string.h> /* strchr */
+#include <ctype.h> /* toupper, tolower */
 
-#include <acquisition.h>
+#include <input.h>
 
 void clean_stdin()
 {
