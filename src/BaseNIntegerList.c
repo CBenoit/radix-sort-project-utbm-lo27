@@ -30,23 +30,9 @@
 
 #include <stdlib.h> // NULL, malloc
 #include <stdbool.h> // bool
-#include <string.h> // memcpy
 
+#include <BigInteger.h> // BigInteger, deleteBigInteger
 #include <BaseNIntegerList.h>
-
-BigInteger createBigInteger(char* value, int size) {
-    BigInteger integer;
-    integer.value = value;
-    integer.size = size;
-
-    return integer;
-}
-
-BigInteger copyBigInteger(BigInteger intToCopy) {
-    char* value = (char*)malloc(intToCopy.size * sizeof(char));
-    memcpy(value, intToCopy.value, intToCopy.size * sizeof(char));
-    return createBigInteger(value, intToCopy.size);
-}
 
 BaseNIntegerList createIntegerList(int base) {
     BaseNIntegerList list;
@@ -147,12 +133,8 @@ BaseNIntegerList removeTail(BaseNIntegerList list) {
     return list;
 }
 
-void deleteBigInteger(BigInteger* value) {
-    free(value->value);
-    value->value = NULL;
-}
-
 void deleteBaseNIntegerListElement(BaseNIntegerListElement* element) {
-    deleteInteger(&(element->value));
+    deleteBigInteger(&(element->value));
     free(element);
 }
+

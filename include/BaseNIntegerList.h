@@ -38,21 +38,8 @@
  * constants and variables provided for implementing the
  * BaseNIntegerList Abstract Data Type.
  */
-#include <stdbool.h> // bool
 
-/**
- * @struct BigInteger
- * @brief A Big Integer
- *
- * In this structure, each digit of the number (in a base N) is stored in a single char
- * and put in an array of char (where a char is considered as an integer).
- * The size of the array is also stored in this structure.
- *
- */
-typedef struct {
-    char* value; /*!< Each digit is stored in a single char of this array */
-    int size; /*!< The number of digit of the number */
-} BigInteger;
+#include <stdbool.h> // bool
 
 /**
  * @struct BaseNIntegerListElement
