@@ -22,6 +22,8 @@ You can get the current development version from the git repository [on Github](
 + Platform: Linux
 + Compiler: gcc
 
+This software is c90-compliant.
+
 
 ## Copyright
 
@@ -32,7 +34,7 @@ Read [license](license.txt) file.
 
 ## Compiling
 
-In order to compile this software, using c90 is a compulsory.
+You may use the provided Makefile to build it.
 
 Open a command line prompt and go to the software directory.
 
