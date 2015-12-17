@@ -16,5 +16,7 @@
 *.o
 
 # Folders
+lib/*
 bin/*
 doc/*
+
