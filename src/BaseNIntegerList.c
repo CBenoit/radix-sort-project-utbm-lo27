@@ -92,11 +92,13 @@ BaseNIntegerList insertTail(BaseNIntegerList list, BigInteger number) {
 }
 
 BaseNIntegerList removeHead(BaseNIntegerList list) {
+    BaseNIntegerListElement* oldElement;
+
     if (isEmpty(list)) {
         return list;
     }
 
-    BaseNIntegerListElement* oldElement = list.head;
+    oldElement = list.head;
 
     list.head = list.head->next;
 
@@ -113,11 +115,13 @@ BaseNIntegerList removeHead(BaseNIntegerList list) {
 }
 
 BaseNIntegerList removeTail(BaseNIntegerList list) {
+    BaseNIntegerListElement* oldElement;
+
     if (isEmpty(list)) {
         return list;
     }
 
-    BaseNIntegerListElement* oldElement = list.tail;
+    oldElement = list.tail;
 
     list.tail = list.tail->prev;
 

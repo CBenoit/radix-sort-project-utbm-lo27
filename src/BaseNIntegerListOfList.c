@@ -34,18 +34,18 @@
 
 #include <utils.h> /* fmaxi */
 
+#include <BigInteger.h> /* BigInteger, copyBigInteger */
 #include <BaseNIntegerList.h> /* BaseNIntegerListElement, BaseNIntegerList, createIntegerList */
 #include <BaseNIntegerListOfList.h>
 
 BaseNIntegerListOfList createBucketList(int base) {
+    int i;
     BaseNIntegerListOfList bucketList;
 
     bucketList.base = base;
-    bucketList.array = BaseNIntegerListOfList[base];
+    bucketList.array = (BaseNIntegerList*)malloc(sizeof(BaseNIntegerList) * base);
 
-    int i = 0;
-
-    for (; i < base -1; ++i) {
+    for (i = 0; i < base -1; ++i) {
         bucketList.array[i] = createIntegerList(base);
     }
 

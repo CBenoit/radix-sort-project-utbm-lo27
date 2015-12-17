@@ -36,4 +36,4 @@
  */
 int fmaxi(int a, int b);
 
-#endif // UTILS_H
+#endif
