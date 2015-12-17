@@ -99,7 +99,7 @@ BaseNIntegerList buildIntegerList(BaseNIntegerListOfList list);
  *
  * @param list list to delete.
  */
-void deleteBucketList(BaseNIntegerListOfList list);
+void deleteBucketList(BaseNIntegerListOfList* list);
 
 /**
  * @brief Sorts an integer's list.

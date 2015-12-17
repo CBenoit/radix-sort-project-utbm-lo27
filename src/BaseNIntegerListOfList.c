@@ -98,13 +98,13 @@ BaseNIntegerList buildIntegerList(BaseNIntegerListOfList listOfList) {
     return list;
 }
 
-void deleteBucketList(BaseNIntegerListOfList list) {
+void deleteBucketList(BaseNIntegerListOfList* list) {
     int i = 0;
-    for (; i < list.base - 1; ++i) {
-        deleteBaseNIntegerList(list.array[i]);
+    for (; i < list->base - 1; ++i) {
+        deleteBaseNIntegerList(&(list->array[i]));
     }
 
-    free(list.array);
+    free(list->array);
 }
 
 BaseNIntegerList radixSort(BaseNIntegerList list) {
@@ -119,9 +119,10 @@ BaseNIntegerList radixSort(BaseNIntegerList list) {
 
     for (i = 0; i < maxIterations; ++i) {
         bucketList = buildBucketList(list, i);
-        deleteBaseNIntegerList(list);
+        deleteBaseNIntegerList(&list);
+
         list = buildIntegerList(bucketList);
-        deleteBucketList(bucketList);
+        deleteBucketList(&bucketList);
     }
 
     return list;

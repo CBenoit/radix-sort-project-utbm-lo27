@@ -172,7 +172,7 @@ void deleteBaseNIntegerListElement(BaseNIntegerListElement* element);
  *
  * @param list list to delete.
  */
-void deleteBaseNIntegerList(BaseNIntegerList list);
+void deleteBaseNIntegerList(BaseNIntegerList* list);
 
 /**
  * @fn BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base)
