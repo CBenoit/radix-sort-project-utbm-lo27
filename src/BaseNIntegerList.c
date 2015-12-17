@@ -208,3 +208,24 @@ BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base) {
 
     return createBigInteger(array, sizeC);
 }
+
+BigInteger sumIntegerList(BaseNIntegerList list) {
+    char* array = (char*)malloc(sizeof(char));
+    BigInteger sum, oldInt;
+    BaseNIntegerListElement* element;
+
+    array[0] = 0;
+
+    sum = createBigInteger(array, 1);
+    element = list.head;
+
+    while (element != NULL) {
+        oldInt = sum;
+        sum = sumBaseNIntegers(sum, element->value, list.base);
+        deleteBigInteger(&oldInt);
+
+        element = element->next;
+    }
+
+    return sum;
+}
