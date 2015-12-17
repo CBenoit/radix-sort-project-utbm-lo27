@@ -30,12 +30,21 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include<time.h> /* time */
 
 #include <input.h>
+#include <BaseNIntegerList.h>
+
+void enterNewList(BaseNIntegerList* lists, int* nbLists);
 
 int main(int argc, char *argv[])
 {
     int ans = -1;
+    int nbLists = 0;
+    BaseNIntegerList lists;
+
+    /* initialize random seed: */
+    srand(time(NULL));
 
     printf("~\t====================\t~\n");
     printf("~\tRadix Sort Project.\t~\n");
@@ -46,15 +55,46 @@ int main(int argc, char *argv[])
         printf("= Main menu =\n");
         printf("=============\n\n");
         printf("\t1. Enter a new list.\n");
-        printf("\t2. test BaseNIntegerList functions.\n");
+        printf("\t2. Test BaseNIntegerList functions.\n");
         printf("\t3. Test BaseNIntegerListOfList functions.\n");
         printf("\t4. Perform radix sort.\n\n");
 
         printf("\t0. Exit.\n");
 
         ans = getNumber(0, 4, "Choice ");
+
+        switch (ans) {
+        case 1:
+            enterNewList(&lists, &nbLists);
+            break;
+        default:
+            printf("Not implemented yet.\n");;
+            break;
+        }
     }
 
     return EXIT_SUCCESS;
+}
+
+void enterNewList(BaseNIntegerList* lists, int* nbLists) {
+    int ans = -1;
+
+    while (ans != 0) {
+        printf("=================\n");
+        printf("= New list menu =\n");
+        printf("=================\n\n");
+        printf("\t1. Generate (pseudo-)randomly.\n");
+        printf("\t2. Enter manually.\n");
+
+        printf("\t0. Back to main menu.\n");
+
+        ans = getNumber(0, 4, "Choice ");
+
+        switch (ans) {
+        default:
+            printf("Not implemented yet.\n");;
+            break;
+        }
+    }
 }
 

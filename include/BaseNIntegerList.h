@@ -40,6 +40,7 @@
  */
 
 #include <stdbool.h> /* bool */
+#include <BigInteger.h> /* BigInteger */
 
 /**
  * @struct BaseNIntegerListElement
