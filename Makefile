@@ -46,7 +46,7 @@ EXESOURCEOFILE = $(EXESOURCE:=.o)
 # Generating the executable
 $(TARGET): $(BIN_OUTPUT_DIR) $(EXESOURCEOFILE) $(LIBTARGET_INPUT) $(LIBTARGET_BIG_INTEGER) $(LIBTARGET_BASE_N_INTEGER_LIST) $(LIBTARGET_BASE_N_INTEGER_LIST_OF_LIST)
 	@echo "\n Generating the executable " $@
-	$(CXX) $(CFLAGS) $(EXESOURCEOFILE) $(LIBSDIR) -o $(BIN_OUTPUT_DIR)$(TARGET)
+	$(CXX) $(CFLAGS) $(EXESOURCEOFILE) -l$(LIBTARGET2_INPUT) -l$(LIBTARGET2_BIG_INTEGER) -l$(LIBTARGET2_BASE_N_INTEGER_LIST) -l$(LIBTARGET2_BASE_N_INTEGER_LIST_OF_LIST) $(LIBSDIR) -o $(BIN_OUTPUT_DIR)$(TARGET)
 
 # Running the program
 run: $(TARGET)
@@ -54,7 +54,7 @@ run: $(TARGET)
 	./run.sh $(TARGET)
 
 # Generating the BaseNIntegerListOfList library binary code
-$(LIBTARGET_BASE_N_INTEGER_LIST): $(LIB_OUTPUT_DIR) $(LIBSOURCEOFILE_BASE_N_INTEGER_LIST_OF_LIST) $(LIBTARGET_BIG_INTEGER) $(LIBTARGET_BASE_N_INTEGER_LIST) $(LIBTARGET_UTIL)
+$(LIBTARGET_BASE_N_INTEGER_LIST_OF_LIST): $(LIB_OUTPUT_DIR) $(LIBSOURCEOFILE_BASE_N_INTEGER_LIST_OF_LIST) $(LIBTARGET_BIG_INTEGER) $(LIBTARGET_BASE_N_INTEGER_LIST) $(LIBTARGET_UTIL)
 	@echo "\n Generating the library " $@
 	$(CXX) $(CFLAGS) -shared $(LIBSOURCEOFILE_BASE_N_INTEGER_LIST) $(LIBSDIR) -o $(LIB_OUTPUT_DIR)$(LIBTARGET_BASE_N_INTEGER_LIST_OF_LIST)
 
@@ -96,5 +96,5 @@ $(BIN_OUTPUT_DIR):
 # Cleaning the content of the current directory
 clean:
 	@echo "\n Cleaning temporary files"
-	rm -rf ./src/*.o ./input_lib/src/* *~ ./bin/* ./lib/*
+	rm -rf ./src/*.o ./input_lib/src/*.o *~ ./bin/* ./lib/*
 
