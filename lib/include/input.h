@@ -56,3 +56,4 @@ void lower(char* str);
 void upper(char*);
 
 #endif // LIB_ACQUISITION_H
+
