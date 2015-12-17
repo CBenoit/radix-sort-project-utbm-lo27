@@ -184,7 +184,7 @@ void deleteBaseNIntegerList(BaseNIntegerList list);
  * @param baseN integer's base.
  * @return A BigInteger containing the result.
  */
-BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int baseN);
+BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base);
 
 /**
  * @fn BigInteger sumIntegerList(BaseNIntegerList list)

@@ -30,7 +30,9 @@
 
 #include <stdlib.h> /* NULL, malloc */
 #include <stdbool.h> /* bool */
+#include <string.h> /* memcpy */
 
+#include <utils.h> /* fmaxi */
 #include <BigInteger.h> /* BigInteger, deleteBigInteger */
 #include <BaseNIntegerList.h>
 
@@ -156,3 +158,53 @@ void deleteBaseNIntegerList(BaseNIntegerList list) {
     }
 }
 
+BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base) {
+    int sizeA = a.size;
+    int sizeB = b.size;
+    int sizeC = fmaxi(sizeA, sizeB);
+
+    char* array = (char*)malloc(sizeof(char)*sizeC);
+    int remainder = 0;
+    int i = sizeA - 1;
+    int j = sizeB - 1;
+    int k = sizeC - 1;
+
+    while (i >= 0 && j >= 0) {
+        array[k] = a.value[i] + b.value[j] + remainder;
+        remainder = array[k] / base;
+        array[k] = array[k] % base;
+
+        --i;
+        --j;
+        --k;
+    }
+
+    while (i >= 0) {
+        array[k] = a.value[i] + remainder;
+        remainder = array[k] / base;
+        array[k] = array[k] % base;
+
+        --i;
+        --k;
+    }
+
+    while (j >= 0) {
+        array[k] = b.value[j] + remainder;
+        remainder = array[k] / base;
+        remainder = array[k] % base;
+    }
+
+    if (remainder > 0) {
+        char* tempArray;
+        sizeC++;
+
+        tempArray = (char*)malloc(sizeof(char)*sizeC);
+        tempArray[0] = remainder;
+        memcpy(tempArray + 1, array, (sizeC - 1) * sizeof(char));
+
+        free(array);
+        array = tempArray;
+    }
+
+    return createBigInteger(array, sizeC);
+}
