@@ -50,6 +50,6 @@ To run the program:
 
 or
 
-``$ ./run.sh``
+``$ ./run.sh radix-sort``
 
 

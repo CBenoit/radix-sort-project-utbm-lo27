@@ -54,29 +54,29 @@ run: $(TARGET)
 	./run.sh $(TARGET)
 
 # Generating the BaseNIntegerListOfList library binary code
-$(LIBTARGET_BASE_N_INTEGER_LIST_OF_LIST): $(LIB_OUTPUT_DIR) $(LIBSOURCEOFILE_BASE_N_INTEGER_LIST_OF_LIST) $(LIBTARGET_BIG_INTEGER) $(LIBTARGET_BASE_N_INTEGER_LIST) $(LIBTARGET_UTIL)
+$(LIBTARGET_BASE_N_INTEGER_LIST_OF_LIST): $(LIB_OUTPUT_DIR) $(LIBSOURCEOFILE_BASE_N_INTEGER_LIST_OF_LIST)
 	@echo "\n Generating the library " $@
-	$(CXX) $(CFLAGS) -shared $(LIBSOURCEOFILE_BASE_N_INTEGER_LIST) $(LIBSDIR) -o $(LIB_OUTPUT_DIR)$(LIBTARGET_BASE_N_INTEGER_LIST_OF_LIST)
+	$(CXX) $(CFLAGS) -shared $(LIBSOURCEOFILE_BASE_N_INTEGER_LIST) -o $(LIB_OUTPUT_DIR)$(LIBTARGET_BASE_N_INTEGER_LIST_OF_LIST)
 
 # Generating the BaseNIntegerList library binary code
-$(LIBTARGET_BASE_N_INTEGER_LIST): $(LIB_OUTPUT_DIR) $(LIBSOURCEOFILE_BASE_N_INTEGER_LIST) $(LIBTARGET_BIG_INTEGER) $(LIBTARGET_UTIL)
+$(LIBTARGET_BASE_N_INTEGER_LIST): $(LIB_OUTPUT_DIR) $(LIBSOURCEOFILE_BASE_N_INTEGER_LIST)
 	@echo "\n Generating the library " $@
-	$(CXX) $(CFLAGS) -shared $(LIBSOURCEOFILE_BASE_N_INTEGER_LIST) $(LIBSDIR) -o $(LIB_OUTPUT_DIR)$(LIBTARGET_BASE_N_INTEGER_LIST)
+	$(CXX) $(CFLAGS) -shared $(LIBSOURCEOFILE_BASE_N_INTEGER_LIST) -o $(LIB_OUTPUT_DIR)$(LIBTARGET_BASE_N_INTEGER_LIST)
 
 # Generating the BigInteger library binary code
 $(LIBTARGET_BIG_INTEGER): $(LIB_OUTPUT_DIR) $(LIBSOURCEOFILE_BIG_INTEGER)
 	@echo "\n Generating the library " $@
-	$(CXX) $(CFLAGS) -shared $(LIBSOURCEOFILE_BIG_INTEGER) $(LIBSDIR) -o $(LIB_OUTPUT_DIR)$(LIBTARGET_BIG_INTEGER)
+	$(CXX) $(CFLAGS) -shared $(LIBSOURCEOFILE_BIG_INTEGER) -o $(LIB_OUTPUT_DIR)$(LIBTARGET_BIG_INTEGER)
 
 # Generating the Input library binary code
 $(LIBTARGET_INPUT): $(LIB_OUTPUT_DIR) $(LIBSOURCEOFILE_INPUT)
 	@echo "\n Generating the library " $@
-	$(CXX) $(CFLAGS) -shared $(LIBSOURCEOFILE_INPUT) $(LIBSDIR) -o $(LIB_OUTPUT_DIR)$(LIBTARGET_INPUT)
+	$(CXX) $(CFLAGS) -shared $(LIBSOURCEOFILE_INPUT) -o $(LIB_OUTPUT_DIR)$(LIBTARGET_INPUT)
 
 # Generating the Util library binary code
 $(LIBTARGET_UTIL): $(LIB_OUTPUT_DIR) $(LIBSOURCEOFILE_UTIL)
 	@echo "\n Generating the library " $@
-	$(CXX) $(CFLAGS) -shared $(LIBSOURCEOFILE_UTIL) $(LIBSDIR) -o $(LIB_OUTPUT_DIR)$(LIBTARGET_UTIL)
+	$(CXX) $(CFLAGS) -shared $(LIBSOURCEOFILE_UTIL) -o $(LIB_OUTPUT_DIR)$(LIBTARGET_UTIL)
 
 # Creating the library output directory
 $(LIB_OUTPUT_DIR):
@@ -96,5 +96,5 @@ $(BIN_OUTPUT_DIR):
 # Cleaning the content of the current directory
 clean:
 	@echo "\n Cleaning temporary files"
-	rm -rf ./src/*.o ./input_lib/src/*.o *~ ./bin/* ./lib/*
+	rm -rf ./src/*.o ./input_lib/src/*.o *~ ./bin/ ./lib/
 
