@@ -156,6 +156,7 @@ BaseNIntegerList removeTail(BaseNIntegerList list);
  * @param integer integer to delete
  */
 void deleteBigInteger(BigInteger* integer);
+
 /**
  * @brief Deletes the given element.
  * @details Deletes the element after having deletes the value.
@@ -163,6 +164,14 @@ void deleteBigInteger(BigInteger* integer);
  * @param element element to delete.
  */
 void deleteBaseNIntegerListElement(BaseNIntegerListElement* element);
+
+/**
+ * @brief Deletes a list of Integers.
+ * @details Deletes list after having deletes the elements.
+ *
+ * @param list list to delete.
+ */
+void deleteBaseNIntegerList(BaseNIntegerList list);
 
 /**
  * @fn BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base)
