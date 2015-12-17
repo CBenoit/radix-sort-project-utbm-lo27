@@ -499,12 +499,11 @@ The third parameter is the integers' base.
                 \State temp\_array \(\leftarrow createArray<Character>(sizeC)\)
                 \State temp\_array\(_0 \leftarrow\) remainder
                 \State memcpy(temp\_array + 1, array, (sizeC - 1) \(×\) sizeof(Character))
+                \State free(array)
                 \State array \(\leftarrow\) temp\_array
             \EndIf
 
-            \State BigInteger result \(\leftarrow\) createBigInteger(array, sizeC)
-
-            \State sumBinary \(\leftarrow\) result
+            \State sumBinary \(\leftarrow\) createBigInteger(array, sizeC)
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
