@@ -30,7 +30,7 @@ int getNumber(int min, int max, const char* message)
         printf("%s\n>>> ", message);
         if (scanf("%d%*[^\n]", &answer) != 1)
         {
-            printf("Your number is invalide.\n");
+            printf("Invalid number.\n");
             clean_stdin();
         }
         else
@@ -107,3 +107,4 @@ void upper(char chaine[])
         ++i;
     }
 }
+

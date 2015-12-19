@@ -30,12 +30,18 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include<time.h> /* time */
+#include <time.h> /* time */
 
 #include <input.h>
 #include <BaseNIntegerList.h>
 
 void enterNewList(BaseNIntegerList* lists, int* nbLists);
+
+void testListFunctions(BaseNIntegerList* lists, int* nbLists);
+
+void testListOfListFunctions(BaseNIntegerList* lists, int* nbLists);
+
+void performRadixSort(BaseNIntegerList* lists, int* nbLists);
 
 int main(int argc, char *argv[])
 {
@@ -46,14 +52,15 @@ int main(int argc, char *argv[])
     /* initialize random seed: */
     srand(time(NULL));
 
-    printf("~\t====================\t~\n");
-    printf("~\tRadix Sort Project.\t~\n");
-    printf("~\t====================\t~\n\n\n");
+    printf("~\t==================\t~\n");
+    printf("~\tRadix Sort Project\t~\n");
+    printf("~\t==================\t~\n\n\n");
 
     while (ans != 0) {
         printf("=============\n");
         printf("= Main menu =\n");
         printf("=============\n\n");
+
         printf("\t1. Enter a new list.\n");
         printf("\t2. Test BaseNIntegerList functions.\n");
         printf("\t3. Test BaseNIntegerListOfList functions.\n");
@@ -67,8 +74,16 @@ int main(int argc, char *argv[])
         case 1:
             enterNewList(&lists, &nbLists);
             break;
+        case 2:
+            testListFunctions(&lists, &nbLists);
+            break;
+        case 3:
+            testListOfListFunctions(&lists, &nbLists);
+            break;
+        case 4:
+            performRadixSort(&lists, &nbLists);
+            break;
         default:
-            printf("Not implemented yet.\n");;
             break;
         }
     }
@@ -83,18 +98,87 @@ void enterNewList(BaseNIntegerList* lists, int* nbLists) {
         printf("=================\n");
         printf("= New list menu =\n");
         printf("=================\n\n");
+
         printf("\t1. Generate (pseudo-)randomly.\n");
-        printf("\t2. Enter manually.\n");
+        printf("\t2. Enter manually.\n\n");
 
         printf("\t0. Back to main menu.\n");
 
-        ans = getNumber(0, 4, "Choice ");
+        ans = getNumber(0, 2, "Choice ");
 
         switch (ans) {
+        case 0:
+            break;
         default:
-            printf("Not implemented yet.\n");;
+            printf("Not yet implemented.\n");
+            pause();
             break;
         }
     }
+}
+
+void testListFunctions(BaseNIntegerList* lists, int* nbLists) {
+    int ans = -1;
+
+    while (ans != 0) {
+        printf("==============================\n");
+        printf("= BaseNIntegerList functions =\n");
+        printf("==============================\n\n");
+
+        printf("\t1. isEmpty\n");
+        printf("\t2. insertHead\n");
+        printf("\t3. insertTail\n");
+        printf("\t4. removeHead\n");
+        printf("\t5. removeTail\n");
+        printf("\t6. deleteIntegerList\n");
+        printf("\t7. sumIntegerList\n\n");
+
+        printf("\t0. Back to main menu.\n");
+
+        ans = getNumber(0, 7, "Choice ");
+
+        switch (ans) {
+        case 0:
+            break;
+        default:
+            printf("Not yet implemented.\n");
+            pause();
+            break;
+        }
+    }
+}
+
+void testListOfListFunctions(BaseNIntegerList* lists, int* nbLists) {
+    int ans = -1;
+
+    while (ans != 0) {
+        printf("====================================\n");
+        printf("= BaseNIntegerListOfList functions =\n");
+        printf("====================================\n\n");
+
+        printf("\t1. createBucketList\n");
+        printf("\t2. addIntegerIntoBucket\n");
+        printf("\t3. buildBucketList\n");
+        printf("\t4. buildIntegerList\n");
+        printf("\t5. deleteBucketList\n");
+
+        printf("\t0. Back to main menu.\n");
+
+        ans = getNumber(0, 5, "Choice ");
+
+        switch (ans) {
+        case 0:
+            break;
+        default:
+            printf("Not yet implemented.\n");
+            pause();
+            break;
+        }
+    }
+}
+
+void performRadixSort(BaseNIntegerList* lists, int* nbLists) {
+    printf("Not yet implemented.\n");
+    pause();
 }
 
