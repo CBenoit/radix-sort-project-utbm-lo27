@@ -47,7 +47,7 @@
  * implemented using a continuous approach.
  */
 typedef struct {
-    int base; /*!< integers' base in this list. base ≤ 16 */
+    int base; /*!< integers' base in this list. base <= 16 */
     BaseNIntegerList* array; /*!< an array of list */
 } BaseNIntegerListOfList;
 

@@ -70,7 +70,7 @@ typedef struct {
     BaseNIntegerListElement* tail; /*!< The tail of the list. */
     int size; /*!< Size of the list. */
 
-    int base; /*!< integers' base in this list. base ≤ 16 */
+    int base; /*!< integers' base in this list. base <= 16 */
 
 } BaseNIntegerList;
 
