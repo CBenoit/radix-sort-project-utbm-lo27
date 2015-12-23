@@ -45,6 +45,31 @@ int getNumber(int min, int max, const char* message)
     return answer;
 }
 
+int getMinNumber(int min, const char* message)
+{
+    int answer;
+    bool numberOk = false;
+
+    do
+    {
+        printf("%s\n>>> ", message);
+        if (scanf("%d%*[^\n]", &answer) != 1)
+        {
+            printf("Invalid number.\n");
+            clean_stdin();
+        }
+        else
+        {
+            getchar();
+            if (answer >= min)
+                numberOk = true;
+        }
+
+    } while (!numberOk);
+
+    return answer;
+}
+
 char getCharacter(char c1, char c2, const char* message)
 {
     char answer;

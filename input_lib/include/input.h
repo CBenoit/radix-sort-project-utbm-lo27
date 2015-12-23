@@ -13,9 +13,18 @@
  * @param min the minimum accepted.
  * @param max the maximum accepted.
  * @param message a message to display to the user.
- * @return a valid number. (min ≤ number ≤ max)
+ * @return a valid number. (min <= number <= max)
  */
 int getNumber(int min, int max, const char message[]);
+
+/**
+ * @brief Requests a number to the user.
+ *
+ * @param min the minimum accepted.
+ * @param message a message to display to the user.
+ * @return a valid number. (min <= number)
+ */
+int getMinNumber(int min, const char* message);
 
 /**
  * @brief Ask user to choose a character between c1 and c2.
@@ -31,7 +40,7 @@ char getCharacter(char c1, char c2, const char* message);
  * @brief Ask user to enter a string
  *
  * @param length maximum length of the string.
- * @param answer the answer of the user.
+ * @param answer answer of the user.
  * @param message a message to display to the user.
  */
 void getString(int length, char* answer, const char* message);
