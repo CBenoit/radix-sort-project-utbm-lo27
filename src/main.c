@@ -28,14 +28,23 @@
  *
  ***********************************************************************/
 
+#include <stdbool.h> /* bool */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h> /* strcmp */
+#include <ctype.h> /* toupper, tolower */
 #include <time.h> /* time */
 
 #include <input.h>
 #include <BaseNIntegerList.h>
 
+bool checkNumberBase(char* number, int size, int base);
+
 void enterNewList(BaseNIntegerList* lists, int* nbLists);
+
+BaseNIntegerList enterList();
+
+void generateList(BaseNIntegerList* lists, int* nbLists);
 
 void testListFunctions(BaseNIntegerList* lists, int* nbLists);
 
@@ -91,6 +100,19 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS;
 }
 
+bool checkNumberBase(char* number, int size, int base) {
+    int i;
+    for (i = 0; i < size; ++i) {
+        if (toupper(number[i]) > (char)(base + '/')) {
+            /* : ; < = > ? @ aren't checked because we assume that
+            the number is a valid number in a base N. */
+            return false;
+        }
+    }
+
+    return true;
+}
+
 void enterNewList(BaseNIntegerList* lists, int* nbLists) {
     int ans = -1;
 
@@ -109,12 +131,39 @@ void enterNewList(BaseNIntegerList* lists, int* nbLists) {
         switch (ans) {
         case 0:
             break;
+        case 2:
+            *lists = enterList();
+            break;
         default:
             printf("Not yet implemented.\n");
             pause();
             break;
         }
     }
+}
+
+BaseNIntegerList enterList() {
+    BaseNIntegerList list;
+    BigInteger integer;
+    char number[100];
+
+    int base = getMinNumber(1, "What is the base of your list.");
+    list = createIntegerList(base);
+
+    printf("Enter 00 to end the input\n");
+    /* "%99[0-9a-zA-Z]s%*c" */
+    do {
+        printf(">>> ");
+        getValidString("%99[0-9a-zA-Z]s%*[^\n]", number);
+        if (checkNumberBase(number, strlen(number), base)) {
+            integer = createBigInteger(number, strlen(number));
+            list = insertTail(list, integer);
+        } else {
+            printf("Your number is invalid.\n");
+        }
+    } while (strcmp(number, "00"));
+
+    return list;
 }
 
 void testListFunctions(BaseNIntegerList* lists, int* nbLists) {
