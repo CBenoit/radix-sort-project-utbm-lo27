@@ -46,6 +46,14 @@ char getCharacter(char c1, char c2, const char* message);
 void getString(int length, char* answer, const char* message);
 
 /**
+ * @brief Use pseudo-regex of scanf to get a string.
+ *
+ * @param pseudoRegex a scanf expression.
+ * @param answer answer of the user.
+ */
+void getValidString(const char* pseudoRegex, char* answer);
+
+/**
  * @brief Make a pause in the program.
  */
 void pause();

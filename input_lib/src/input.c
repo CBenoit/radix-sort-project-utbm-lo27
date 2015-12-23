@@ -70,6 +70,21 @@ int getMinNumber(int min, const char* message)
     return answer;
 }
 
+void getValidString(const char* pseudoRegex, char* answer) {
+    bool stringOK = false;
+
+    do {
+        if (scanf(pseudoRegex, answer) != 1) {
+            printf("Invalid string\n");
+            clean_stdin();
+
+        } else {
+            getchar();
+            stringOK = true;
+        }
+    } while (!stringOK);
+}
+
 char getCharacter(char c1, char c2, const char* message)
 {
     char answer;
