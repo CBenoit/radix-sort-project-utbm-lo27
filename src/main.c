@@ -40,23 +40,24 @@
 
 bool checkNumberBase(char* number, int size, int base);
 
-void enterNewList(BaseNIntegerList* lists, int* nbLists);
+void enterNewList(BaseNIntegerList** lists, int* nbLists);
+
+void generateList(BaseNIntegerList** lists, int* nbLists);
+
+void testListFunctions(BaseNIntegerList** lists, int* nbLists);
+
+void testListOfListFunctions(BaseNIntegerList** lists, int* nbLists);
+
+void performRadixSort(BaseNIntegerList** lists, int* nbLists);
+
+bool checkNumberBase(char* number, int size, int base);
 
 BaseNIntegerList enterList();
 
-void generateList(BaseNIntegerList* lists, int* nbLists);
-
-void testListFunctions(BaseNIntegerList* lists, int* nbLists);
-
-void testListOfListFunctions(BaseNIntegerList* lists, int* nbLists);
-
-void performRadixSort(BaseNIntegerList* lists, int* nbLists);
-
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     int ans = -1;
     int nbLists = 0;
-    BaseNIntegerList lists;
+    BaseNIntegerList* lists = NULL;
 
     /* initialize random seed: */
     srand(time(NULL));
@@ -100,20 +101,7 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS;
 }
 
-bool checkNumberBase(char* number, int size, int base) {
-    int i;
-    for (i = 0; i < size; ++i) {
-        if (toupper(number[i]) > (char)(base + '/')) {
-            /* : ; < = > ? @ aren't checked because we assume that
-            the number is a valid number in a base N. */
-            return false;
-        }
-    }
-
-    return true;
-}
-
-void enterNewList(BaseNIntegerList* lists, int* nbLists) {
+void enterNewList(BaseNIntegerList** lists, int* nbLists) {
     int ans = -1;
 
     while (ans != 0) {
@@ -132,7 +120,9 @@ void enterNewList(BaseNIntegerList* lists, int* nbLists) {
         case 0:
             break;
         case 2:
-            *lists = enterList();
+            ++(*nbLists);
+            *lists = (BaseNIntegerList*)realloc(*lists, sizeof(BaseNIntegerList) * (*nbLists));
+            *lists[*nbLists - 1] = enterList();
             break;
         default:
             printf("Not yet implemented.\n");
@@ -142,31 +132,7 @@ void enterNewList(BaseNIntegerList* lists, int* nbLists) {
     }
 }
 
-BaseNIntegerList enterList() {
-    BaseNIntegerList list;
-    BigInteger integer;
-    char number[100];
-
-    int base = getMinNumber(1, "What is the base of your list.");
-    list = createIntegerList(base);
-
-    printf("Enter 00 to end the input\n");
-    /* "%99[0-9a-zA-Z]s%*c" */
-    do {
-        printf(">>> ");
-        getValidString("%99[0-9a-zA-Z]s%*[^\n]", number);
-        if (checkNumberBase(number, strlen(number), base)) {
-            integer = createBigInteger(number, strlen(number));
-            list = insertTail(list, integer);
-        } else {
-            printf("Your number is invalid.\n");
-        }
-    } while (strcmp(number, "00"));
-
-    return list;
-}
-
-void testListFunctions(BaseNIntegerList* lists, int* nbLists) {
+void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
     int ans = -1;
 
     while (ans != 0) {
@@ -180,14 +146,19 @@ void testListFunctions(BaseNIntegerList* lists, int* nbLists) {
         printf("\t4. removeHead\n");
         printf("\t5. removeTail\n");
         printf("\t6. deleteIntegerList\n");
-        printf("\t7. sumIntegerList\n\n");
+        printf("\t7. sumIntegerList\n");
+        printf("\t8. printBaseNIntegerList\n\n");
 
         printf("\t0. Back to main menu.\n");
 
-        ans = getNumber(0, 7, "Choice ");
+        ans = getNumber(0, 8, "Choice ");
 
         switch (ans) {
         case 0:
+            break;
+        case 8:
+            printBaseNIntegerList(*lists[0]);
+            pause();
             break;
         default:
             printf("Not yet implemented.\n");
@@ -197,7 +168,7 @@ void testListFunctions(BaseNIntegerList* lists, int* nbLists) {
     }
 }
 
-void testListOfListFunctions(BaseNIntegerList* lists, int* nbLists) {
+void testListOfListFunctions(BaseNIntegerList** lists, int* nbLists) {
     int ans = -1;
 
     while (ans != 0) {
@@ -226,8 +197,55 @@ void testListOfListFunctions(BaseNIntegerList* lists, int* nbLists) {
     }
 }
 
-void performRadixSort(BaseNIntegerList* lists, int* nbLists) {
+void performRadixSort(BaseNIntegerList** lists, int* nbLists) {
     printf("Not yet implemented.\n");
     pause();
+}
+
+bool checkNumberBase(char* number, int size, int base) {
+    int i;
+    for (i = 0; i < size; ++i) {
+        if (toupper(number[i]) > (char)(base + '/')) {
+            /* : ; < = > ? @ aren't checked because we assume that
+            the number is a valid number in a base N. */
+            return false;
+        }
+    }
+
+    return true;
+}
+
+BaseNIntegerList enterList() {
+    BaseNIntegerList list;
+    BigInteger integer;
+    char* number = (char*)malloc(sizeof(char) * 100);
+    bool finished = false;
+
+    int base = getMinNumber(1, "What is the base of your list.");
+    list = createIntegerList(base);
+
+    printf("Type 'end' to end the input.\n");
+    /* "%99[0-9a-zA-Z]s%*c" */
+    do {
+        printf(">>> ");
+        getValidString("%99[0-9a-zA-Z]s%*[^\n]", number);
+        if (strcmp(number, "end")) {
+            if (checkNumberBase(number, strlen(number), base)) { /* FIXME: doesn't work properly when base > 9 */
+                integer = createBigInteger(number, strlen(number));
+                list = insertTail(list, integer);
+            } else {
+                printf("Your number is invalid.\n");
+            }
+        } else {
+            finished = true;
+        }
+    } while (finished == false);
+
+    /* FIXME: problem with memory? */
+    printf("%d\n", list.size);
+    printf("%s\n", BigIntegerToStr(list.tail->value));
+    printBaseNIntegerList(list);
+
+    return list;
 }
 
