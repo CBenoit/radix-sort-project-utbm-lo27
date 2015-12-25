@@ -75,11 +75,20 @@ BigInteger createBigInteger(char* value, int size);
 BigInteger copyBigInteger(BigInteger intToCopy);
 
 /**
- * @brief Deletes the given integer
+ * @brief Deletes the given integer.
  *
- * @param integer integer to delete
+ * @param integer integer to delete.
  */
 void deleteBigInteger(BigInteger* integer);
+
+/**
+ * @brief Convert the given BigInteger into a displayable string.
+ *
+ * @param integer integer to convert.
+ *
+ * @return Pointer to the string.
+ */
+char* BigIntegerToStr(BigInteger integer);
 
 #endif
 

@@ -53,3 +53,16 @@ void deleteBigInteger(BigInteger* value) {
     value->value = NULL;
 }
 
+char* BigIntegerToStr(BigInteger integer) {
+    int i;
+    int iToSTab[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    char* str = (char*)malloc(sizeof(char) * (integer.size + 1));
+
+    for (i = 0; i < integer.size; ++i) {
+        str[i] = iToSTab[(int) integer.value[i]]; /* cast to suppress "array subscript has type 'char' warning. */
+    }
+    str[integer.size] = '\0';
+
+    return str;
+}
+
