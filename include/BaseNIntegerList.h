@@ -199,5 +199,12 @@ BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base);
  */
 BigInteger sumIntegerList(BaseNIntegerList list);
 
+/**
+ * @brief Display the BaseNIntegerList on standard output.
+ *
+ * @param list list to display.
+ */
+void printBaseNIntegerList(BaseNIntegerList list);
+
 #endif
 

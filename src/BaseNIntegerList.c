@@ -28,6 +28,7 @@
  *
  ***********************************************************************/
 
+#include <stdio.h> /* printf */
 #include <stdlib.h> /* NULL, malloc */
 #include <stdbool.h> /* bool */
 #include <string.h> /* memcpy */
@@ -229,3 +230,13 @@ BigInteger sumIntegerList(BaseNIntegerList list) {
 
     return sum;
 }
+
+void printBaseNIntegerList(BaseNIntegerList list) {
+    BaseNIntegerListElement* elem = list.head;
+
+    while (elem != NULL) {
+        printf("[%s]\n", BigIntegerToStr(elem->value));
+        elem = elem->next;
+    }
+}
+
