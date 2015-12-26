@@ -52,6 +52,8 @@ void performRadixSort(BaseNIntegerList** lists, int* nbLists);
 
 bool checkNumberBase(char* number, int size, int base);
 
+char* convertToNumber(char* number, int size);
+
 BaseNIntegerList enterList();
 
 int main(int argc, char *argv[]) {
@@ -213,6 +215,24 @@ bool checkNumberBase(char* number, int size, int base) {
     }
 
     return true;
+}
+
+char* convertToNumber(char* number, int size) {
+    int i;
+    char* newNumber = (char*)malloc(sizeof(char)*size);
+
+    for (i = 0; i < size; ++i) {
+        if (number[i] <= '9') {
+            newNumber[i] = number[i] - '0';
+        } else {
+            newNumber[i] = number[i] - 'A' + 10;
+        }
+    }
+
+    free(number);
+    number = NULL;
+
+    return newNumber;
 }
 
 BaseNIntegerList enterList() {
