@@ -50,6 +50,8 @@ void testListOfListFunctions(BaseNIntegerList** lists, int* nbLists);
 
 void performRadixSort(BaseNIntegerList** lists, int* nbLists);
 
+BaseNIntegerList* selectList(BaseNIntegerList** lists, int* nbLists);
+
 bool checkNumberBase(char* number, int size, int base);
 
 char* convertToNumber(char* number, int size);
@@ -137,6 +139,7 @@ void enterNewList(BaseNIntegerList** lists, int* nbLists) {
 
 void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
     int ans = -1;
+    BaseNIntegerList* ptrSelectedList;
 
     while (ans != 0) {
         printf("==============================\n");
@@ -160,7 +163,11 @@ void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
         case 0:
             break;
         case 8:
-            printBaseNIntegerList(*lists[0]);
+            ptrSelectedList = selectList(lists, nbLists);
+            if (ptrSelectedList != NULL) {
+                printBaseNIntegerList(*ptrSelectedList);
+            }
+
             pause();
             break;
         default:
@@ -203,6 +210,24 @@ void testListOfListFunctions(BaseNIntegerList** lists, int* nbLists) {
 void performRadixSort(BaseNIntegerList** lists, int* nbLists) {
     printf("Not yet implemented.\n");
     pause();
+}
+
+BaseNIntegerList* selectList(BaseNIntegerList** lists, int* nbLists) {
+    int ans;
+
+    if (*nbLists == 0) {
+        printf("No list has been created.\n");
+        return NULL;
+    } else if (*nbLists == 1) {
+        return &(*lists[0]);
+    } else {
+        printf("Select a list (0-%d).\n", *nbLists - 1);
+        do {
+            ans = getNumber(0, *nbLists - 1, "Choice ");
+        } while (ans < 0 || ans >= *nbLists);
+
+        return &(*lists[ans]);
+    }
 }
 
 bool checkNumberBase(char* number, int size, int base) {
@@ -276,8 +301,6 @@ BaseNIntegerList enterList() {
             number = NULL;
         }
     } while (finished == false);
-
-    printBaseNIntegerList(list);
 
     return list;
 }
