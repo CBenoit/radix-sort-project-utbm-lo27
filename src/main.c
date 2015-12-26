@@ -206,11 +206,19 @@ void performRadixSort(BaseNIntegerList** lists, int* nbLists) {
 
 bool checkNumberBase(char* number, int size, int base) {
     int i;
-    for (i = 0; i < size; ++i) {
-        if (toupper(number[i]) > (char)(base + '/')) {
-            /* : ; < = > ? @ aren't checked because we assume that
-            the number is a valid number in a base N. */
-            return false;
+    if (base < 10) {
+        for (i = 0; i < size; ++i) {
+            if (toupper(number[i]) > (char)(base + '/')) {
+                return false;
+            }
+        }
+    } else {
+        for (i = 0; i < size; ++i) {
+            if (toupper(number[i]) > (char)(base + '/' + 7)) {
+                /* : ; < = > ? @ aren't checked because we assume that
+                the number is a valid number in a base N. */
+                return false;
+            }
         }
     }
 
