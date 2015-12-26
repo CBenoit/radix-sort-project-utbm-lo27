@@ -122,6 +122,7 @@ void enterNewList(BaseNIntegerList** lists, int* nbLists) {
         case 0:
             break;
         case 2:
+            /* FIXME : realloc */
             ++(*nbLists);
             *lists = (BaseNIntegerList*)realloc(*lists, sizeof(BaseNIntegerList) * (*nbLists));
             *lists[*nbLists - 1] = enterList();
@@ -246,7 +247,7 @@ char* convertToNumber(char* number, int size) {
 BaseNIntegerList enterList() {
     BaseNIntegerList list;
     BigInteger integer;
-    char* number = (char*)malloc(sizeof(char) * 100);
+    char* number;
     bool finished = false;
 
     int base = getMinNumber(1, "What is the base of your list.");
@@ -255,23 +256,27 @@ BaseNIntegerList enterList() {
     printf("Type 'end' to end the input.\n");
     /* "%99[0-9a-zA-Z]s%*c" */
     do {
+        number = (char*)malloc(sizeof(char) * 100);
         printf(">>> ");
         getValidString("%99[0-9a-zA-Z]s%*[^\n]", number);
         if (strcmp(number, "end")) {
-            if (checkNumberBase(number, strlen(number), base)) { /* FIXME: doesn't work properly when base > 9 */
-                integer = createBigInteger(number, strlen(number));
+            if (checkNumberBase(number, strlen(number), base)) {
+                char size = strlen(number);
+
+                number = convertToNumber(number, size);
+                integer = createBigInteger(number, size);
                 list = insertTail(list, integer);
             } else {
                 printf("Your number is invalid.\n");
             }
+
         } else {
             finished = true;
+            free(number);
+            number = NULL;
         }
     } while (finished == false);
 
-    /* FIXME: problem with memory? */
-    printf("%d\n", list.size);
-    printf("%s\n", BigIntegerToStr(list.tail->value));
     printBaseNIntegerList(list);
 
     return list;
