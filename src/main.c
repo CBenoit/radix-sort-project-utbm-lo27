@@ -161,12 +161,45 @@ void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
         switch (ans) {
         case 0:
             break;
+        case 1:
+            ptrSelectedList = selectList(lists, nbLists);
+            if (ptrSelectedList != NULL) {
+                if (isEmpty(*ptrSelectedList)) {
+                    printf("The list is empty.\n");
+                } else {
+                    printf("The list is not empty.\n");
+                }
+            }
+            pause();
+            break;
+        case 4:
+            ptrSelectedList = selectList(lists, nbLists);
+            if (ptrSelectedList != NULL) {
+                removeHead(*ptrSelectedList);
+                printf("removeHead function has been applied to the list.\n");
+            }
+            pause();
+            break;
+        case 5:
+            ptrSelectedList = selectList(lists, nbLists);
+            if (ptrSelectedList != NULL) {
+                removeTail(*ptrSelectedList);
+                printf("removeTail function has been applied to the list.\n");
+            }
+            pause();
+            break;
+        case 7:
+            ptrSelectedList = selectList(lists, nbLists);
+            if (ptrSelectedList != NULL) {
+                printf("The sum of the list is equal to: %s\n", BigIntegerToStr(sumIntegerList(*ptrSelectedList)));
+            }
+            pause();
+            break;
         case 8:
             ptrSelectedList = selectList(lists, nbLists);
             if (ptrSelectedList != NULL) {
                 printBaseNIntegerList(*ptrSelectedList);
             }
-
             pause();
             break;
         default:
@@ -221,10 +254,7 @@ BaseNIntegerList* selectList(BaseNIntegerList** lists, int* nbLists) {
         return &(*lists)[0];
     } else {
         printf("Select a list (0-%d).\n", *nbLists - 1);
-        do {
-            ans = getNumber(0, *nbLists - 1, "Choice ");
-        } while (ans < 0 || ans >= *nbLists);
-
+        ans = getNumber(0, *nbLists - 1, "Choice ");
         return &(*lists)[ans];
     }
 }

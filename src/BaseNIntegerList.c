@@ -164,7 +164,7 @@ BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base) {
     int sizeB = b.size;
     int sizeC = fmaxi(sizeA, sizeB);
 
-    char* array = (char*)malloc(sizeof(char)*sizeC);
+    char* array = (char*)malloc(sizeof(char) * sizeC);
     int remainder = 0;
     int i = sizeA - 1;
     int j = sizeB - 1;
@@ -193,6 +193,9 @@ BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base) {
         array[k] = b.value[j] + remainder;
         remainder = array[k] / base;
         remainder = array[k] % base;
+
+        --j;
+        --k;
     }
 
     if (remainder > 0) {
@@ -203,7 +206,10 @@ BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base) {
         tempArray[0] = remainder;
         memcpy(tempArray + 1, array, (sizeC - 1) * sizeof(char));
 
-        free(array);
+        printf("Test 1\n");
+        printf("%d\n", array[0]);
+        free(array); /* FIXME: double free or corruption (out) */
+        printf("Test 2\n");
         array = tempArray;
     }
 
