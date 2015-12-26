@@ -124,10 +124,9 @@ void enterNewList(BaseNIntegerList** lists, int* nbLists) {
         case 0:
             break;
         case 2:
-            /* FIXME : realloc */
             ++(*nbLists);
             *lists = (BaseNIntegerList*)realloc(*lists, sizeof(BaseNIntegerList) * (*nbLists));
-            *lists[*nbLists - 1] = enterList();
+            (*lists)[*nbLists - 1] = enterList();
             break;
         default:
             printf("Not yet implemented.\n");
@@ -219,14 +218,14 @@ BaseNIntegerList* selectList(BaseNIntegerList** lists, int* nbLists) {
         printf("No list has been created.\n");
         return NULL;
     } else if (*nbLists == 1) {
-        return &(*lists[0]);
+        return &(*lists)[0];
     } else {
         printf("Select a list (0-%d).\n", *nbLists - 1);
         do {
             ans = getNumber(0, *nbLists - 1, "Choice ");
         } while (ans < 0 || ans >= *nbLists);
 
-        return &(*lists[ans]);
+        return &(*lists)[ans];
     }
 }
 
