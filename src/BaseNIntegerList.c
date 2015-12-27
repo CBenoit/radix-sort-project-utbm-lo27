@@ -206,10 +206,7 @@ BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base) {
         tempArray[0] = remainder;
         memcpy(tempArray + 1, array, (sizeC - 1) * sizeof(char));
 
-        printf("Test 1\n");
-        printf("%d\n", array[0]);
-        free(array); /* FIXME: double free or corruption (out) */
-        printf("Test 2\n");
+        free(array);
         array = tempArray;
     }
 
