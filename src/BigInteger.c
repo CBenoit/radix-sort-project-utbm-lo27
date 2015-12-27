@@ -49,7 +49,7 @@ BigInteger copyBigInteger(BigInteger intToCopy) {
 }
 
 void deleteBigInteger(BigInteger* value) {
-    free(value->value); /* FIXME: free(): invalid next size (fast) */
+    free(value->value);
     value->value = NULL;
 }
 

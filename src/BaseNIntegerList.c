@@ -23,6 +23,7 @@
  *
  ***********************************************************************/
 /************************************************************************
+ *
  * Implements the various functions described in the associated header file
  * about the BaseNIntegerList Abstract Data Type.
  *
