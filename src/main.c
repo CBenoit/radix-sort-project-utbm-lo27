@@ -59,6 +59,7 @@ char* convertToNumber(char* number, int size);
 BaseNIntegerList enterList();
 
 int main(int argc, char *argv[]) {
+    int i = 0;
     int ans = -1;
     int nbLists = 0;
     BaseNIntegerList* lists = NULL;
@@ -101,6 +102,12 @@ int main(int argc, char *argv[]) {
             break;
         }
     }
+
+    for (; i < nbLists; i++) {
+        deleteBaseNIntegerList(&(lists[i]));
+    }
+
+    free(lists);
 
     return EXIT_SUCCESS;
 }
