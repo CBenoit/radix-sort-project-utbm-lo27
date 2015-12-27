@@ -59,7 +59,7 @@ char* convertToNumber(char* number, int size);
 BaseNIntegerList enterList();
 
 int main(int argc, char *argv[]) {
-    int i = 0;
+    int i;
     int ans = -1;
     int nbLists = 0;
     BaseNIntegerList* lists = NULL;
@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    for (; i < nbLists; i++) {
+    for (i = 0; i < nbLists; i++) {
         deleteBaseNIntegerList(&(lists[i]));
     }
 
@@ -182,7 +182,7 @@ void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
         case 4:
             ptrSelectedList = selectList(lists, nbLists);
             if (ptrSelectedList != NULL) {
-                removeHead(*ptrSelectedList);
+                *ptrSelectedList = removeHead(*ptrSelectedList);
                 printf("removeHead function has been applied to the list.\n");
             }
             pause();
@@ -190,7 +190,7 @@ void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
         case 5:
             ptrSelectedList = selectList(lists, nbLists);
             if (ptrSelectedList != NULL) {
-                removeTail(*ptrSelectedList);
+                *ptrSelectedList = removeTail(*ptrSelectedList);
                 printf("removeTail function has been applied to the list.\n");
             }
             pause();
