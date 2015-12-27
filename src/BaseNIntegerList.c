@@ -192,7 +192,7 @@ BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base) {
     while (j >= 0) {
         array[k] = b.value[j] + remainder;
         remainder = array[k] / base;
-        remainder = array[k] % base;
+        array[k] = array[k] % base;
 
         --j;
         --k;
