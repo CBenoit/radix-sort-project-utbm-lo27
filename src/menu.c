@@ -61,8 +61,8 @@ void enterNewList(BaseNIntegerList** lists, int* nbLists) {
             break;
         case 1:
             base = getNumber(2, 16, "What is the base of your list. (beetween 2 and 16)");
-            nbIntegers = getNumber(2, 16, "How many integers do you want in the list.");
-            maximumOfDigits = getNumber(2, 16, "Please enter the maximum number of digits of each element");
+            nbIntegers = getMinNumber(1, "How many integers do you want in the list.");
+            maximumOfDigits = getMinNumber(1, "Please enter the maximum number of digits of each element");
             ++(*nbLists);
             *lists = (BaseNIntegerList*)realloc(*lists, sizeof(BaseNIntegerList) * (*nbLists));
             (*lists)[*nbLists - 1] = generateRandomList(base, nbIntegers, maximumOfDigits);
@@ -300,7 +300,7 @@ BaseNIntegerList generateRandomList(int base, int nbIntegers, int maxDigits) {
     int i, j, nbDigits;
 
     for(i = 0; i < nbIntegers; ++i) {
-        nbDigits = rand()%(maxDigits - 1) + 1; /* avoid a number with 0 digit */
+        nbDigits = rand()%maxDigits + 1; /* avoid a number with 0 digit */
         number = (char*)malloc(nbDigits*sizeof(char));
         number[0] = (char)(rand()%(base - 1) + 1); /* avoid a number starting with 0 */
 
