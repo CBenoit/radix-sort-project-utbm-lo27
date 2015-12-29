@@ -41,6 +41,7 @@
 
 void enterNewList(BaseNIntegerList** lists, int* nbLists) {
     int ans = -1;
+    int base, nbIntegers, maximumOfDigits;
 
     while (ans != 0) {
         printf("=================\n");
@@ -56,6 +57,15 @@ void enterNewList(BaseNIntegerList** lists, int* nbLists) {
 
         switch (ans) {
         case 0:
+            break;
+        case 1:
+            base = getNumber(2, 16, "What is the base of your list. (beetween 2 and 16)");
+            nbIntegers = getNumber(2, 16, "How many integers do you want in the list.");
+            maximumOfDigits = getNumber(2, 16, "Please enter the maximum number of digits of each element");
+            ++(*nbLists);
+            *lists = (BaseNIntegerList*)realloc(*lists, sizeof(BaseNIntegerList) * (*nbLists));
+            (*lists)[*nbLists - 1] = generateRandomList(base, nbIntegers, maximumOfDigits);
+            printBaseNIntegerList((*lists)[*nbLists - 1]);
             break;
         case 2:
             ++(*nbLists);
@@ -238,7 +248,7 @@ BaseNIntegerList enterList() {
     char* number;
     bool finished = false;
 
-    int base = getMinNumber(1, "What is the base of your list.");
+    int base = getNumber(2, 16, "What is the base of your list. (beetween 2 and 16)");
     list = createIntegerList(base);
 
     printf("Type 'end' to end the input.\n");
@@ -264,6 +274,26 @@ BaseNIntegerList enterList() {
             number = NULL;
         }
     } while (finished == false);
+
+    return list;
+}
+
+BaseNIntegerList generateRandomList(int base, int nbIntegers, int maxDigits) {
+    BaseNIntegerList list = createIntegerList(base);
+    BigInteger integer;
+    char* number;
+    int i, j, nbDigits;
+
+    for(i = 0; i < nbIntegers; ++i) {
+        nbDigits = rand()%maxDigits;
+        number = (char*)malloc(nbDigits*sizeof(char));
+        for (j = 0; j < maxDigits; ++j) {
+            number[j] = (char)(rand()%base);
+        }
+
+        integer = createBigInteger(number, nbDigits);
+        list = insertTail(list, integer);
+    }
 
     return list;
 }

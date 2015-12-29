@@ -59,5 +59,7 @@ char* convertToNumber(char* number, int size);
 
 BaseNIntegerList enterList();
 
+BaseNIntegerList generateRandomList(int base, int nbIntegers, int maxDigits);
+
 #endif
 
