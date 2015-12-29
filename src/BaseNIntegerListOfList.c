@@ -136,8 +136,10 @@ BaseNIntegerList radixSort(BaseNIntegerList list) {
 
     for (i = 0; i < maxIterations; ++i) {
         bucketList = buildBucketList(list, i);
+        deleteBaseNIntegerList(&list);
 
         list = buildIntegerList(bucketList);
+        deleteBucketList(&bucketList);
     }
 
     return list;

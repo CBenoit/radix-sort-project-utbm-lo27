@@ -306,7 +306,7 @@ BaseNIntegerList generateRandomList(int base, int nbIntegers, int maxDigits) {
         number[0] = (char)(rand()%(base - 1) + 1); /* avoid a number starting with 0 */
 
 
-        for (j = 1; j < maxDigits; ++j) {
+        for (j = 1; j < nbDigits; ++j) {
             number[j] = (char)(rand()%base);
         }
 
