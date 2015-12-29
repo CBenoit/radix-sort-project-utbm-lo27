@@ -37,6 +37,7 @@
 
 #include <input.h>
 #include <BaseNIntegerList.h>
+#include <BaseNIntegerListOfList.h>
 #include <menu.h>
 
 void enterNewList(BaseNIntegerList** lists, int* nbLists) {
@@ -186,7 +187,19 @@ void testListOfListFunctions(BaseNIntegerList** lists, int* nbLists) {
 }
 
 void performRadixSort(BaseNIntegerList** lists, int* nbLists) {
-    printf("Not yet implemented.\n");
+    BaseNIntegerList* ptrSelectedList;
+    BaseNIntegerList sortedList;
+
+    if (*nbLists == 0) {
+        printf("You don't have any list.\nPlease enter a list first.\n");
+        pause();
+        return;
+    }
+
+    ptrSelectedList = selectList(lists, nbLists);
+    sortedList =radixSort(*ptrSelectedList);
+    printBaseNIntegerList(sortedList);
+
     pause();
 }
 
