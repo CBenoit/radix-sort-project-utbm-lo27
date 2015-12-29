@@ -45,7 +45,7 @@ BaseNIntegerListOfList createBucketList(int base) {
     bucketList.base = base;
     bucketList.array = (BaseNIntegerList*)malloc(sizeof(BaseNIntegerList) * base);
 
-    for (i = 0; i < base -1; ++i) {
+    for (i = 0; i < base; ++i) {
         bucketList.array[i] = createIntegerList(base);
     }
 
@@ -67,14 +67,14 @@ BaseNIntegerListOfList buildBucketList(BaseNIntegerList list, int position) {
     BaseNIntegerListElement* element = list.head;
     int bucketIndex;
 
-    while (element->next != NULL) {
+    while (element != NULL) {
         bucketIndex = 0;
 
         if (position < element->value.size) {
             bucketIndex = element->value.value[element->value.size - position - 1];
         }
 
-        listOfList = addIntegerIntoBucket(listOfList, copyBigInteger(element->value), bucketIndex);
+        listOfList = addIntegerIntoBucket(listOfList, element->value, bucketIndex);
         element = element->next;
     }
 
@@ -86,11 +86,11 @@ BaseNIntegerList buildIntegerList(BaseNIntegerListOfList listOfList) {
 
     BaseNIntegerListElement* element;
     int i = 0;
-    for (; i < listOfList.base - 1; ++i) {
+    for (; i < listOfList.base; ++i) {
         element = listOfList.array[i].head;
 
         while (element != NULL) {
-            list = insertTail(list, copyBigInteger(element->value));
+            list = insertTail(list, element->value);
             element = element->next;
         }
     }
@@ -100,11 +100,24 @@ BaseNIntegerList buildIntegerList(BaseNIntegerListOfList listOfList) {
 
 void deleteBucketList(BaseNIntegerListOfList* list) {
     int i = 0;
-    for (; i < list->base - 1; ++i) {
+    for (; i < list->base; ++i) {
         deleteBaseNIntegerList(&(list->array[i]));
     }
 
     free(list->array);
+}
+
+BaseNIntegerList copyList(BaseNIntegerList list) {
+    BaseNIntegerList newList = createIntegerList(list.base);
+    BaseNIntegerListElement* elem = list.head;
+
+    while (elem != NULL) {
+        newList = insertTail(newList, copyBigInteger(elem->value));
+
+        elem = elem->next;
+    }
+
+    return newList;
 }
 
 BaseNIntegerList radixSort(BaseNIntegerList list) {
@@ -112,17 +125,19 @@ BaseNIntegerList radixSort(BaseNIntegerList list) {
     BaseNIntegerListElement* element = list.head;
     BaseNIntegerListOfList bucketList;
 
+    list = copyList(list);
+
     while (element != NULL) {
         maxIterations = fmaxi(maxIterations, element->value.size - 1);
         element = element->next;
     }
 
+    ++maxIterations;
+
     for (i = 0; i < maxIterations; ++i) {
         bucketList = buildBucketList(list, i);
-        deleteBaseNIntegerList(&list);
 
         list = buildIntegerList(bucketList);
-        deleteBucketList(&bucketList);
     }
 
     return list;
