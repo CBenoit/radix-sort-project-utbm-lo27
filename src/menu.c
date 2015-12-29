@@ -190,16 +190,12 @@ void performRadixSort(BaseNIntegerList** lists, int* nbLists) {
     BaseNIntegerList* ptrSelectedList;
     BaseNIntegerList sortedList;
 
-    if (*nbLists == 0) {
-        printf("You don't have any list.\nPlease enter a list first.\n");
-        pause();
-        return;
-    }
-
     ptrSelectedList = selectList(lists, nbLists);
-    sortedList =radixSort(*ptrSelectedList);
-    printBaseNIntegerList(sortedList);
-    deleteBaseNIntegerList(&sortedList);
+    if (ptrSelectedList != NULL) {
+        sortedList = radixSort(*ptrSelectedList);
+        printBaseNIntegerList(sortedList);
+        deleteBaseNIntegerList(&sortedList);
+    }
 
     pause();
 }
