@@ -74,7 +74,7 @@ BaseNIntegerListOfList buildBucketList(BaseNIntegerList list, int position) {
             bucketIndex = element->value.value[element->value.size - position - 1];
         }
 
-        listOfList = addIntegerIntoBucket(listOfList, element->value, bucketIndex);
+        listOfList = addIntegerIntoBucket(listOfList, copyBigInteger(element->value), bucketIndex);
         element = element->next;
     }
 
@@ -90,7 +90,7 @@ BaseNIntegerList buildIntegerList(BaseNIntegerListOfList listOfList) {
         element = listOfList.array[i].head;
 
         while (element != NULL) {
-            list = insertTail(list, element->value);
+            list = insertTail(list, copyBigInteger(element->value));
             element = element->next;
         }
     }
