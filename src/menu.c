@@ -66,14 +66,16 @@ void enterNewList(BaseNIntegerList** lists, int* nbLists) {
             *lists = (BaseNIntegerList*)realloc(*lists, sizeof(BaseNIntegerList) * (*nbLists));
             (*lists)[*nbLists - 1] = generateRandomList(base, nbIntegers, maximumOfDigits);
             printBaseNIntegerList((*lists)[*nbLists - 1]);
+            printf("This list is the list %d\n", *nbLists - 1);
             break;
         case 2:
             ++(*nbLists);
             *lists = (BaseNIntegerList*)realloc(*lists, sizeof(BaseNIntegerList) * (*nbLists));
             (*lists)[*nbLists - 1] = enterList();
+            printf("This list is the list %d\n", *nbLists - 1);
             break;
         default:
-            printf("Not yet implemented.\n");
+            printf("Answer invalid.\n");
             pause();
             break;
         }
