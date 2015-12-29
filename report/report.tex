@@ -787,6 +787,8 @@ Principle: …
                 \State el \(\leftarrow\) next(el)
             \EndWhile
 
+            \State maxIterations \(\leftarrow\) maxIterations + 1
+
             \For{i from 0 to maxIterations}
                 \State bucketList \(\leftarrow\) buildBucketList(l, i)
                 \State deleteIntegerList(l)
