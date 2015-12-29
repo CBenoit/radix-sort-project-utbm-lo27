@@ -90,5 +90,14 @@ void deleteBigInteger(BigInteger* integer);
  */
 char* BigIntegerToStr(BigInteger integer);
 
+/**
+ * @brief Print a BigInteger.
+ *
+ * @param message message containing %s to display the BigInteger.
+ * @param integer BigInteger to print.
+ *
+ */
+void printBigInteger(const char* message, BigInteger integer);
+
 #endif
 

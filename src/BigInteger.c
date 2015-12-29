@@ -29,6 +29,7 @@
  *
  ***********************************************************************/
 
+#include <stdio.h> /* printf */
 #include <stdlib.h> /* NULL, malloc */
 #include <string.h> /* memcpy */
 
@@ -64,5 +65,13 @@ char* BigIntegerToStr(BigInteger integer) {
     str[integer.size] = '\0';
 
     return str;
+}
+
+void printBigInteger(const char* message, BigInteger integer) {
+    char* str = BigIntegerToStr(integer);
+
+    printf(message, str);
+
+    free(str);
 }
 
