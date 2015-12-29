@@ -138,7 +138,7 @@ void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
         case 7:
             ptrSelectedList = selectList(lists, nbLists);
             if (ptrSelectedList != NULL) {
-                printBigInteger(sumIntegerList(*ptrSelectedList), "The sum of the list is equal to: %s\n");
+                printBigInteger("The sum of the list is equal to: %s\n", sumIntegerList(*ptrSelectedList));
             }
             pause();
             break;
