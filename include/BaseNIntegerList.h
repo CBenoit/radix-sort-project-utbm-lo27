@@ -75,27 +75,6 @@ typedef struct {
 } BaseNIntegerList;
 
 /**
- * @brief Creates a BigInteger.
- * @details Creates a new BigInteger of the given size containing the given value.
- *
- * @param value pointer to the char* representing the value.
- * @param size integer, the number of digits of the value.
- *
- * @return A new BigInteger.
- */
-BigInteger createBigInteger(char* value, int size);
-
-/**
- * @brief Copy a BigInteger.
- * @details Creates a new BigInteger identical to the given one.
- *
- * @param intToCopy BigInteger to copy.
- *
- * @return A copy of the BigInteger.
- */
-BigInteger copyBigInteger(BigInteger intToCopy);
-
-/**
  * @brief Creates a BaseNIntegerList.
  * @details Creates a new empty BaseNIntegerList for storing integers in the specified base and initialize the fields.
  *
@@ -150,13 +129,6 @@ BaseNIntegerList removeHead(BaseNIntegerList list);
  * @return The list modified, without the tail.
  */
 BaseNIntegerList removeTail(BaseNIntegerList list);
-
-/**
- * @brief Deletes the given integer
- *
- * @param integer integer to delete
- */
-void deleteBigInteger(BigInteger* integer);
 
 /**
  * @brief Deletes the given element.
