@@ -239,7 +239,7 @@ void printBaseNIntegerList(BaseNIntegerList list) {
     BaseNIntegerListElement* elem = list.head;
 
     while (elem != NULL) {
-        printf("[%s]\n", BigIntegerToStr(elem->value));
+        printBigInteger("[%s]\n", elem->value);
         elem = elem->next;
     }
 }
