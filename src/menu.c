@@ -287,9 +287,12 @@ BaseNIntegerList generateRandomList(int base, int nbIntegers, int maxDigits) {
     int i, j, nbDigits;
 
     for(i = 0; i < nbIntegers; ++i) {
-        nbDigits = rand()%maxDigits;
+        nbDigits = rand()%(maxDigits - 1) + 1; /* avoid a number with 0 digit */
         number = (char*)malloc(nbDigits*sizeof(char));
-        for (j = 0; j < maxDigits; ++j) {
+        number[0] = (char)(rand()%(base - 1) + 1); /* avoid a number starting with 0 */
+
+
+        for (j = 1; j < maxDigits; ++j) {
             number[j] = (char)(rand()%base);
         }
 
