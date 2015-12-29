@@ -199,6 +199,7 @@ void performRadixSort(BaseNIntegerList** lists, int* nbLists) {
     ptrSelectedList = selectList(lists, nbLists);
     sortedList =radixSort(*ptrSelectedList);
     printBaseNIntegerList(sortedList);
+    deleteBaseNIntegerList(&sortedList);
 
     pause();
 }
