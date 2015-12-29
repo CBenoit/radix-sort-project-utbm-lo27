@@ -702,7 +702,7 @@ the specified digit position (second parameter) (rightmost).
         \Function{buildBucketList}{l : \emph{BaseNIntegerList}, position : \emph{Integer}} : \emph{BaseNIntegerListOfList}
             \State lol \(\leftarrow\) createBucketList(base(l))
             \State el \(\leftarrow\) head(l)
-            \While{next(el) != undefined}
+            \While{el != undefined}
                 \State bucketIndex \(\leftarrow\) 0
                 \If{position \(<\) size(value(el))}
                     \State bucketIndex \(\leftarrow\) value(value(el))\(_{size(value(el)) - position - 1}\)
