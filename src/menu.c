@@ -86,6 +86,8 @@ void enterNewList(BaseNIntegerList** lists, int* nbLists) {
 void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
     int ans = -1;
     BaseNIntegerList* ptrSelectedList;
+    char* number;
+    bool isValid = false;
 
     while (ans != 0) {
         printf("==============================\n");
@@ -117,6 +119,56 @@ void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
                     printf("The list is not empty.\n");
                 }
             }
+            pause();
+            break;
+        case 2:
+            ptrSelectedList = selectList(lists, nbLists);
+            if (ptrSelectedList != NULL) {
+                printf("The selected list is in base %d.\nPlease enter a number in the same base.\n>>> ", ptrSelectedList->base);
+                do {
+                    number = (char*)malloc(sizeof(char)*100);
+                    getValidString("%99[0-9a-zA-Z]s%*[^\n]", number);
+                    if (checkNumberBase(number, strlen(number), ptrSelectedList->base)) {
+                        BigInteger integer;
+                        char size = strlen(number);
+
+                        number = convertToNumber(number, size);
+                        integer = createBigInteger(number, size);
+                        *ptrSelectedList = insertHead(*ptrSelectedList, integer);
+                        isValid = true;
+                    } else {
+                        free (number);
+                        number = NULL;
+                        printf("Your number is invalid.\n>>> ");
+                    }
+                } while (!isValid);
+            }
+            printf("insertHead function has been applied to the list.\n");
+            pause();
+            break;
+        case 3:
+            ptrSelectedList = selectList(lists, nbLists);
+            if (ptrSelectedList != NULL) {
+                printf("The selected list is in base %d.\nPlease enter a number in the same base.\n>>> ", ptrSelectedList->base);
+                do {
+                    number = (char*)malloc(sizeof(char)*100);
+                    getValidString("%99[0-9a-zA-Z]s%*[^\n]", number);
+                    if (checkNumberBase(number, strlen(number), ptrSelectedList->base)) {
+                        BigInteger integer;
+                        char size = strlen(number);
+
+                        number = convertToNumber(number, size);
+                        integer = createBigInteger(number, size);
+                        *ptrSelectedList = insertHead(*ptrSelectedList, integer);
+                        isValid = true;
+                    } else {
+                        free (number);
+                        number = NULL;
+                        printf("Your number is invalid.\n>>> ");
+                    }
+                } while (!isValid);
+            }
+            printf("insertTail function has been applied to the list.\n");
             pause();
             break;
         case 4:
