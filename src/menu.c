@@ -142,8 +142,8 @@ void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
                         printf("Your number is invalid.\n>>> ");
                     }
                 } while (!isValid);
+                printf("insertHead function has been applied to the list.\n");
             }
-            printf("insertHead function has been applied to the list.\n");
             pause();
             break;
         case 3:
@@ -167,8 +167,8 @@ void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
                         printf("Your number is invalid.\n>>> ");
                     }
                 } while (!isValid);
+                printf("insertTail function has been applied to the list.\n");
             }
-            printf("insertTail function has been applied to the list.\n");
             pause();
             break;
         case 4:
@@ -184,6 +184,15 @@ void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
             if (ptrSelectedList != NULL) {
                 *ptrSelectedList = removeTail(*ptrSelectedList);
                 printf("removeTail function has been applied to the list.\n");
+            }
+            pause();
+            break;
+        case 6:
+            ptrSelectedList = selectList(lists, nbLists);
+            if (ptrSelectedList != NULL) {
+                deleteBaseNIntegerList(ptrSelectedList);
+                printf("deleteBaseNIntegerList function has been applied to the list.\n");
+                --(*nbLists);
             }
             pause();
             break;
