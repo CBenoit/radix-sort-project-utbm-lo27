@@ -159,7 +159,7 @@ void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
 
                         number = convertToNumber(number, size);
                         integer = createBigInteger(number, size);
-                        *ptrSelectedList = insertHead(*ptrSelectedList, integer);
+                        *ptrSelectedList = insertTail(*ptrSelectedList, integer);
                         isValid = true;
                     } else {
                         free (number);
