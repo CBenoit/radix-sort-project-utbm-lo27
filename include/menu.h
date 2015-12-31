@@ -38,8 +38,7 @@
 #include <stdbool.h> /* bool */
 
 #include <BaseNIntegerList.h>
-
-bool checkNumberBase(char* number, int size, int base);
+#include <BaseNIntegerListOfList.h>
 
 void enterNewList(BaseNIntegerList** lists, int* nbLists);
 
@@ -47,11 +46,15 @@ void generateList(BaseNIntegerList** lists, int* nbLists);
 
 void testListFunctions(BaseNIntegerList** lists, int* nbLists);
 
-void testListOfListFunctions(BaseNIntegerList** lists, int* nbLists);
+void testListOfListFunctions(BaseNIntegerListOfList** listsOfLists, int* nbListsOfList,
+    BaseNIntegerList** lists, int* nbLists);
 
 void performRadixSort(BaseNIntegerList** lists, int* nbLists);
 
 BaseNIntegerList* selectList(BaseNIntegerList** lists, int* nbLists);
+
+BaseNIntegerListOfList* selectListOfLists(BaseNIntegerListOfList** listsOfLists,
+    int* nbListsofLists);
 
 bool checkNumberBase(char* number, int size, int base);
 

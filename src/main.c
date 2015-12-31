@@ -37,10 +37,9 @@
 #include <BaseNIntegerList.h>
 
 int main(int argc, char *argv[]) {
-    int i;
-    int ans = -1;
-    int nbLists = 0;
+    int i, ans = -1, nbLists = 0, nbListsOfLists = 0;
     BaseNIntegerList* lists = NULL;
+    BaseNIntegerListOfList* listsOfLists = NULL;
 
     /* initialize random seed: */
     srand(time(NULL));
@@ -71,7 +70,8 @@ int main(int argc, char *argv[]) {
             testListFunctions(&lists, &nbLists);
             break;
         case 3:
-            testListOfListFunctions(&lists, &nbLists);
+            testListOfListFunctions(&listsOfLists, &nbListsOfLists,
+                &lists, &nbLists);
             break;
         case 4:
             performRadixSort(&lists, &nbLists);
@@ -85,7 +85,12 @@ int main(int argc, char *argv[]) {
         deleteBaseNIntegerList(&(lists[i]));
     }
 
+    for (i = 0; i < nbListsOfLists; ++i) {
+        deleteBucketList(&(listsOfLists[i]));
+    }
+
     free(lists);
+    free(listsOfLists);
 
     return EXIT_SUCCESS;
 }

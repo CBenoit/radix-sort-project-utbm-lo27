@@ -218,7 +218,26 @@ void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
     }
 }
 
-void testListOfListFunctions(BaseNIntegerList** lists, int* nbLists) {
+BaseNIntegerListOfList* selectListOfLists(BaseNIntegerListOfList** listsOfLists,
+    int* nbListsofLists) {
+    int ans;
+
+    if (*nbListsofLists == 0) {
+        printf("No list of lists has been created.\n");
+        return NULL;
+    } else if (*nbListsofLists == 1) {
+        return &(*listsOfLists)[0];
+    } else {
+        printf("Select a list (0-%d).\n", *nbListsofLists - 1);
+        ans = getNumber(0, *nbListsofLists - 1, "Choice ");
+        return &(*listsOfLists)[ans];
+    }
+}
+
+void testListOfListFunctions(BaseNIntegerListOfList** listsOfLists, int* nbListsOfLists,
+    BaseNIntegerList** lists, int* nbLists) {
+    BaseNIntegerList* ptrSelectedList = NULL;
+    BaseNIntegerListOfList* ptrSelectedListOfLists = NULL;
     int ans = -1;
 
     while (ans != 0) {
@@ -226,11 +245,11 @@ void testListOfListFunctions(BaseNIntegerList** lists, int* nbLists) {
         printf("= BaseNIntegerListOfList functions =\n");
         printf("====================================\n\n");
 
-        printf("\t1. createBucketList\n");
+        printf("\t1. buildBucketList\n");
         printf("\t2. addIntegerIntoBucket\n");
-        printf("\t3. buildBucketList\n");
-        printf("\t4. buildIntegerList\n");
-        printf("\t5. deleteBucketList\n");
+        printf("\t3. buildIntegerList\n");
+        printf("\t4. deleteBucketList\n");
+        printf("\t5. printBucketList\n");
 
         printf("\t0. Back to main menu.\n");
 
@@ -238,6 +257,71 @@ void testListOfListFunctions(BaseNIntegerList** lists, int* nbLists) {
 
         switch (ans) {
         case 0:
+            break;
+        case 1:
+            ++(*nbListsOfLists);
+            *listsOfLists = (BaseNIntegerListOfList*)realloc(*listsOfLists, sizeof(BaseNIntegerListOfList) * (*nbListsOfLists));
+            ptrSelectedList = selectList(lists, nbLists);
+            if (ptrSelectedList != NULL) {
+                int position = getMinNumber(0, "Please enter the digit position used to build the bucket list.");
+                (*listsOfLists)[*nbListsOfLists - 1] = buildBucketList(*ptrSelectedList, position);
+            }
+            pause();
+            break;
+        case 2:
+            ptrSelectedListOfLists = selectListOfLists(listsOfLists, nbListsOfLists);
+            if (ptrSelectedListOfLists != NULL) {
+                bool isValid = false;
+                char* number = NULL;
+                int position = getMinNumber(0, "Please enter the digit position used to add the integer into the bucket list.");
+                printf("The selected list is in base %d.\nPlease enter a number in the same base.\n>>> ", ptrSelectedListOfLists->base);
+                do {
+                    number = (char*)malloc(sizeof(char)*100);
+                    getValidString("%99[0-9a-zA-Z]s%*[^\n]", number);
+                    if (checkNumberBase(number, strlen(number), ptrSelectedListOfLists->base)) {
+                        BigInteger integer;
+                        char size = strlen(number);
+
+                        number = convertToNumber(number, size);
+                        integer = createBigInteger(number, size);
+                        if (position < size) {
+                            *ptrSelectedListOfLists = addIntegerIntoBucket(*ptrSelectedListOfLists, integer, position);
+                        } else {
+                            *ptrSelectedListOfLists = addIntegerIntoBucket(*ptrSelectedListOfLists, integer, 0);
+                        }
+                        isValid = true;
+                    } else {
+                        free (number);
+                        number = NULL;
+                        printf("Your number is invalid.\n>>> ");
+                    }
+                } while (!isValid);
+            }
+            break;
+        case 3:
+            ptrSelectedListOfLists = selectListOfLists(listsOfLists, nbListsOfLists);
+            if (ptrSelectedListOfLists != NULL) {
+                ++(*nbLists);
+                *lists = (BaseNIntegerList*)realloc(*lists, sizeof(BaseNIntegerList) * (*nbLists));
+                (*lists)[*nbLists - 1] = buildIntegerList(*ptrSelectedListOfLists);
+                printf("The new list is the list %d.\n", *nbLists - 1);
+            }
+            pause();
+            break;
+        case 4:
+            ptrSelectedListOfLists = selectListOfLists(listsOfLists, nbListsOfLists);
+            if (ptrSelectedListOfLists != NULL) {
+                deleteBucketList(ptrSelectedListOfLists);
+                printf("deleteBucketList function has been applied to the list.\n");
+                --(*nbListsOfLists);
+            }
+            break;
+        case 5:
+            ptrSelectedListOfLists = selectListOfLists(listsOfLists, nbListsOfLists);
+            if (ptrSelectedListOfLists != NULL) {
+                printListOfList(*ptrSelectedListOfLists);
+            }
+            pause();
             break;
         default:
             printf("Not yet implemented.\n");
