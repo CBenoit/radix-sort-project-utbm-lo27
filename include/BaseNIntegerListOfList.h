@@ -110,4 +110,11 @@ void deleteBucketList(BaseNIntegerListOfList* list);
  */
 BaseNIntegerList radixSort(BaseNIntegerList list);
 
+/**
+ * @brief Print a list of list.
+ *
+ * @param listOfList - list to print.
+ */
+void printListOfList(BaseNIntegerListOfList listOfList);
+
 #endif

@@ -29,6 +29,7 @@
  *
  ***********************************************************************/
 
+#include <stdio.h> /* printf */
 #include <stdlib.h> /* malloc */
 #include <assert.h> /* assert */
 
@@ -143,4 +144,13 @@ BaseNIntegerList radixSort(BaseNIntegerList list) {
     }
 
     return list;
+}
+
+void printListOfList(BaseNIntegerListOfList listOfList) {
+    int i;
+    for (i = 0; i < listOfList.base; ++i) {
+        printf("Bucket %d\n", i);
+        printBaseNIntegerList(listOfList.array[i]);
+        printf("\n");
+    }
 }
