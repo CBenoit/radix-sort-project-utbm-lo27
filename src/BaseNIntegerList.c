@@ -33,6 +33,7 @@
 #include <stdlib.h> /* NULL, malloc */
 #include <stdbool.h> /* bool */
 #include <string.h> /* memcpy */
+#include <math.h> /* pow */
 
 #include <utils.h> /* fmaxi */
 #include <BigInteger.h> /* BigInteger, deleteBigInteger */
@@ -242,5 +243,25 @@ void printBaseNIntegerList(BaseNIntegerList list) {
         printBigInteger("[%s]\n", elem->value);
         elem = elem->next;
     }
+}
+
+BigInteger baseNToDecimal(BigInteger n, int base) {
+    char* number = (char*)malloc(sizeof(char));
+    BigInteger numberDecimal, temp;
+    int i = 0;
+
+    number[0] = 0;
+    numberDecimal = createBigInteger(number, sizeof(char));
+
+    while (i < n.size) {
+        temp = convertNumberIntoBigInteger(n.value[i]*pow(base, i));
+        numberDecimal = sumBaseNIntegers(temp, numberDecimal, 10);
+
+        deleteBigInteger(&temp);
+
+        ++i;
+    }
+
+    return numberDecimal;
 }
 

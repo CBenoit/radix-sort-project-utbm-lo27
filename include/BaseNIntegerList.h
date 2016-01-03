@@ -179,5 +179,15 @@ BigInteger sumIntegerList(BaseNIntegerList list);
  */
 void printBaseNIntegerList(BaseNIntegerList list);
 
+/**
+ * @brief Converts a number from base N to base 10.
+ *
+ * @param n a number
+ * @param base number base.
+ *
+ * @return The number in base 10.
+ */
+BigInteger baseNToDecimal(BigInteger n, int base);
+
 #endif
 
