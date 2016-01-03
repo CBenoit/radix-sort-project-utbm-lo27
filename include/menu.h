@@ -86,8 +86,8 @@ BaseNIntegerList* selectList(BaseNIntegerList** lists, int* nbLists);
 /**
  * @brief Asks user to select a list of lists.
  *
- * @param lists pointer on an array of lists.
- * @param nbLists lists size.
+ * @param listsOfLists pointer on an array of lists.
+ * @param nbListsofLists listsOfLists size.
  */
 BaseNIntegerListOfList* selectListOfLists(BaseNIntegerListOfList** listsOfLists,
     int* nbListsofLists);

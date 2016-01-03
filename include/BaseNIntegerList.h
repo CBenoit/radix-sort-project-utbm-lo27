@@ -56,6 +56,7 @@ typedef struct BaseNIntegerListElement {
     BigInteger value; /*!< Value of this element. */
 
 } BaseNIntegerListElement;
+/**< Defines BaseNIntegerListElement type.*/
 
 /**
  * @struct BaseNIntegerList
@@ -153,7 +154,7 @@ void deleteBaseNIntegerList(BaseNIntegerList* list);
  *
  * @param a a BigInteger in the base @p baseN
  * @param b a BigInteger in the base @p baseN
- * @param baseN integer's base.
+ * @param base integer's base.
  * @return A BigInteger containing the result.
  */
 BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base);
