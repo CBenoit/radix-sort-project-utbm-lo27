@@ -113,14 +113,17 @@ No guaranty is given for any other operating system.
 
 \chapter{Data structures} \label{chapter:data-structures}
 
-The following sections present BaseNIntegerList, BigInteger, BaseNIntegerElement and BaseNIntegerListOfList abstract data types.
+The following sections present \emph{BigInteger}, \emph{BaseNIntegerList}, \emph{BaseNIntegerElement} and \emph{BaseNIntegerListOfList} abstract data types.
 These abstract data types are used to perform the radix sort provided in this project.
 
 \section{BigInteger} \label{section:big-integer}
 
+The type \emph{BigInteger} defined in table \ref{tab:big-integer-struct} represents an integer
+of the given size (the number of digits) and represented in any base.
+
 \begin{table}[h]
     \centering
-    \label{tab:basenintegerelement-big-integer}
+    \label{tab:big-integer-struct}
 
     \begin{tabular}{|l|c|}
         \hline
@@ -140,12 +143,13 @@ These abstract data types are used to perform the radix sort provided in this pr
 
 \section{BaseNIntegerList} \label{section:basen-integer-list}
 
-The type \emph{BaseNIntegerList} represents a list of base-N integers.
+The type \emph{BaseNIntegerList} defined in table \ref{tab:basenintegerlist-struct} represents a list of base-N integers.
 This list will be implemented using a doubly linked-list.
+
+\emph{BaseNIntegerElement} abstract data type is defined in subsection \ref{subsection:basen-integer-element}.
 
 \begin{table}[h]
     \centering
-    \label{tab:basenintegerlist-struct}
 
     \begin{tabular}{|l|c|}
         \hline
@@ -160,6 +164,7 @@ This list will be implemented using a doubly linked-list.
     \end{tabular}
 
     \caption{BaseNIntegerList structure}
+    \label{tab:basenintegerlist-struct}
 \end{table}
 
 \begin{itemize}
@@ -169,11 +174,13 @@ This list will be implemented using a doubly linked-list.
     \item \emph{size}: the current number of elements in the list.
 \end{itemize}
 
-\subsection{BaseNIntegerElement}
+\subsection{BaseNIntegerElement} \label{subsection:basen-integer-element}
+
+The type \emph{BaseNIntegerElement} defined in table \ref{tab:basenintegerelement-struct} represents
+a list element containing a \emph{BigInteger} as value.
 
 \begin{table}[h]
     \centering
-    \label{tab:basenintegerelement-struct}
 
     \begin{tabular}{|l|c|}
         \hline
@@ -186,6 +193,7 @@ This list will be implemented using a doubly linked-list.
     \end{tabular}
 
     \caption{BaseNIntegerElement structure}
+    \label{tab:basenintegerelement-struct}
 \end{table}
 
 \begin{itemize}
@@ -196,9 +204,11 @@ This list will be implemented using a doubly linked-list.
 
 \section{BaseNIntegerListOfList} \label{section:basen-integer-list-of-list}
 
+The type \emph{BaseNIntegerListOfList} defined in table \ref{tab:basenintegerlistoflist-struct} represents
+a list (in a contiguous implementation) containing pointers on \emph{BaseNIntegerList} of the given base.
+
 \begin{table}[h]
     \centering
-    \label{tab:basenintegerlistoflist-struct}
 
     \begin{tabular}{|l|c|}
         \hline
@@ -209,11 +219,13 @@ This list will be implemented using a doubly linked-list.
     \end{tabular}
 
     \caption{BaseNIntegerListOfList structure}
+    \label{tab:basenintegerlistoflist-struct}
 \end{table}
 
 \chapter{Algorithms} \label{chapter:algorithms}
 
-This chapter presents the algorithms used to performs the radix sort, and algorithms used to sum and convert BaseNIntegerList.
+This chapter presents the algorithms used to performs the
+radix sort, and algorithms used to sum and convert BaseNIntegerList.
 
 \section{BigInteger}
 
@@ -467,6 +479,8 @@ clears and deletes the specified BaseNIntegerList.
 
 \emph{Principle}: traverse the entire list and free each element.
 
+\newpage
+
 \begin{algorithm}[H]
     \caption{deleteIntegerList algorithm}
     \label{algo:basenintegerlist-delete-integer-list}
@@ -491,7 +505,7 @@ clears and deletes the specified BaseNIntegerList.
 
 \separator
 
-\emph{sumBaseNIntegers}: \emph{BigInteger} \(×\) \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{\(Array<Character>\)},
+\emph{sumBaseNIntegers}: \emph{BigInteger} \(×\) \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{BigInteger},
 sums two integers defined in the given base (without any conversion).
 The third parameter is the integers' base.
 \ref{algo:basenintegerlist-sum-basen-integers} is the corresponding algorithm.
@@ -631,8 +645,9 @@ converts the specified integer (\emph{BigInteger} represented with the specified
 
 \separator
 
-\emph{decimalToBaseN}: \emph{Integer} \(\rightarrow\) \emph{BigInteger},
-converts the specified integer represented in base 10 into a corresponding integer (\(Array<Character>\)) in base K.
+\emph{decimalToBaseN}: \emph{Integer} \(×\) \emph{Integer} \(\rightarrow\) \emph{BigInteger},
+converts the specified integer represented in base 10 into a corresponding \emph{BigInteger} in
+the given base (second parameter).
 \ref{algo:basenintegerlist-decimal-to-base} is the corresponding algorithm.
 
 \emph{Principle}
@@ -671,6 +686,11 @@ converts the specified integer represented in base 10 into a corresponding integ
 
 \separator
 
+\emph{convertBaseToBinary}: \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{BigInteger},
+converts the specified \emph{BigInteger} represented in the given base (second paramater) into a corresponding \emph{BigInteger}
+in binary.
+\ref{algo:basenintegerlist-convert-base-to-binary} is the corresponding algorithm.
+
 \begin{algorithm}[H]
     \caption{convertBaseToBinary algorithm}
     \label{algo:basenintegerlist-convert-base-to-binary}
@@ -683,6 +703,11 @@ converts the specified integer represented in base 10 into a corresponding integ
 \end{algorithm}
 
 \separator
+
+\emph{convertBinaryToBase}: \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{BigInteger},
+converts the specified \emph{BigInteger} represented in binary into a corresponding \emph{BigInteger}
+in the given base (second parameter).
+\ref{algo:basenintegerlist-convert-binary-to-base} is the corresponding algorithm.
 
 \begin{algorithm}[H]
     \caption{convertBinaryToBase algorithm}
