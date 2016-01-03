@@ -51,17 +51,40 @@
 
 \chapter{Introduction}
 
-…
+The goal of this project is to provide a radix sort algorithm and its C implementation
+to sort a list of N integers expressed in a base B between 2 and 16.
+
+The radix sort is a method to sort a list of integers represented in any base.
+This method is non-comparative: numbers are not compared to each other.
+There are two classifications: \emph{least significant digit} (LSD) or leftmost radix sorts
+and \emph{most significant digit} (MSB) or rightmost radix sorts.
+LSD radix sorts process the integer representation from rightmost digit to leftmost digit
+while MSD radix sorts work the other way around.
+We will provide an algorithm for an LSD radix sort.
+The principle is:
+\begin{itemize}
+    \item Numbers are distributed into B buckets according to the rightmost
+        digit (the digit have B different possible values).
+    \item Then buckets are connected in ascending order.
+    \item The same operation is applied using the second rightmost digit and so on.
+    \item Once the operation has been applied to the leftmost digit, the list is sorted.
+\end{itemize}
+
+This report is structured as follows.
+Chapter \ref{chapter:objectives-problem} presents the project goals and problem statements.
+Chapter \ref{chapter:data-structures} defines the different data structures that we used to design algorithms
+and to make the C implemention.
+Chapter \ref{chapter:algorithms} provides the various algorithms ready to be implemented in any programming language.
 
 \tableofcontents
 
 \listofalgorithms
 
-\chapter{Objectives and problem statements}
+\chapter{Objectives and problem statements} \label{chapter:objectives-problem}
 
 …
 
-\chapter{Data structures}
+\chapter{Data structures} \label{chapter:data-structures}
 
 …
 
@@ -160,7 +183,7 @@ This list will be implemented using a doubly linked-list.
     \caption{BaseNIntegerListOfList structure}
 \end{table}
 
-\chapter{Algorithms}
+\chapter{Algorithms} \label{chapter:algorithms}
 
 …
 
@@ -800,10 +823,6 @@ Principle: …
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
-
-\chapter{Optimizations}
-
-…
 
 \chapter{Summary / conclusion}
 
