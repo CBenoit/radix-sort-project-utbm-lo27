@@ -3,7 +3,7 @@ Radix Sort LO27 Project
 
 ## Introduction
 
-This software provides a radix sort library.
+This software provides a radix sort library and a command line interface to test it.
 
 
 ## Authors
