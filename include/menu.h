@@ -40,28 +40,94 @@
 #include <BaseNIntegerList.h>
 #include <BaseNIntegerListOfList.h>
 
+/**
+ * @brief New list menu.
+ *
+ * @param lists pointer on an array of lists.
+ * @param nbLists lists size.
+ */
 void enterNewList(BaseNIntegerList** lists, int* nbLists);
 
-void generateList(BaseNIntegerList** lists, int* nbLists);
-
+/**
+ * @brief BaseNIntegerList functions menu.
+ *
+ * @param lists pointer on an array of lists.
+ * @param nbLists lists size.
+ */
 void testListFunctions(BaseNIntegerList** lists, int* nbLists);
 
+/**
+ * @brief BaseNIntegerListOfList functions menu.
+ *
+ * @param listsOfLists pointer on an array of lists of lists.
+ * @param nbListsOfList listsOfLists size.
+ * @param lists pointer on an array of lists.
+ * @param nbLists lists size.
+ */
 void testListOfListFunctions(BaseNIntegerListOfList** listsOfLists, int* nbListsOfList,
     BaseNIntegerList** lists, int* nbLists);
 
+/**
+ * @brief Performs Radix sort on a list.
+ *
+ * @param lists pointer on an array of lists.
+ * @param nbLists lists size.
+ */
 void performRadixSort(BaseNIntegerList** lists, int* nbLists);
 
+/**
+ * @brief Asks user to select a list.
+ *
+ * @param lists pointer on an array of lists.
+ * @param nbLists lists size.
+ */
 BaseNIntegerList* selectList(BaseNIntegerList** lists, int* nbLists);
 
+/**
+ * @brief Asks user to select a list of lists.
+ *
+ * @param listsOfLists pointer on an array of lists.
+ * @param nbListsofLists listsOfLists size.
+ */
 BaseNIntegerListOfList* selectListOfLists(BaseNIntegerListOfList** listsOfLists,
     int* nbListsofLists);
 
+
+/**
+ * @brief Checks if a number is in the given base.
+ *
+ * @param number number to test.
+ * @param size number size.
+ * @param base base
+ * @return true is the number is in the given base, false otherwise.
+ */
 bool checkNumberBase(char* number, int size, int base);
 
+/**
+ * @brief Converts a string into a number.
+ *
+ * @param number number to convert.
+ * @param size number size.
+ *
+ * @return an array of digits.
+ */
 char* convertToNumber(char* number, int size);
 
+/**
+ * @brief Asks user to enter a list.
+ *
+ * @return The list entered by the user.
+ */
 BaseNIntegerList enterList();
 
+/**
+ * @brief Generate a random list in the given base.
+ *
+ * @param base numbers base.
+ * @param nbIntegers numbers of integer to generate.
+ * @param maxDigits max number of digits of each integer.
+ * @return The list generated.
+ */
 BaseNIntegerList generateRandomList(int base, int nbIntegers, int maxDigits);
 
 #endif

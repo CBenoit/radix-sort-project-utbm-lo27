@@ -297,6 +297,7 @@ void testListOfListFunctions(BaseNIntegerListOfList** listsOfLists, int* nbLists
                     }
                 } while (!isValid);
             }
+            pause();
             break;
         case 3:
             ptrSelectedListOfLists = selectListOfLists(listsOfLists, nbListsOfLists);
