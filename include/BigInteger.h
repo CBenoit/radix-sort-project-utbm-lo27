@@ -99,5 +99,13 @@ char* BigIntegerToStr(BigInteger integer);
  */
 void printBigInteger(const char* message, BigInteger integer);
 
+/**
+ * @brief Converts a number into a BigInteger
+ *
+ * @param number a number
+ * @return A big integer.
+ */
+BigInteger convertNumberIntoBigInteger(unsigned int number);
+
 #endif
 

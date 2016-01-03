@@ -32,6 +32,7 @@
 #include <stdio.h> /* printf */
 #include <stdlib.h> /* NULL, malloc */
 #include <string.h> /* memcpy */
+#include <math.h> /* log10 */
 
 #include <BigInteger.h>
 
@@ -75,3 +76,25 @@ void printBigInteger(const char* message, BigInteger integer) {
     free(str);
 }
 
+BigInteger convertNumberIntoBigInteger(unsigned int number) {
+    unsigned int length;
+    char* array;
+    int i;
+
+    if (number == 0) {
+        length = 1;
+    } else {
+        length = (int)(log10((float)number)) + 1;
+    }
+
+    array = (char*)malloc(sizeof(char)*length);
+    i = length - 1;
+
+    do {
+        array[i] = number % 10;
+        number /= 10;
+        --i;
+    } while (number);
+
+    return createBigInteger(array, length);
+}
