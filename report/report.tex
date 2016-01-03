@@ -866,9 +866,15 @@ Principle:
     \end{algorithmic}
 \end{algorithm}
 
-\chapter{Summary / conclusion}
+\chapter{Conclusion}
 
-…
+The goal of this project is to provide a radix sort algorithm and its C implementation
+to sort a list of N integers expressed in a base B between 2 and 16.
+
+%% TODO : Objectives
+
+This implementation correctly works without memory leaks. (from valgrind\footnote{Valgrind is a programming tool for memory debugging, memory leak detection, and profiling: \url{http://valgrind.org/}} report)
+Despite that, this implementation is quite slow, indeed it takes 4 seconds to sort \(1000000\) elements of 10 digits. While another implementation\footnote{https://github.com/gorset/radix} on the same machine takes \(2,6367\times10^{-5}\) seconds. Moreover this implementation used a lot of RAM, to sort \(1000000\) elements of 10 digits, it needs about 230MB of ram.
 
 \end{document}
 
