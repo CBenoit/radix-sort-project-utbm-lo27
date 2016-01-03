@@ -474,6 +474,8 @@ The third parameter is the integers' base.
     \item Add the retainer at the end of the third Array if any.
 \end{itemize}
 
+\newpage
+
 \begin{algorithm}[H]
     \caption{sumBaseNIntegers algorithm}
     \label{algo:basenintegerlist-sum-basen-integers}
@@ -789,13 +791,25 @@ memory).
     \end{algorithmic}
 \end{algorithm}
 
+\newpage
+
 \section{Radix sort}
 
 \emph{radixSort}: \emph{BaseNIntegerList} \(\rightarrow\) \emph{BaseNIntegerList},
 sorts the specified \emph{BaseNIntegerList} using radix sort.
 \ref{algo:basenintegerlistoflist-radix-sort} is the corresponding algorithm.
 
-Principle: …
+Principle:
+\begin{itemize}
+    \item Numbers are distributed into B buckets according to the rightmost
+        digit (the digit have B different possible values)
+        where B is the list base or radix.
+        buildBucketList function is used for that.
+    \item Then buckets are connected in ascending order.
+        buildIntegerList function is used for that.
+    \item The same operation is applied using the second rightmost digit and so on.
+    \item Once the operation has been applied to the leftmost digit, the list is sorted.
+\end{itemize}
 
 \begin{algorithm}[H]
     \caption{radixSort algorithm}
