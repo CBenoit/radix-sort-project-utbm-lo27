@@ -51,7 +51,7 @@
 
 \chapter{Introduction}
 
-The goal of this project is to provide a radix sort algorithm and its C implementation
+The main goal of this project is to provide a radix sort algorithm and its C implementation
 to sort a list of N integers expressed in a base B between 2 and 16.
 
 The radix sort is a method to sort a list of integers represented in any base.
@@ -82,13 +82,64 @@ Chapter \ref{chapter:algorithms} provides the various algorithms ready to be imp
 
 \chapter{Objectives and problem statements} \label{chapter:objectives-problem}
 
-…
+The project main goal is to provide a radix sort library.
+
+An executable program using the library and featuring a user-friendly command line interface
+will be provided as well.
+The executable should enable the user to easily test functions provided by the various libraries.
+To make tests faster, testing lists can be entered manually or may also be randomly generated
+given certain parameters such as the number of integers.
+
+Several libraries are going to be designed as well to be used by radix sort:
+\begin{itemize}
+    \item \emph{BigInteger}, a library that provide the
+        BigInteger Abstract Data Type (section \ref{section:big-integer}).
+    \item \emph{BaseNIntegerList}, a library that provide the
+        BaseNIntegerList Abstract Data Type (section \ref{section:basen-integer-list}).
+    \item \emph{BaseNIntegerListOfList}, a library that provide the
+        BaseNIntegerListOfList Abstract Data Type (section \ref{section:basen-integer-list-of-list}).
+\end{itemize}
+
+Algorithms for these libraries are given in chapter \ref{chapter:algorithms}.
+
+An additional library \emph{Input} that provide various functions to properly enter data will also be designed
+to develop the command line interface.
+
+In order to smooth the compilation process, a makefile will be provided.
+Only a single command line is required to build the project: \emph{make}.
+A rule to run the program will be featured: \emph{run}.
+Thus, to build and run the software, the following command suffice: \emph{make run}.
+
+The library and its dependancy should be linux compliant.
+No guaranty is given for any other operating system.
 
 \chapter{Data structures} \label{chapter:data-structures}
 
 …
 
-\section{BaseNIntegerList}
+\section{BigInteger} \label{section:big-integer}
+
+\begin{table}[h]
+    \centering
+    \label{tab:basenintegerelement-big-integer}
+
+    \begin{tabular}{|l|c|}
+        \hline
+        char* & value \\
+        \hline
+        int & size \\
+        \hline
+    \end{tabular}
+
+    \caption{BigInteger structure}
+\end{table}
+
+\begin{itemize}
+    \item \emph{value}: the integer defined by an array of characters.
+    \item \emph{size}: the size of the integer (number of digits).
+\end{itemize}
+
+\section{BaseNIntegerList} \label{section:basen-integer-list}
 
 The type \emph{BaseNIntegerList} represents a list of base-N integers.
 This list will be implemented using a doubly linked-list.
@@ -119,28 +170,6 @@ This list will be implemented using a doubly linked-list.
     \item \emph{size}: the current number of elements in the list.
 \end{itemize}
 
-\subsection{BigInteger}
-
-\begin{table}[h]
-    \centering
-    \label{tab:basenintegerelement-big-integer}
-
-    \begin{tabular}{|l|c|}
-        \hline
-        char* & value \\
-        \hline
-        int & size \\
-        \hline
-    \end{tabular}
-
-    \caption{BigInteger structure}
-\end{table}
-
-\begin{itemize}
-    \item \emph{value}: the integer defined by an array of characters.
-    \item \emph{size}: the size of the integer (number of digits).
-\end{itemize}
-
 \subsection{BaseNIntegerElement}
 
 \begin{table}[h]
@@ -166,7 +195,7 @@ This list will be implemented using a doubly linked-list.
     \item \emph{value}: the integer represented in a base between 2 and 16.
 \end{itemize}
 
-\section{BaseNIntegerListOfList}
+\section{BaseNIntegerListOfList} \label{section:basen-integer-list-of-list}
 
 \begin{table}[h]
     \centering
