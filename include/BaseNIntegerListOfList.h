@@ -42,6 +42,7 @@
 
  /**
  * @struct BaseNIntegerListOfList
+ * @brief A structure containing pointers on BaseNIntegerList.
  *
  * This structure defines a list of BaseNIntegerList
  * implemented using a continuous approach.

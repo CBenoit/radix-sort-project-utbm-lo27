@@ -44,7 +44,7 @@
 
 /**
  * @struct BaseNIntegerListElement
- * @brief Defines an element of the list.
+ * @brief A BaseNIntegerList element.
  *
  * This structure defines an element of the linked list BaseNIntegerList.
  *
@@ -60,7 +60,7 @@ typedef struct BaseNIntegerListElement {
 
 /**
  * @struct BaseNIntegerList
- * @brief Defines a list of BigInteger in a base N.
+ * @brief A doubly-linked list of BigInteger in a base N.
  *
  * A BaseNIntegerList is a linked list of BigInteger.
  * The integers' base should be inferior or equal to 16.

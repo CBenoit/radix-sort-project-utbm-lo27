@@ -41,7 +41,7 @@
 
 /**
  * @struct BigInteger
- * @brief A Big Integer
+ * @brief An unsigned integer coded using an array of char.
  *
  * In this structure, each digit of the number (in a base N) is stored in a single char
  * and put in an array of char (where a char is considered as an integer).
