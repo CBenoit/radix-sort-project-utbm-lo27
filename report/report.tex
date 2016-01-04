@@ -13,7 +13,7 @@
 \setpublisher{University of Technology of Belfort-Montbéliard}
 
 \incversion{\makedate{7}{11}{2015}}{Initial version.}{\upmpublic}
-\incversion{\makedate{3}{1}{2016}}{Last update.}{\upmpublic}
+\incversion{\makedate{4}{1}{2016}}{Last update.}{\upmpublic}
 
 \addauthorvalidator*[benoit.cortier@utbm.fr]{Benoît}{CORTIER}{Author}
 \addauthorvalidator*[jerome.boulmier@utbm.fr]{Jérôme}{BOULMIER}{Author}
@@ -953,7 +953,9 @@ A possible optimization could be in algorithms such as algorithm \ref{algo:basen
 where a lot of dynamic allocation is performed: integers are copied and deleted at each iteration.
 Using pointers on already created integers could save a lot of memory and dynamic allocation.
 
-Another function
+Another improvement to do is about the decimalToBaseN function (algorithm \ref{algo:basenintegerlist-decimal-to-base}).
+Indeed, the operation in this function is not performed on a bigInteger but on an equivalent 32 bits integer.
+Thus, the maximum value for a given integer to convert must not exceed the limit of a 32 bits integer in the C implementation.
 
 \end{document}
 
