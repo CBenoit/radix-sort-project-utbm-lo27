@@ -240,7 +240,7 @@ radix sort, and algorithms used to sum and convert BaseNIntegerList.
 
     \begin{algorithmic}
         \Function{copyBigInteger}{intToCopy : \emph{BigInteger}} : \(\emptyset\)
-        \State value \(\leftarrow createArray<Character>(size(intToCopy))\)
+            \State value \(\leftarrow createArray<Character>(size(intToCopy))\)
             \State memcpy(value, value(intToCopy), size(intToCopy) \(×\) sizeof(Character))
             \State copyBigInteger \(\leftarrow\) createBigInteger(value, size(intToCopy))
         \EndFunction
@@ -248,6 +248,38 @@ radix sort, and algorithms used to sum and convert BaseNIntegerList.
 \end{algorithm}
 
 Assumption: \emph{sizeof} returns the size taken in memory by the given type.
+
+\emph{convertNumberIntoBigInteger}: \emph{Integer} \(\rightarrow\) \emph{BigInteger},
+    convert the given integer into a \emph{BigInteger}.
+    \ref{algo:basenintegerlist-convert-number-big-integer} is the corresponding algorithm.
+
+\begin{algorithm}[H]
+    \caption{convertNumberIntoBigInteger algorithm}
+    \label{algo:basenintegerlist-convert-number-big-integer}
+
+    \begin{algorithmic}
+        \Function{convertNumberIntoBigInteger}{number : \emph{Integer}} : \emph{BigInteger}
+            \If{\(number = 0\)}
+                \State length \(\leftarrow\) 1
+            \Else
+                \State length \(\leftarrow\) int(log10(number)) + 1
+            \EndIf
+
+            \State array \(\leftarrow createArray<Character>(length)\)
+            \State i \(\leftarrow\) length - 1
+
+            \Repeat
+                \State array\(_i\) \(\leftarrow\) number \(\mod\) 10
+                \State number \(\leftarrow\) int(number / 10)
+                \State i \(\leftarrow\) i - 1
+            \Until{number = 0}
+
+            \State convertNumberIntoBigInteger \(\leftarrow\) createBigInteger(array, length)
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+Assumption: \emph{log10} returns the common (base-10) logarithm of the given number.
 
 \section{BaseNIntegerList}
 

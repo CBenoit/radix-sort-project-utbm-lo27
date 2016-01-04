@@ -98,3 +98,4 @@ BigInteger convertNumberIntoBigInteger(unsigned int number) {
 
     return createBigInteger(array, length);
 }
+
