@@ -85,6 +85,9 @@ void enterNewList(BaseNIntegerList** lists, int* nbLists) {
 
 void testBigIntegerFunctions() {
     int ans = -1;
+    int base;
+    BigInteger integer;
+    BigInteger convertedInteger;
 
     while (ans != 0) {
         printf("========================\n");
@@ -110,6 +113,12 @@ void testBigIntegerFunctions() {
             pause();
             break;
         case 3:
+            base = getNumber(2, 16, "What is the base of your number. (beetween 2 and 16)");
+            integer = enterBigInteger(base);
+            convertedInteger = convertBaseToBinary(integer, base);
+            printBigInteger("Binary representation: %s\n", convertedInteger);
+            deleteBigInteger(&integer);
+            deleteBigInteger(&convertedInteger);
             pause();
             break;
         case 4:
@@ -438,6 +447,28 @@ char* convertToNumber(char* number, int size) {
     number = NULL;
 
     return newNumber;
+}
+
+BigInteger enterBigInteger(int base) {
+    BigInteger integer;
+    char* number = (char*)malloc(sizeof(char) * 100);
+
+    bool valid = false;
+    while (valid == false) {
+        printf(">>> ");
+        getValidString("%99[0-9a-zA-Z]s%*[^\n]", number);
+        if (checkNumberBase(number, strlen(number), base)) {
+            char size = strlen(number);
+
+            number = convertToNumber(number, size);
+            integer = createBigInteger(number, size);
+            valid = true;
+        } else {
+            printf("Your number is invalid.\n");
+        }
+    }
+
+    return integer;
 }
 
 BaseNIntegerList enterList() {

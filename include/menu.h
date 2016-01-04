@@ -119,6 +119,13 @@ bool checkNumberBase(char* number, int size, int base);
 char* convertToNumber(char* number, int size);
 
 /**
+ * @brief Asks the user to enter a BigInteger represented in the given base.
+ *
+ * @return the BigInteger entered by the user.
+ */
+BigInteger enterBigInteger(int base);
+
+/**
  * @brief Asks user to enter a list.
  *
  * @return The list entered by the user.
