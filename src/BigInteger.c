@@ -113,7 +113,7 @@ BigInteger convertNumberIntoBigInteger(unsigned int number) {
 
 BigInteger baseNToDecimal(BigInteger n, int base) {
     char* number = (char*)malloc(sizeof(char));
-    BigInteger decimalNumber, temp;
+    BigInteger decimalNumber, temp, temp2;
     int i = 0;
 
     if (base == 10) {
@@ -126,9 +126,12 @@ BigInteger baseNToDecimal(BigInteger n, int base) {
 
     while (i < n.size) {
         temp = convertNumberIntoBigInteger(n.value[i]*pow(base, n.size - i - 1));
-        decimalNumber = sumBaseNIntegers(temp, decimalNumber, 10);
+        temp2 = sumBaseNIntegers(temp, decimalNumber, 10);
 
+        deleteBigInteger(&decimalNumber);
         deleteBigInteger(&temp);
+
+        decimalNumber = temp2;
 
         ++i;
     }
@@ -159,11 +162,22 @@ BigInteger decimalToBaseN(BigInteger integer, int base) {
 }
 
 BigInteger convertBaseToBinary(BigInteger n, int base) {
-    return decimalToBaseN(baseNToDecimal(n, base), 2);
+    BigInteger temp = baseNToDecimal(n, base), temp2;
+
+    temp2 = decimalToBaseN(temp, 2);
+
+    deleteBigInteger(&temp);
+
+    return temp2;
 }
 
 BigInteger convertBinaryToBase(BigInteger n, int base) {
-    return decimalToBaseN(baseNToDecimal(n, 2), base);
+    BigInteger temp = baseNToDecimal(n, 2), temp2;
+
+    temp2 = decimalToBaseN(temp, base);
+    deleteBigInteger(&temp);
+
+    return temp2;
 }
 
 BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base) {
