@@ -647,11 +647,12 @@ the corresponding results as an integer (\emph{BigInteger}) represented in the b
 
 \separator
 
-\emph{baseNToDecimal}: \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{Integer},
-converts the specified integer (\emph{BigInteger} represented with the specified base (Integer, second parameter)) into a corresponding integer in base 10.
+\emph{baseNToDecimal}: \emph{BigInteger} \(×\) \emph{Integer} \(\rightarrow\) \emph{BigInteger},
+converts the specified \emph{BigInteger} represented with the specified base (second parameter)
+into the corresponding \emph{BigInteger} in base 10.
 \ref{algo:basenintegerlist-base-to-decimal} is the corresponding algorithm.
 
-\emph{Principle}
+\emph{Principle:}
 \begin{itemize}
     \item Compute \(\sum\limits_{i=0}^{N - 1}{d_i \times K^i}\), where K is the base and \(d_i)\) the digit in position i.
 \end{itemize}
@@ -661,15 +662,20 @@ converts the specified integer (\emph{BigInteger} represented with the specified
     \label{algo:basenintegerlist-base-to-decimal}
 
     \begin{algorithmic}
-        \Function{baseNToDecimal}{n : \emph{BigInteger}, base : \emph{Integer}} : \emph{Integer}
-            \State number \(\leftarrow\) 0
-            \State i \(\leftarrow\) size(n) - 1
-            \State maxWeight \(\leftarrow\) size(n) - 1
-            \While{i \(>\) 0}
-                \State number \(\leftarrow\) number + value(n)\(_i\) * \(base^{maxWeight - i}\)
-                \State i \(\leftarrow\) i - 1
+        \Function{baseNToDecimal}{n : \emph{BigInteger}, base : \emph{Integer}} : \emph{BigInteger}
+            \State array \(\leftarrow createArray<Integer>(1)\)
+            \State i \(\leftarrow\) 0
+            \State array\(_0 \leftarrow 0\)
+            \State decimalNum \(\leftarrow\) createBigInteger(array, 1)
+
+            \While{i \(<\) size(n)}
+                \State temp \(\leftarrow\) convertNumberIntoBigInteger(value(n)\(_i × base^i\))
+                \State decimalNum \(\leftarrow\) sumBaseNIntegers(temp, decimalNum, 10)
+                \State deleteBigInteger(temp)
+                \State i \(\leftarrow\) i + 1
             \EndWhile
-            \State baseNToDecimal \(\leftarrow\) number
+
+            \State baseNToDecimal \(\leftarrow\) decimalNum
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
@@ -681,7 +687,7 @@ converts the specified integer represented in base 10 into a corresponding \emph
 the given base (second parameter).
 \ref{algo:basenintegerlist-decimal-to-base} is the corresponding algorithm.
 
-\emph{Principle}
+\emph{Principle:}
 \begin{itemize}
     \item Compute the size of the array.
     \item Create the array.
