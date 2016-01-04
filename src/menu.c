@@ -94,26 +94,19 @@ void testBigIntegerFunctions() {
         printf("= BigInteger functions =\n");
         printf("========================\n\n");
 
-        printf("\t1. baseNToDecimal\n");
-        printf("\t2. decimalToBaseN\n");
-        printf("\t3. convertBaseToBinary\n");
-        printf("\t4. convertBinaryToBase\n");
+        printf("\t1. convertBaseToBinary\n");
+        printf("\t2. convertBinaryToBase\n\n");
 
         printf("\t0. Back to main menu.\n");
 
-        ans = getNumber(0, 4, "Choice ");
+        ans = getNumber(0, 2, "Choice ");
 
         switch (ans) {
         case 0:
             break;
         case 1:
-            pause();
-            break;
-        case 2:
-            pause();
-            break;
-        case 3:
-            base = getNumber(2, 16, "What is the base of your number. (beetween 2 and 16)");
+            base = getNumber(2, 16, "What is the base of your number ? (beetween 2 and 16)");
+            printf("Enter a base-%d number:\n", base);
             integer = enterBigInteger(base);
             convertedInteger = convertBaseToBinary(integer, base);
             printBigInteger("Binary representation: %s\n", convertedInteger);
@@ -121,7 +114,15 @@ void testBigIntegerFunctions() {
             deleteBigInteger(&convertedInteger);
             pause();
             break;
-        case 4:
+        case 2:
+            printf("Enter a binary number:\n");
+            integer = enterBigInteger(base);
+            base = getNumber(2, 16, "What is the target base ? (beetween 2 and 16)");
+            convertedInteger = convertBinaryToBase(integer, base);
+            printf("Base-%d representation: ", base);
+            printBigInteger("%s\n", convertedInteger);
+            deleteBigInteger(&integer);
+            deleteBigInteger(&convertedInteger);
             pause();
             break;
         default:
@@ -477,7 +478,7 @@ BaseNIntegerList enterList() {
     char* number;
     bool finished = false;
 
-    int base = getNumber(2, 16, "What is the base of your list. (beetween 2 and 16)");
+    int base = getNumber(2, 16, "What is the base of your list ? (beetween 2 and 16)");
     list = createIntegerList(base);
 
     printf("Type 'end' to end the input.\n");
