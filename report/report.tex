@@ -382,7 +382,7 @@ into the corresponding \emph{BigInteger} in base 10.
             \While{i \(<\) size(n)}
                 \State temp \(\leftarrow\) convertNumberIntoBigInteger(value(n)\(_i × base^{size(n) - i - 1}\))
                 \State temp2 \(\leftarrow\) sumBaseNIntegers(temp, decimalNum, 10)
-                \Sate deleteBigInteger(decimalNum)
+                \State deleteBigInteger(decimalNum)
                 \State deleteBigInteger(temp)
                 \State decimalNum \(\leftarrow\) temp2
                 \State i \(\leftarrow\) i + 1
