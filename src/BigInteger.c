@@ -125,7 +125,7 @@ BigInteger baseNToDecimal(BigInteger n, int base) {
     decimalNumber = createBigInteger(number, 1);
 
     while (i < n.size) {
-        temp = convertNumberIntoBigInteger(n.value[i]*pow(base, i));
+        temp = convertNumberIntoBigInteger(n.value[i]*pow(base, n.size - i - 1));
         decimalNumber = sumBaseNIntegers(temp, decimalNumber, 10);
 
         deleteBigInteger(&temp);
