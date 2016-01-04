@@ -121,7 +121,7 @@ void getString(int length, char* answer, const char* message)
 
 void pause()
 {
-    printf("Press any key to continue...\n");
+    printf("Press enter to continue...\n");
 
     getchar();
 }
