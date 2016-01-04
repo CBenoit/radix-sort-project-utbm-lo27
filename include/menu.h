@@ -49,6 +49,11 @@
 void enterNewList(BaseNIntegerList** lists, int* nbLists);
 
 /**
+ * @brief BigInteger functions menu.
+ */
+void testBigIntegerFunctions();
+
+/**
  * @brief BaseNIntegerList functions menu.
  *
  * @param lists pointer on an array of lists.

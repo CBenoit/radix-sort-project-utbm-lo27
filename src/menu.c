@@ -83,6 +83,46 @@ void enterNewList(BaseNIntegerList** lists, int* nbLists) {
     }
 }
 
+void testBigIntegerFunctions() {
+    int ans = -1;
+
+    while (ans != 0) {
+        printf("========================\n");
+        printf("= BigInteger functions =\n");
+        printf("========================\n\n");
+
+        printf("\t1. baseNToDecimal\n");
+        printf("\t2. decimalToBaseN\n");
+        printf("\t3. convertBaseToBinary\n");
+        printf("\t4. convertBinaryToBase\n");
+
+        printf("\t0. Back to main menu.\n");
+
+        ans = getNumber(0, 4, "Choice ");
+
+        switch (ans) {
+        case 0:
+            break;
+        case 1:
+            pause();
+            break;
+        case 2:
+            pause();
+            break;
+        case 3:
+            pause();
+            break;
+        case 4:
+            pause();
+            break;
+        default:
+            printf("Not yet implemented.\n");
+            pause();
+            break;
+        }
+    }
+}
+
 void testListFunctions(BaseNIntegerList** lists, int* nbLists) {
     int ans = -1;
     BaseNIntegerList* ptrSelectedList;

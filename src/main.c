@@ -54,26 +54,30 @@ int main(int argc, char *argv[]) {
         printf("=============\n\n");
 
         printf("\t1. Enter a new list.\n");
-        printf("\t2. Test BaseNIntegerList functions.\n");
-        printf("\t3. Test BaseNIntegerListOfList functions.\n");
-        printf("\t4. Perform radix sort.\n\n");
+        printf("\t2. Test BigInteger functions.\n");
+        printf("\t3. Test BaseNIntegerList functions.\n");
+        printf("\t4. Test BaseNIntegerListOfList functions.\n");
+        printf("\t5. Perform radix sort.\n\n");
 
         printf("\t0. Exit.\n");
 
-        ans = getNumber(0, 4, "Choice ");
+        ans = getNumber(0, 5, "Choice ");
 
         switch (ans) {
         case 1:
             enterNewList(&lists, &nbLists);
             break;
         case 2:
-            testListFunctions(&lists, &nbLists);
+            testBigIntegerFunctions(&lists, &nbLists);
             break;
         case 3:
+            testListFunctions(&lists, &nbLists);
+            break;
+        case 4:
             testListOfListFunctions(&listsOfLists, &nbListsOfLists,
                 &lists, &nbLists);
             break;
-        case 4:
+        case 5:
             performRadixSort(&lists, &nbLists);
             break;
         default:
