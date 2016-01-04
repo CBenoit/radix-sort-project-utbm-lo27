@@ -380,7 +380,7 @@ into the corresponding \emph{BigInteger} in base 10.
             \State decimalNum \(\leftarrow\) createBigInteger(array, 1)
 
             \While{i \(<\) size(n)}
-                \State temp \(\leftarrow\) convertNumberIntoBigInteger(value(n)\(_i × base^i\))
+                \State temp \(\leftarrow\) convertNumberIntoBigInteger(value(n)\(_i × base^{size(n) - i - 1}\))
                 \State decimalNum \(\leftarrow\) sumBaseNIntegers(temp, decimalNum, 10)
                 \State deleteBigInteger(temp)
                 \State i \(\leftarrow\) i + 1
@@ -952,6 +952,8 @@ Moreover this implementation uses also more memory, to sort \(1.000.000\) elemen
 A possible optimization could be in algorithms such as algorithm \ref{algo:basenintegerlistoflist-radix-sort}
 where a lot of dynamic allocation is performed: integers are copied and deleted at each iteration.
 Using pointers on already created integers could save a lot of memory and dynamic allocation.
+
+Another function
 
 \end{document}
 
