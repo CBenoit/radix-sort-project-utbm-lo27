@@ -107,5 +107,58 @@ void printBigInteger(const char* message, BigInteger integer);
  */
 BigInteger convertNumberIntoBigInteger(unsigned int number);
 
+/**
+ * @brief Converts a number from base N to base 10.
+ *
+ * @param n a number
+ * @param base number base.
+ *
+ * @return The number in base 10.
+ */
+BigInteger baseNToDecimal(BigInteger n, int base);
+
+/**
+ * @brief Converts a number from base 10 to base N. Works only with number <= 2^32 - 1
+ *
+ * @param integer - a big integer
+ * @param base - base of the return.
+ *
+ * @return The number in the given base.
+ */
+BigInteger decimalToBaseN(BigInteger integer, int base);
+
+/**
+ * @brief Convert a number in binary. Works only with number <= 2^32 - 1
+ *
+ * @param n number to convert.
+ * @param base number base.
+ *
+ * @return The number in binary.
+ */
+BigInteger convertBaseToBinary(BigInteger n, int base);
+
+/**
+ * @brief Converts the specified BigInteger represented
+ * in binary into a corresponding BigInteger in the given base.
+ *
+ * @param n number to convert.
+ * @param base base of the return.
+ *
+ * @return The number in the given base
+ */
+BigInteger convertBinaryToBase(BigInteger n, int base);
+
+/**
+ * @fn BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base)
+ * @brief Sums two integers
+ * @details Sums two integers, they should be in the same base.
+ *
+ * @param a a BigInteger in the base @p baseN
+ * @param b a BigInteger in the base @p baseN
+ * @param base integer's base.
+ * @return A BigInteger containing the result.
+ */
+BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base);
+
 #endif
 

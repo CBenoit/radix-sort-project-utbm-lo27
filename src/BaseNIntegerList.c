@@ -35,7 +35,6 @@
 #include <string.h> /* memcpy */
 #include <math.h> /* pow */
 
-#include <utils.h> /* fmaxi */
 #include <BigInteger.h> /* BigInteger, deleteBigInteger */
 #include <BaseNIntegerList.h>
 
@@ -161,60 +160,6 @@ void deleteBaseNIntegerList(BaseNIntegerList* list) {
     }
 }
 
-BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base) {
-    int sizeA = a.size;
-    int sizeB = b.size;
-    int sizeC = fmaxi(sizeA, sizeB);
-
-    char* array = (char*)malloc(sizeof(char) * sizeC);
-    int remainder = 0;
-    int i = sizeA - 1;
-    int j = sizeB - 1;
-    int k = sizeC - 1;
-
-    while (i >= 0 && j >= 0) {
-        array[k] = a.value[i] + b.value[j] + remainder;
-        remainder = array[k] / base;
-        array[k] = array[k] % base;
-
-        --i;
-        --j;
-        --k;
-    }
-
-    while (i >= 0) {
-        array[k] = a.value[i] + remainder;
-        remainder = array[k] / base;
-        array[k] = array[k] % base;
-
-        --i;
-        --k;
-    }
-
-    while (j >= 0) {
-        array[k] = b.value[j] + remainder;
-        remainder = array[k] / base;
-        array[k] = array[k] % base;
-
-        --j;
-        --k;
-    }
-
-    if (remainder > 0) {
-        char* tempArray;
-        sizeC++;
-
-        tempArray = (char*)malloc(sizeof(char)*sizeC);
-        tempArray[0] = remainder;
-        memcpy(tempArray + 1, array, (sizeC - 1) * sizeof(char));
-
-        free(array);
-        array = tempArray;
-    }
-
-    return createBigInteger(array, sizeC);
-}
-
 BigInteger sumIntegerList(BaseNIntegerList list) {
     char* array = (char*)malloc(sizeof(char));
     BigInteger sum, oldInt;
@@ -244,24 +189,3 @@ void printBaseNIntegerList(BaseNIntegerList list) {
         elem = elem->next;
     }
 }
-
-BigInteger baseNToDecimal(BigInteger n, int base) {
-    char* number = (char*)malloc(sizeof(char));
-    BigInteger numberDecimal, temp;
-    int i = 0;
-
-    number[0] = 0;
-    numberDecimal = createBigInteger(number, sizeof(char));
-
-    while (i < n.size) {
-        temp = convertNumberIntoBigInteger(n.value[i]*pow(base, i));
-        numberDecimal = sumBaseNIntegers(temp, numberDecimal, 10);
-
-        deleteBigInteger(&temp);
-
-        ++i;
-    }
-
-    return numberDecimal;
-}
-

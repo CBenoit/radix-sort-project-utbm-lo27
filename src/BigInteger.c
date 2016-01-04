@@ -34,6 +34,8 @@
 #include <string.h> /* memcpy */
 #include <math.h> /* log10 */
 
+#include <utils.h> /* fmaxi */
+
 #include <BigInteger.h>
 
 BigInteger createBigInteger(char* value, int size) {
@@ -76,6 +78,16 @@ void printBigInteger(const char* message, BigInteger integer) {
     free(str);
 }
 
+/* "Private" function */
+unsigned int convertBigIntegerIntoNumber(BigInteger n) {
+    unsigned int i, k = 0;
+    for (i = 0; i < n.size; i++) {
+        k = 10 * k + n.value[i];
+    }
+
+    return k;
+}
+
 BigInteger convertNumberIntoBigInteger(unsigned int number) {
     unsigned int length;
     char* array;
@@ -99,3 +111,111 @@ BigInteger convertNumberIntoBigInteger(unsigned int number) {
     return createBigInteger(array, length);
 }
 
+BigInteger baseNToDecimal(BigInteger n, int base) {
+    char* number = (char*)malloc(sizeof(char));
+    BigInteger decimalNumber, temp;
+    int i = 0;
+
+    if (base == 10) {
+        free(number);
+        return n;
+    }
+
+    number[0] = 0;
+    decimalNumber = createBigInteger(number, 1);
+
+    while (i < n.size) {
+        temp = convertNumberIntoBigInteger(n.value[i]*pow(base, i));
+        decimalNumber = sumBaseNIntegers(temp, decimalNumber, 10);
+
+        deleteBigInteger(&temp);
+
+        ++i;
+    }
+
+    return decimalNumber;
+}
+
+BigInteger decimalToBaseN(BigInteger integer, int base) {
+    char* array;
+    unsigned int value = convertBigIntegerIntoNumber(integer);
+    int arraySize = 1, k = base, i;
+
+    while (value >= k) {
+        k = base * k;
+        ++arraySize;
+    }
+    array = (char*)malloc(sizeof(char)*arraySize);
+    i = arraySize - 1;
+
+    do {
+        array[i] = value % base;
+        value /= base;
+
+        --i;
+    } while (i >= 0);
+
+    return createBigInteger(array, arraySize);
+}
+
+BigInteger convertBaseToBinary(BigInteger n, int base) {
+    return decimalToBaseN(baseNToDecimal(n, base), 2);
+}
+
+BigInteger convertBinaryToBase(BigInteger n, int base) {
+    return decimalToBaseN(baseNToDecimal(n, 2), base);
+}
+
+BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base) {
+    int sizeA = a.size;
+    int sizeB = b.size;
+    int sizeC = fmaxi(sizeA, sizeB);
+
+    char* array = (char*)malloc(sizeof(char) * sizeC);
+    int remainder = 0;
+    int i = sizeA - 1;
+    int j = sizeB - 1;
+    int k = sizeC - 1;
+
+    while (i >= 0 && j >= 0) {
+        array[k] = a.value[i] + b.value[j] + remainder;
+        remainder = array[k] / base;
+        array[k] = array[k] % base;
+
+        --i;
+        --j;
+        --k;
+    }
+
+    while (i >= 0) {
+        array[k] = a.value[i] + remainder;
+        remainder = array[k] / base;
+        array[k] = array[k] % base;
+
+        --i;
+        --k;
+    }
+
+    while (j >= 0) {
+        array[k] = b.value[j] + remainder;
+        remainder = array[k] / base;
+        array[k] = array[k] % base;
+
+        --j;
+        --k;
+    }
+
+    if (remainder > 0) {
+        char* tempArray;
+        sizeC++;
+
+        tempArray = (char*)malloc(sizeof(char)*sizeC);
+        tempArray[0] = remainder;
+        memcpy(tempArray + 1, array, (sizeC - 1) * sizeof(char));
+
+        free(array);
+        array = tempArray;
+    }
+
+    return createBigInteger(array, sizeC);
+}

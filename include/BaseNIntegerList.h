@@ -148,18 +148,6 @@ void deleteBaseNIntegerListElement(BaseNIntegerListElement* element);
 void deleteBaseNIntegerList(BaseNIntegerList* list);
 
 /**
- * @fn BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base)
- * @brief Sums two integers
- * @details Sums two integers, they should be in the same base.
- *
- * @param a a BigInteger in the base @p baseN
- * @param b a BigInteger in the base @p baseN
- * @param base integer's base.
- * @return A BigInteger containing the result.
- */
-BigInteger sumBaseNIntegers(BigInteger a, BigInteger b, int base);
-
-/**
  * @fn BigInteger sumIntegerList(BaseNIntegerList list)
  * @brief Sums all numbers in a list
  * @details Sums all the integers defined in the specified list using
@@ -178,16 +166,6 @@ BigInteger sumIntegerList(BaseNIntegerList list);
  * @param list list to display.
  */
 void printBaseNIntegerList(BaseNIntegerList list);
-
-/**
- * @brief Converts a number from base N to base 10.
- *
- * @param n a number
- * @param base number base.
- *
- * @return The number in base 10.
- */
-BigInteger baseNToDecimal(BigInteger n, int base);
 
 #endif
 
