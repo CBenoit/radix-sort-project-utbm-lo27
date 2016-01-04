@@ -381,8 +381,10 @@ into the corresponding \emph{BigInteger} in base 10.
 
             \While{i \(<\) size(n)}
                 \State temp \(\leftarrow\) convertNumberIntoBigInteger(value(n)\(_i × base^{size(n) - i - 1}\))
-                \State decimalNum \(\leftarrow\) sumBaseNIntegers(temp, decimalNum, 10)
+                \State temp2 \(\leftarrow\) sumBaseNIntegers(temp, decimalNum, 10)
+                \Sate deleteBigInteger(decimalNum)
                 \State deleteBigInteger(temp)
+                \State decimalNum \(\leftarrow\) temp2
                 \State i \(\leftarrow\) i + 1
             \EndWhile
 
@@ -447,7 +449,10 @@ in binary.
 
     \begin{algorithmic}
         \Function{convertBaseToBinary}{n : \emph{BigInteger}, base : \emph{Integer}} : \emph{BigInteger}
-            \State convertBaseToBinary \(\leftarrow\) decimalToBaseN(baseNToDecimal(n, base), 2)
+            \State temp \(\leftarrow\) baseNToDecimal(n, base)
+            \State result \(\leftarrow\) decimalToBaseN(temp, 2);
+            \State deleteBigInteger(temp);
+            \State convertBaseToBinary \(\leftarrow\) result
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
@@ -465,7 +470,10 @@ in the given base (second parameter).
 
     \begin{algorithmic}
         \Function{convertBinaryToBase}{n : \emph{BigInteger}, base : \emph{Integer}} : \emph{BigInteger}
-            \State convertBinaryToBase \(\leftarrow\) decimalToBaseN(baseNToDecimal(n, 2), base)
+            \State temp \(\leftarrow\) baseNToDecimal(n, base)
+            \State result \(\leftarrow\) decimalToBaseN(temp, 2)
+            \State deleteBigInteger(temp)
+            \State convertBinaryToBase \(\leftarrow\) result
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
